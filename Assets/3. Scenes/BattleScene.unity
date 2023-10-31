@@ -2142,7 +2142,7 @@ MonoBehaviour:
   gameState: 0
   puzzleParent: {fileID: 1261683219}
   selectedNodeBox: {fileID: 852364986}
-  maxDistance: 20
+  maxDistance: 21
   moveSensitivity: 0.25
 --- !u!1 &852364985
 GameObject:

@@ -138,12 +138,22 @@ public class GameManager : MonoBehaviour
                     Vector3 targetNodeParentPos = puzzle[newX, newY].transform.parent.position;
                     float currentDis = Vector3.Distance(targetNodeParentPos, selectedNode.transform.position);
                     float maxDis = Vector3.Distance(targetNodeParentPos, selectedNodeParentPos);
-                    if (Mathf.Abs(move[i]) == Mathf.Abs(move[j]))
-                    {
-                        maxDis = maxDis / Mathf.Sqrt(2);
-                    }    
-                    Debug.Log(maxDis);
-                        
+
+                    //currentDis *=  maxDistance / maxDis;
+
+                    //if (Mathf.Abs(move[i]) == Mathf.Abs(move[j]))
+                    //{
+                    //    //maxDis = 10;
+                    //    //maxDis = maxDis / Mathf.Sqrt(2);
+                    //    //currentDis -= 10;
+                    //}
+
+                    //if (i == 2 && j == 2)
+                    //{
+                    //    Debug.Log($"{puzzle[newX, newY].x}, {puzzle[newX, newY].y} \ncur dis = {currentDis}  max dis = {maxDis}");
+                    //    Debug.Log($"{maxDistance} {maxDis} {maxDistance / maxDis}");
+                    //}
+
                     Vector3 newTargetNodePos = Vector3.Lerp(selectedNodeParentPos, targetNodeParentPos, currentDis / maxDis);
                     puzzle[newX, newY].transform.position = newTargetNodePos;
                 }
