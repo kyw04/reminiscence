@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f0409e4dfa46d7408383fd537b82e77, type: 3}
-  m_Name: Red
+  m_Name: None
   m_EditorClassIdentifier: 
-  nodeType: 1
+  nodeType: 0
   mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  material: {fileID: 2100000, guid: 32fe127e611943345bdc4e1aeb9b8497, type: 2}
+  material: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  baseColor: {r: 0.49803925, g: 0.49803925, b: 0.49803925, a: 1}

@@ -17,11 +17,12 @@ public class NodeBase : ScriptableObject
     public NodeType nodeType;
     public Mesh mesh;
     public Material material;
-
+    public Color baseColor;
     public NodeBase(NodeBase nodeBase)
     {
         this.nodeType = nodeBase.nodeType;
         this.mesh = nodeBase.mesh;
         this.material = nodeBase.material;
+        this.baseColor = nodeBase.baseColor;
     }
 }
