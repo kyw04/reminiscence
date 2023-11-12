@@ -22,8 +22,6 @@ public class Node : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         int[] move = { 0, 1, -1 };
-        const float size = 25f;
-        const float halfSize = size * 0.5f;
 
         for (int i = 0; i < 3; i++)
         {
@@ -33,20 +31,20 @@ public class Node : MonoBehaviour
                 int newY = move[j] + y;
                 if (newX > 4 || newY > 4 || newX < 0 || newY < 0 || (newX == x && newY == y))
                     continue;
-
+               
                 if (GameManager.puzzle[newX, newY] == null)
                     continue;
-
-                if (Mathf.Abs(move[i]) == Mathf.Abs(move[j]))
-                {
-                    Gizmos.DrawWireCube(GameManager.puzzle[newX, newY].transform.position, Vector3.one * size);
-                }
-                else
-                {
-                    float sizeX = halfSize * Mathf.Abs(move[i]) + halfSize;
-                    float sizeY = halfSize * Mathf.Abs(move[j]) + halfSize;
-                    Gizmos.DrawWireCube(GameManager.puzzle[newX, newY].transform.position, new Vector3(sizeX, sizeY, size));
-                }
+                Transform target = GameManager.puzzle[newX, newY].transform;
+                Gizmos.color = Color.green;
+                Gizmos.DrawWireCube(target.position, target.localScale * 0.125f);
+                
+                Vector3 selectedNodeParentPos = this.transform.parent.position;
+                Vector3 targetNodeParentPos = target.parent.position;
+                Vector3 maxNodePos = Vector2.ClampMagnitude(targetNodeParentPos - selectedNodeParentPos, GameManager.maxDistance);
+                maxNodePos += selectedNodeParentPos;
+                maxNodePos.z = targetNodeParentPos.z - 10f;
+                Gizmos.color = Color.red;
+                Gizmos.DrawCube(maxNodePos, Vector3.one);
             }
         }
     }

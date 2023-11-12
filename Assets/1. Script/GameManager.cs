@@ -19,22 +19,17 @@ public class GameManager : MonoBehaviour
     public Transform puzzleParent;
     public Node[,] puzzle = new Node[puzzleSize, puzzleSize];
 
-    public Transform selectedNodeBox;
-    public float maxDistance;
+    public float maxDistance = 21.38653f;
     public float moveSensitivity;
     private float moveDistance;
     private Vector3 selectedNodeStartPos;
     private Node selectedNode;
     private Node targetNode;
+    private HashSet<Transform> moveNodes = new HashSet<Transform>();
 
     private void Awake()
     {
         GetPuzzle();
-    }
-
-    private void Start()
-    {
-
     }
 
     private void Update()
@@ -76,8 +71,6 @@ public class GameManager : MonoBehaviour
         {
             gameState = GameState.Select;
             selectedNode = hit.transform.GetComponent<Node>();
-            selectedNodeBox.SetParent(selectedNode.transform);
-            selectedNodeBox.position = selectedNodeBox.parent.position;
             selectedNodeStartPos = Input.mousePosition;
         }
     }
@@ -93,79 +86,56 @@ public class GameManager : MonoBehaviour
         moveDistance = maxDistance < moveDistance ? maxDistance : moveDistance;
         selectedNode.transform.position = moveDirection.normalized * moveDistance + selectedNode.transform.parent.position;
 
-
         int[] move = { 0, 1, -1 };
-        const float size = 75f;
-        const float halfSize = size * 0.5f;
-
-        HashSet<Transform> moveNodes = new HashSet<Transform>();
-
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)
             {
                 int newX = move[i] + selectedNode.x;
                 int newY = move[j] + selectedNode.y;
-                if (newX > 4 || newY > 4 || newX < 0 || newY < 0 || (newX == selectedNode.x && newY == selectedNode.y))
+                bool outOfRange = newX > 4 || newY > 4 || newX < 0 || newY < 0;
+
+                if (outOfRange || (newX == selectedNode.x && newY == selectedNode.y))
                     continue;
 
-                Collider[] colliders;
-                //Debug.Log($"{newX}, {newY}");
+                moveNodes.Add(puzzle[newX, newY].transform);
+                Transform target = puzzle[newX, newY].transform;
+                Vector3 selectedNodeParentPos = selectedNode.transform.parent.position;
+                Vector3 targetNodeParentPos = target.parent.position;
+                Vector3 maxNodePos = Vector2.ClampMagnitude(targetNodeParentPos - selectedNodeParentPos, maxDistance);
+                maxNodePos += selectedNodeParentPos;
+                maxNodePos.z = targetNodeParentPos.z;
+
+                float currentDis = Vector3.Distance(maxNodePos, selectedNode.transform.position);
+
+                Vector3 newTargetNodePos = Vector3.Lerp(selectedNodeParentPos, targetNodeParentPos, currentDis / maxDistance);
+                target.position = newTargetNodePos;
 
                 if (Mathf.Abs(move[i]) == Mathf.Abs(move[j]))
                 {
-                    colliders = Physics.OverlapBox(puzzle[newX, newY].transform.position, Vector3.one * size * 0.5f, Quaternion.identity, LayerMask.GetMask("SelectedNode"));
-
+                    if (currentDis / maxDistance <= 0.25f)
+                    {
+                        targetNode = puzzle[newX, newY];
+                    }
                 }
                 else
                 {
-                    float sizeX = halfSize * Mathf.Abs(move[i]) + halfSize;
-                    float sizeY = halfSize * Mathf.Abs(move[j]) + halfSize;
-                    colliders = Physics.OverlapBox(puzzle[newX, newY].transform.position, new Vector3(sizeX, sizeY) * 0.5f, Quaternion.identity, LayerMask.GetMask("SelectedNode"));
-                }
-
-                if (colliders.Length > 0)
-                {
-                    moveNodes.Add(puzzle[newX, newY].transform);
-                    //if (targetNode)
-                    //    targetNode.transform.position = targetNode.transform.parent.position;
-
-                    //targetNode = puzzle[newX, newY];
-                    //Debug.Log($"{targetNode.x}, {targetNode.y}");
-                    //selectedNode.transform.position = selectedNode.transform.parent.position;
-
-                    Vector3 selectedNodeParentPos = selectedNode.transform.parent.position;
-                    Vector3 targetNodeParentPos = puzzle[newX, newY].transform.parent.position;
-                    Vector3 maxNodePos = Vector2.ClampMagnitude(targetNodeParentPos, maxDistance);
-                    maxNodePos.z = targetNodeParentPos.z;
-                    float currentDis = Vector3.Distance(maxNodePos, selectedNode.transform.position);
-                    float maxDis = Vector3.Distance(maxNodePos, selectedNodeParentPos);
-                    //if (Mathf.Abs(move[i]) == Mathf.Abs(move[j]))
-                    //{
-                    //    maxDis = maxDis / Mathf.Sqrt(2);
-                    //}
-                    if (i == 1 && j == 1)
+                    if (currentDis / maxDistance <= 0.5f)
                     {
-                        Debug.Log($"{puzzle[newX, newY].x}, {puzzle[newX, newY].y}");
-                        Debug.Log(targetNodeParentPos);
-                        Debug.Log("");
-                        Debug.Log(maxNodePos);
-                        Debug.Log(targetNodeParentPos);
+                        targetNode = puzzle[newX, newY];
                     }
-
-                    Vector3 newTargetNodePos = Vector3.Lerp(selectedNodeParentPos, targetNodeParentPos, currentDis / maxDis);
-                    puzzle[newX, newY].transform.position = newTargetNodePos;
                 }
             }
         }
+        if (targetNode)
+            Debug.Log(targetNode.transform.parent.name);
+        //if (moveDistance <= maxDistance * 0.5f)
+        //{
+        //    if (targetNode)
+        //        targetNode.transform.position = targetNode.transform.parent.position;
 
-        if (moveDistance <= maxDistance * 0.5f)
-        {
-            if (targetNode)
-                targetNode.transform.position = targetNode.transform.parent.position;
-
-            targetNode = null;
-        }
+        //    targetNode = null;
+        //}
 
         //foreach (Transform target in moveNodes)
         //{
@@ -189,7 +159,6 @@ public class GameManager : MonoBehaviour
         {
             // change
         }
-        selectedNodeBox.SetParent(puzzleParent);
         selectedNode.transform.position = selectedNode.transform.parent.position;
         selectedNode = null;
     }
