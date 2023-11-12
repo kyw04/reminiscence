@@ -25,7 +25,8 @@ public class Node : MonoBehaviour
     {
         if (target == null) return;
 
-        NodeBase nodeBaseTemp = new NodeBase(target.nodeBase);
+        NodeBase nodeBaseTemp = ScriptableObject.CreateInstance("NodeBase") as NodeBase;
+        target.nodeBase.CopyNodeBase(nodeBaseTemp);
         target.nodeBase = this.nodeBase;
         this.nodeBase = nodeBaseTemp;
 

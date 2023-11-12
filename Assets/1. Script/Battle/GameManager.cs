@@ -127,25 +127,9 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        if (targetNode)
-            Debug.Log(targetNode.transform.parent.name);
-        //if (moveDistance <= maxDistance * 0.5f)
-        //{
-        //    if (targetNode)
-        //        targetNode.transform.position = targetNode.transform.parent.position;
 
-        //    targetNode = null;
-        //}
-
-        //foreach (Transform target in moveNodes)
-        //{
-        //    Vector3 selectedNodeParentPos = selectedNode.transform.parent.position;
-        //    Vector3 targetNodeParentPos = target.transform.parent.position;
-        //    float currentDis = Vector3.Distance(targetNodeParentPos, selectedNode.transform.position);
-        //    float maxDis = Vector3.Distance(targetNodeParentPos, selectedNodeParentPos);
-        //    Vector3 newTargetNodePos = Vector3.Lerp(selectedNodeParentPos, targetNodeParentPos, currentDis / maxDis);
-        //    target.transform.position = newTargetNodePos;
-        //}
+        //if (targetNode)
+        //    Debug.Log(targetNode.transform.parent.name);
     }
 
     private void PutNode()
