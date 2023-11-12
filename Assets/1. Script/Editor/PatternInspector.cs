@@ -14,9 +14,9 @@ public class PatternInspector : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-
         GUILayout.Space(10);
 
+        Texture tempImage = (Texture)AssetDatabase.LoadAssetAtPath("Assets/6. Texture/pattern_inspector_image.png", typeof(Texture));
         GUILayoutOption[] smallOptions = new GUILayoutOption[] {
             GUILayout.Height(17.5f),
             GUILayout.MinHeight(17.5f),
@@ -61,7 +61,8 @@ public class PatternInspector : Editor
                 NodeBase nodeBase = pattern.nodePatternTemp[i].index[j];
                 Color color = nodeBase ? nodeBase.baseColor : Color.gray;
                 GUI.color = color;
-                GUILayout.Button("", BigOptions);
+                GUILayout.Box(tempImage, BigOptions);
+                //GUILayout.Button("", BigOptions);
             }
             EditorGUILayout.EndHorizontal();
         }
