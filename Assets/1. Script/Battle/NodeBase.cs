@@ -19,11 +19,11 @@ public class NodeBase : ScriptableObject
     public Material material;
     public Color baseColor;
 
-    public void CopyNodeBase(NodeBase nodeBase)
+    public void CopyNodeBase(NodeBase target)
     {
-        nodeBase.nodeType = this.nodeType;
-        nodeBase.mesh = this.mesh;
-        nodeBase.material = this.material;
-        nodeBase.baseColor = this.baseColor;
+        target.nodeType = this.nodeType;
+        target.mesh = this.mesh;
+        target.material = this.material;
+        target.baseColor = this.baseColor;
     }
 }
