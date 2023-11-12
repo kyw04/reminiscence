@@ -15,9 +15,19 @@ public class PatternInspector : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        GUILayoutOption[] options = new GUILayoutOption[] {
-            GUILayout.Width(25.0f),
-            GUILayout.MinWidth(25.0f),
+
+        GUILayout.Space(10);
+
+        GUILayoutOption[] smallOptions = new GUILayoutOption[] {
+            GUILayout.Width(20.0f),
+            GUILayout.MinWidth(20.0f),
+            GUILayout.ExpandWidth(false)
+        };
+        GUILayoutOption[] BigOptions = new GUILayoutOption[] {
+            GUILayout.Height(100.0f),
+            GUILayout.MinHeight(100.0f),
+            GUILayout.Width(100.0f),
+            GUILayout.MinWidth(100.0f),
             GUILayout.ExpandWidth(false)
         };
 
@@ -30,9 +40,25 @@ public class PatternInspector : Editor
                 NodeBase nodeBase = pattern.nodePatternTemp[i].index[j];
                 Color color = nodeBase ? nodeBase.baseColor : Color.gray;
                 GUI.color = color;
-                GUILayout.Button("", options);
+                GUILayout.Button("", smallOptions);
                 GUI.color = Color.white;
                 pattern.nodePatternTemp[i].index[j] = EditorGUILayout.ObjectField(nodeBase, typeof(NodeBase), false) as NodeBase;
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        GUI.color = Color.white;
+
+        GUILayout.Space(25);
+        EditorGUILayout.LabelField("Pattern Color");
+        for (int i = 0; i < 3; i++)
+        {
+            EditorGUILayout.BeginHorizontal();
+            for (int j = 0; j < 3; j++)
+            {
+                NodeBase nodeBase = pattern.nodePatternTemp[i].index[j];
+                Color color = nodeBase ? nodeBase.baseColor : Color.gray;
+                GUI.color = color;
+                GUILayout.Button("", BigOptions);
             }
             EditorGUILayout.EndHorizontal();
         }

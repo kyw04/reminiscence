@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodePatternTemp:
   - index:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: ca545d584114fd64aa9c1a4719ac8467, type: 2}
     - {fileID: 11400000, guid: 14a00c732fc1aeb48acca344bce49458, type: 2}
     - {fileID: 0}
   - index:
