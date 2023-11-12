@@ -155,11 +155,15 @@ public class GameManager : MonoBehaviour
 
         gameState = GameState.Idle;
 
-        if (targetNode)
+        selectedNode.ChangeNodeBase(targetNode);
+        foreach (Transform moveNode in moveNodes)
         {
-            // change
+            moveNode.position = moveNode.parent.position;
         }
         selectedNode.transform.position = selectedNode.transform.parent.position;
         selectedNode = null;
+        targetNode = null;
+
+        moveNodes.Clear();
     }
 }

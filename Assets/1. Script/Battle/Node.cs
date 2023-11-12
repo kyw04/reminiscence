@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
 public class Node : MonoBehaviour
 {
+    private MeshRenderer meshRenderer;
+    private MeshFilter meshFilter;
     public GameManager GameManager;
     public NodeBase nodeBase;
     public int x;
@@ -12,17 +15,41 @@ public class Node : MonoBehaviour
 
     private void Start()
     {
-        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
-        if (meshRenderer != null) meshRenderer.material = nodeBase.material;
+        meshRenderer = GetComponent<MeshRenderer>();
+        meshFilter = GetComponent<MeshFilter>();
 
-        MeshFilter meshFilter = GetComponent<MeshFilter>();
-        if (meshFilter != null) meshFilter.mesh = nodeBase.mesh;
+        DrawNode();
+    }
+
+    public void ChangeNodeBase(Node target)
+    {
+        if (target == null) return;
+
+        NodeBase nodeBaseTemp = new NodeBase(target.nodeBase);
+        target.nodeBase = this.nodeBase;
+        this.nodeBase = nodeBaseTemp;
+
+        target.DrawNode();
+        this.DrawNode();
+    }
+
+    private void DrawNode()
+    {
+        try
+        {
+            meshRenderer.material = nodeBase.material;
+            meshFilter.mesh = nodeBase.mesh;
+        }
+        catch (Exception ex)
+        {
+            Debug.Log(ex);
+            throw;
+        }
     }
 
     private void OnDrawGizmosSelected()
     {
         int[] move = { 0, 1, -1 };
-
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)

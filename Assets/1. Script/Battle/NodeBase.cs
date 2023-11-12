@@ -17,4 +17,11 @@ public class NodeBase : ScriptableObject
     public NodeType nodeType;
     public Mesh mesh;
     public Material material;
+
+    public NodeBase(NodeBase nodeBase)
+    {
+        this.nodeType = nodeBase.nodeType;
+        this.mesh = nodeBase.mesh;
+        this.material = nodeBase.material;
+    }
 }
