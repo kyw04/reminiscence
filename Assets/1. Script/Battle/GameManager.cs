@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Xml.Serialization;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
@@ -14,10 +15,14 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     private const int puzzleSize = 5;
-    public NodeBase[] nodeBases;
     public GameState gameState = GameState.Idle;
     public Transform puzzleParent;
+    public NodeBase[] nodeBases;
     public Node[,] puzzle = new Node[puzzleSize, puzzleSize];
+
+    public int maxMovementCount = 3;
+    private int currentMovementCount;
+    public GameObject[] movementCountImages;
 
     public float maxDistance = 21.38653f;
     public float moveSensitivity;
@@ -30,6 +35,15 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         GetPuzzle();
+    }
+
+    private void Start()
+    {
+        currentMovementCount = maxMovementCount;
+        foreach (GameObject image in movementCountImages)
+        {
+            image.SetActive(true);
+        }
     }
 
     private void Update()
@@ -139,7 +153,13 @@ public class GameManager : MonoBehaviour
 
         gameState = GameState.Idle;
 
-        selectedNode.ChangeNodeBase(targetNode);
+        if (targetNode && currentMovementCount > 0)
+        {
+            currentMovementCount--;
+            movementCountImages[currentMovementCount].SetActive(false);
+            selectedNode.ChangeNodeBase(targetNode);
+        }
+
         foreach (Transform moveNode in moveNodes)
         {
             moveNode.position = moveNode.parent.position;
@@ -149,5 +169,14 @@ public class GameManager : MonoBehaviour
         targetNode = null;
 
         moveNodes.Clear();
+    }
+
+    public void TurnEnd()
+    {
+        currentMovementCount = maxMovementCount;
+        foreach (GameObject image in movementCountImages)
+        {
+            image.SetActive(true);
+        }
     }
 }
