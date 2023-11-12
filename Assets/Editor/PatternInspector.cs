@@ -5,7 +5,6 @@ using UnityEditor;
 public class PatternInspector : Editor
 {
     Pattern pattern;
-    NodeBase nodeBase;
 
     void OnEnable()
     {
@@ -19,8 +18,11 @@ public class PatternInspector : Editor
         GUILayout.Space(10);
 
         GUILayoutOption[] smallOptions = new GUILayoutOption[] {
-            GUILayout.Width(20.0f),
-            GUILayout.MinWidth(20.0f),
+            GUILayout.Height(17.5f),
+            GUILayout.MinHeight(17.5f),
+            GUILayout.Width(17.5f),
+            GUILayout.MinWidth(17.5f),
+            GUILayout.ExpandHeight(false),
             GUILayout.ExpandWidth(false)
         };
         GUILayoutOption[] BigOptions = new GUILayoutOption[] {
@@ -28,6 +30,7 @@ public class PatternInspector : Editor
             GUILayout.MinHeight(100.0f),
             GUILayout.Width(100.0f),
             GUILayout.MinWidth(100.0f),
+            GUILayout.ExpandHeight(false),
             GUILayout.ExpandWidth(false)
         };
 
