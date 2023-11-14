@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using UnityEngine;
 using static TreeEditor.TreeEditorHelper;
 
@@ -15,6 +17,7 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     private const int puzzleSize = 5;
+
     public GameState gameState = GameState.Idle;
     public Transform puzzleParent;
     public Pattern[] patterns;
@@ -25,6 +28,9 @@ public class GameManager : MonoBehaviour
     private int currentMovementCount;
     public GameObject[] movementCountImages;
 
+    public int turn = 0;
+    public int foundPatternCount = 0;
+
     public float maxDistance = 21.38653f;
     public float moveSensitivity;
     private float moveDistance;
@@ -34,12 +40,10 @@ public class GameManager : MonoBehaviour
     private Node targetNode;
     private HashSet<Transform> moveNodes = new HashSet<Transform>();
 
-    private void Awake()
-    {
-        GetPuzzle();
-    }
+    public Transform nodeSpawnPoints;
+    private float spacing = 100f;
 
-    private void Start()
+    private void Awake()
     {
         foreach (Pattern pattern in patterns)
         {
@@ -49,16 +53,17 @@ public class GameManager : MonoBehaviour
                 {
                     NodeBase nodeBase = pattern.nodePatternTemp[i].index[j];
                     pattern.nodePatternType[i, j] = nodeBase != null ? nodeBase.nodeType : NodeType.None;
-                    Debug.Log($"({i}, {j}) {pattern.nodePatternType[i, j]}");
-
                 }
             }
-
-            foreach (NodeType nodeType in pattern.nodePatternType)
-            {
-            }
         }
+
+        GetPuzzle();
+    }
+
+    private void Start()
+    {
         ResetCount();
+        turn = 0;
     }
 
     private void Update()
@@ -83,7 +88,7 @@ public class GameManager : MonoBehaviour
 
                 if (puzzle[i, j].nodeBase.nodeType == NodeType.None)
                 {
-                    puzzle[i, j].nodeBase = nodeBases[Random.Range(0, nodeBases.Length)];
+                    puzzle[i, j].nodeBase = nodeBases[UnityEngine.Random.Range(0, nodeBases.Length)];
                 }
             }
         }
@@ -195,6 +200,8 @@ public class GameManager : MonoBehaviour
 
     public void TurnEnd()
     {
+        gameState = GameState.Change;
+        turn++;
         HashSet<Node> deleteNodes = new HashSet<Node>();
 
         foreach (Pattern pattern in patterns)
@@ -206,6 +213,7 @@ public class GameManager : MonoBehaviour
                     HashSet<Node> temp = PatternCheck(pattern, i, j);
                     if (temp.Count() > 0)
                     {
+                        foundPatternCount++;
                         deleteNodes.UnionWith(temp);
                     }
                 }
@@ -214,6 +222,7 @@ public class GameManager : MonoBehaviour
 
         NodeDelete(deleteNodes);
         ResetCount();
+        gameState = GameState.Idle;
     }
     private HashSet<Node> PatternCheck(Pattern pattern, int x, int y)
     {
@@ -249,25 +258,22 @@ public class GameManager : MonoBehaviour
 
     private void NodeDelete(HashSet<Node> deleteNode)
     {
-        HashSet<int> index = new HashSet<int>();
+        int[] counts = new int[puzzleSize];
+
         foreach (Node node in deleteNode)
         {
-            index.Add(node.x);
             Debug.Log($"({node.x}, {node.y}) {node.nodeBase.nodeType}");
-            node.nodeBase = nodeBases[Random.Range(0, nodeBases.Length)];
+            node.transform.SetParent(nodeSpawnPoints.GetChild(node.x));
+            Vector3 pos = new Vector3(0, (node.transform.localScale.x + spacing) * counts[node.x]++, 0);
+            node.transform.localPosition = pos;
+            node.nodeBase = nodeBases[UnityEngine.Random.Range(0, nodeBases.Length)];
             node.DrawNode();
-            node.gameObject.SetActive(false);
         }
-
-        //deleteCount = index.Count;
-        //foreach (int i in index)
-        //{
-        //    StartCoroutine(NodeDown(i, 4));
-        //}
     }
 
     private void ResetCount()
     {
+        foundPatternCount = 0;
         currentMovementCount = maxMovementCount;
         foreach (GameObject image in movementCountImages)
         {
