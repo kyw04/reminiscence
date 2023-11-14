@@ -41,22 +41,22 @@ public class PatternInspector : Editor
             EditorGUILayout.BeginHorizontal();
             for (int j = 0; j < 3; j++)
             {
-                NodeBase nodeBase = pattern.nodePatternTemp[i].index[j];
+                NodeBase nodeBase = pattern.nodePatternTemp[j].index[i];
                 Color color = nodeBase ? nodeBase.baseColor : Color.gray;
                 GUI.color = color;
                 GUILayout.Button("", smallOptions);
                 GUI.color = Color.white;
-                pattern.nodePatternTemp[i].index[j] = EditorGUILayout.ObjectField(nodeBase, typeof(NodeBase), false) as NodeBase;
-                pattern.nodePattern[i, j] = nodeBase != null ? nodeBase.nodeType : NodeType.None;
+                pattern.nodePatternTemp[j].index[i] = EditorGUILayout.ObjectField(nodeBase, typeof(NodeBase), false) as NodeBase;
+                //pattern.nodePatternType[j, i] = nodeBase != null ? nodeBase.nodeType : NodeType.None;
             }
             EditorGUILayout.EndHorizontal();
 
-            EditorGUILayout.BeginHorizontal();
-            for (int j = 0; j < 3; j++)
-            {
-                EditorGUILayout.EnumFlagsField(pattern.nodePattern[i, j]);
-            }
-            EditorGUILayout.EndHorizontal();
+            //EditorGUILayout.BeginHorizontal();
+            //for (int j = 0; j < 3; j++)
+            //{
+            //    EditorGUILayout.EnumPopup(pattern.nodePatternType[j, i]);
+            //}
+            //EditorGUILayout.EndHorizontal();
         }
         GUI.color = Color.white;
 
@@ -67,7 +67,7 @@ public class PatternInspector : Editor
             EditorGUILayout.BeginHorizontal();
             for (int j = 0; j < 3; j++)
             {
-                NodeBase nodeBase = pattern.nodePatternTemp[i].index[j];
+                NodeBase nodeBase = pattern.nodePatternTemp[j].index[i];
                 Color color = nodeBase ? nodeBase.baseColor : Color.gray;
                 GUI.color = color;
                 GUILayout.Box(tempImage, BigOptions);

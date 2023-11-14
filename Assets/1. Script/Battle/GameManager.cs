@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using UnityEngine;
+using static TreeEditor.TreeEditorHelper;
 
 public enum GameState
 {
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
     public float moveSensitivity;
     private float moveDistance;
     private Vector3 selectedNodeStartPos;
+    private Vector3 targetMaxNodePos;
     private Node selectedNode;
     private Node targetNode;
     private HashSet<Transform> moveNodes = new HashSet<Transform>();
@@ -40,16 +43,19 @@ public class GameManager : MonoBehaviour
     {
         foreach (Pattern pattern in patterns)
         {
-            foreach (NodeType nodeType in pattern.nodePattern)
+            for (int i = 0; i < 3; i++)
             {
-                Debug.Log(nodeType);
-            }
-            foreach (var node in pattern.nodePatternTemp)
-            {
-                for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 3; j++)
                 {
-                    Debug.Log(node.index[i]);
+                    NodeBase nodeBase = pattern.nodePatternTemp[i].index[j];
+                    pattern.nodePatternType[i, j] = nodeBase != null ? nodeBase.nodeType : NodeType.None;
+                    Debug.Log($"({i}, {j}) {pattern.nodePatternType[i, j]}");
+
                 }
+            }
+
+            foreach (NodeType nodeType in pattern.nodePatternType)
+            {
             }
         }
         ResetCount();
@@ -139,6 +145,7 @@ public class GameManager : MonoBehaviour
                     if (currentDis / maxDistance <= 0.25f)
                     {
                         targetNode = puzzle[newX, newY];
+                        targetMaxNodePos = maxNodePos;
                     }
                 }
                 else
@@ -146,7 +153,13 @@ public class GameManager : MonoBehaviour
                     if (currentDis / maxDistance <= 0.5f)
                     {
                         targetNode = puzzle[newX, newY];
+                        targetMaxNodePos = maxNodePos;
                     }
+                }
+
+                if (targetNode && Vector3.Distance(targetMaxNodePos, selectedNode.transform.position) / maxDistance > 0.75f)
+                {
+                    targetNode = null;
                 }
             }
         }
@@ -211,16 +224,15 @@ public class GameManager : MonoBehaviour
         {
             for (int j = 0; j < 3; j++)
             {
-                if (pattern.nodePattern[i, j] == NodeType.None)
+                if (pattern.nodePatternType[i, j] == NodeType.None)
                     continue;
 
                 int newX = x + dir[i];
                 int newY = y + dir[j];
 
                 bool outOfRange = newX > puzzleSize - 1 || newY > puzzleSize - 1 || newX < 0 || newY < 0;
-                if (outOfRange || pattern.nodePattern[i, j] != puzzle[newX, newY].nodeBase.nodeType)
+                if (outOfRange || pattern.nodePatternType[i, j] != puzzle[newX, newY].nodeBase.nodeType)
                 {
-                    Debug.Log("clear");
                     deleteNode.Clear();
                     return deleteNode;
                 }
@@ -231,7 +243,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        Debug.Log("delete");
         //enemy.GetDamage(pattern.damage);
         return deleteNode;
     }
@@ -242,9 +253,10 @@ public class GameManager : MonoBehaviour
         foreach (Node node in deleteNode)
         {
             index.Add(node.x);
-            Debug.Log($"({node.x}, {node.y})");
+            Debug.Log($"({node.x}, {node.y}) {node.nodeBase.nodeType}");
             node.nodeBase = nodeBases[Random.Range(0, nodeBases.Length)];
             node.DrawNode();
+            node.gameObject.SetActive(false);
         }
 
         //deleteCount = index.Count;
