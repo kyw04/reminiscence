@@ -8,6 +8,7 @@ namespace Map
     {
         public List<Node> nodes;
         public List<Point> path;
+        public int level = 0;
         public string bossNodeName;
         public string configName; // similar to the act name in Slay the Spire
 
