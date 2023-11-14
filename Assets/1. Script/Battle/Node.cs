@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
 public class Node : MonoBehaviour
 {
+    private NodeBase nodeBaseTemp;
     private MeshRenderer meshRenderer;
     private MeshFilter meshFilter;
     public GameManager GameManager;
@@ -25,8 +27,7 @@ public class Node : MonoBehaviour
     {
         if (target == null) return;
 
-        NodeBase nodeBaseTemp = ScriptableObject.CreateInstance("NodeBase") as NodeBase;
-        target.nodeBase.CopyNodeBase(nodeBaseTemp);
+        nodeBaseTemp = target.nodeBase;
         target.nodeBase = this.nodeBase;
         this.nodeBase = nodeBaseTemp;
 
@@ -34,7 +35,7 @@ public class Node : MonoBehaviour
         this.DrawNode();
     }
 
-    private void DrawNode()
+    public void DrawNode()
     {
         try
         {

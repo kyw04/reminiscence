@@ -15,4 +15,4 @@ MonoBehaviour:
   nodeType: 3
   mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   material: {fileID: 2100000, guid: bb699699782fb7e48a79e50ddc3e675f, type: 2}
-  baseColor: {r: 0.254717, g: 0.054582216, b: 0, a: 1}
+  baseColor: {r: 1, g: 0.2147651, b: 0, a: 1}

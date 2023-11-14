@@ -21,6 +21,8 @@ public class NodeBase : ScriptableObject
 
     public void CopyNodeBase(NodeBase target)
     {
+        if (target == null) return;
+
         target.nodeType = this.nodeType;
         target.mesh = this.mesh;
         target.material = this.material;

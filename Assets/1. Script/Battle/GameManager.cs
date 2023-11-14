@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Xml.Serialization;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -17,6 +20,7 @@ public class GameManager : MonoBehaviour
     private const int puzzleSize = 5;
     public GameState gameState = GameState.Idle;
     public Transform puzzleParent;
+    public Pattern[] patterns;
     public NodeBase[] nodeBases;
     public Node[,] puzzle = new Node[puzzleSize, puzzleSize];
 
@@ -39,11 +43,21 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        currentMovementCount = maxMovementCount;
-        foreach (GameObject image in movementCountImages)
+        foreach (Pattern pattern in patterns)
         {
-            image.SetActive(true);
+            foreach (NodeType nodeType in pattern.nodePattern)
+            {
+                Debug.Log(nodeType);
+            }
+            foreach (var node in pattern.nodePatternTemp)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    Debug.Log(node.index[i]);
+                }
+            }
         }
+        ResetCount();
     }
 
     private void Update()
@@ -53,7 +67,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
             PutNode();
 
-        NodeMove();
+        NodeDrag();
     }
 
     private void GetPuzzle()
@@ -89,7 +103,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void NodeMove()
+    private void NodeDrag()
     {
         if (selectedNode == null)
             return;
@@ -107,7 +121,7 @@ public class GameManager : MonoBehaviour
             {
                 int newX = move[i] + selectedNode.x;
                 int newY = move[j] + selectedNode.y;
-                bool outOfRange = newX > 4 || newY > 4 || newX < 0 || newY < 0;
+                bool outOfRange = newX > puzzleSize - 1 || newY > puzzleSize - 1 || newX < 0 || newY < 0;
 
                 if (outOfRange || (newX == selectedNode.x && newY == selectedNode.y))
                     continue;
@@ -172,6 +186,80 @@ public class GameManager : MonoBehaviour
     }
 
     public void TurnEnd()
+    {
+        HashSet<Node> deleteNodes = new HashSet<Node>();
+
+        foreach (Pattern pattern in patterns)
+        {
+            for (int i = 0; i < puzzleSize; i++)
+            {
+                for (int j = 0; j < puzzleSize; j++)
+                {
+                    HashSet<Node> temp = PatternCheck(pattern, i, j);
+                    if (temp.Count() > 0)
+                    {
+                        deleteNodes.UnionWith(temp);
+                    }
+                }
+            }
+        }
+
+        NodeDelete(deleteNodes);
+        ResetCount();
+    }
+    private HashSet<Node> PatternCheck(Pattern pattern, int x, int y)
+    {
+        int[] dir = { -1, 0, 1 };
+        HashSet<Node> deleteNode = new HashSet<Node>();
+
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (pattern.nodePattern[i, j] == NodeType.None)
+                    continue;
+
+                int newX = x + dir[i];
+                int newY = y + dir[j];
+
+                bool outOfRange = newX > puzzleSize - 1 || newY > puzzleSize - 1 || newX < 0 || newY < 0;
+                if (outOfRange || pattern.nodePattern[i, j] != puzzle[newX, newY].nodeBase.nodeType)
+                {
+                    Debug.Log("clear");
+                    deleteNode.Clear();
+                    return deleteNode;
+                }
+                else
+                {
+                    deleteNode.Add(puzzle[newX, newY]);
+                }
+            }
+        }
+
+        Debug.Log("delete");
+        //enemy.GetDamage(pattern.damage);
+        return deleteNode;
+    }
+
+    private void NodeDelete(HashSet<Node> deleteNode)
+    {
+        HashSet<int> index = new HashSet<int>();
+        foreach (Node node in deleteNode)
+        {
+            index.Add(node.x);
+            Debug.Log($"({node.x}, {node.y})");
+            node.nodeBase = nodeBases[Random.Range(0, nodeBases.Length)];
+            node.DrawNode();
+        }
+
+        //deleteCount = index.Count;
+        //foreach (int i in index)
+        //{
+        //    StartCoroutine(NodeDown(i, 4));
+        //}
+    }
+
+    private void ResetCount()
     {
         currentMovementCount = maxMovementCount;
         foreach (GameObject image in movementCountImages)

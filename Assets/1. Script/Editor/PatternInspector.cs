@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using Unity.VisualScripting;
 
 [CustomEditor(typeof(Pattern))]
 public class PatternInspector : Editor
@@ -46,6 +47,14 @@ public class PatternInspector : Editor
                 GUILayout.Button("", smallOptions);
                 GUI.color = Color.white;
                 pattern.nodePatternTemp[i].index[j] = EditorGUILayout.ObjectField(nodeBase, typeof(NodeBase), false) as NodeBase;
+                pattern.nodePattern[i, j] = nodeBase != null ? nodeBase.nodeType : NodeType.None;
+            }
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
+            for (int j = 0; j < 3; j++)
+            {
+                EditorGUILayout.EnumFlagsField(pattern.nodePattern[i, j]);
             }
             EditorGUILayout.EndHorizontal();
         }
