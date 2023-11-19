@@ -42,8 +42,7 @@ public class Node : MonoBehaviour
                 GameManager.instance.downNodes.Remove(this);
                 if (GameManager.instance.downNodes.Count <= 0)
                 {
-                    Debug.Log("game state set idle");
-                    GameManager.instance.gameState = GameState.Idle;
+                    GameManager.instance.EndNodeDown();
                 }
                 
                 isDown = false;

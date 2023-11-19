@@ -6,13 +6,16 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static TreeEditor.TreeEditorHelper;
 
 public enum GameState
 {
     Idle,
+    EndTurn,
     Change,
-    Select
+    Select,
+    End
 }
 
 public class GameManager : MonoBehaviour
@@ -20,11 +23,13 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     private const int puzzleSize = 5;
 
+    public Player player;
+    public Enemy enemy;
+
     public GameState gameState = GameState.Idle;
     [Range(0.0f, 1.0f)]
     public float gameTime = 1.0f;
     public Transform puzzleParent;
-    public Pattern[] patterns;
     public NodeBase[] nodeBases;
     public Node[,] puzzle = new Node[puzzleSize, puzzleSize];
 
@@ -52,7 +57,7 @@ public class GameManager : MonoBehaviour
     {
         if (instance == null) { instance = this; }
 
-        foreach (Pattern pattern in patterns)
+        foreach (Pattern pattern in player.patterns)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -202,12 +207,15 @@ public class GameManager : MonoBehaviour
     }
     public void TurnEnd()
     {
-        gameState = GameState.Change;
+        if (gameState != GameState.Idle)
+            return;
+
+        gameState = GameState.EndTurn;
         turn++;
         HashSet<Node> deleteNodes = new HashSet<Node>();
         foundPatternCount = 0;
 
-        foreach (Pattern pattern in patterns)
+        foreach (Pattern pattern in player.patterns)
         {
             for (int i = 0; i < puzzleSize; i++)
             {
@@ -224,7 +232,7 @@ public class GameManager : MonoBehaviour
         }
 
         if (foundPatternCount == 0)
-            gameState = GameState.Idle;
+            EndNodeDown();
         else
             NodeDelete(deleteNodes);
 
@@ -258,26 +266,30 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        //enemy.GetDamage(pattern.damage);
+        enemy.GetDamage(pattern.damage);
         return deleteNode;
     }
 
     private void NodeDelete(HashSet<Node> deleteNode)
     {
-        gameState = GameState.Change;
         HashSet<int> deleteNodeX = new HashSet<int>();
 
         foreach (Node node in deleteNode)
         {
-            Debug.Log($"({node.x}, {node.y}) {node.nodeBase.nodeType}");
+            //Debug.Log($"({node.x}, {node.y}) {node.nodeBase.nodeType}");
             deleteNodeX.Add(node.x);
             node.isDelete = true;
         }
 
-        foreach (int x in deleteNodeX)
+        if (deleteNodeX.Count > 0)
         {
-            StartCoroutine(NodeMove(x));
+            foreach (int x in deleteNodeX)
+            {
+                StartCoroutine(NodeMove(x));
+            }
         }
+        else
+            EndNodeDown();
     }
 
     public IEnumerator NodeMove(int x)
@@ -348,6 +360,19 @@ public class GameManager : MonoBehaviour
                 Debug.LogError("have few parents");
                 break;
             }
+        }
+    }
+
+    public void EndNodeDown()
+    {
+        if (gameState == GameState.EndTurn)
+        {
+            gameState = GameState.Change;
+            NodeDelete(enemy.Attack());
+        }
+        else
+        {
+            gameState = GameState.Idle;
         }
     }
 
