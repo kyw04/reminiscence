@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+using UnityEditor.Search;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
@@ -10,8 +10,10 @@ public class Node : MonoBehaviour
     private NodeBase nodeBaseTemp;
     private MeshRenderer meshRenderer;
     private MeshFilter meshFilter;
-    public GameManager GameManager;
     public NodeBase nodeBase;
+    public bool isDelete;
+    public bool isDown;
+    public float speed = 5.0f;
     public int x;
     public int y;
 
@@ -19,8 +21,34 @@ public class Node : MonoBehaviour
     {
         meshRenderer = GetComponent<MeshRenderer>();
         meshFilter = GetComponent<MeshFilter>();
-
+        
+        isDelete = false;
+        isDown = false; 
+        
         DrawNode();
+    }
+
+    private void Update()
+    {
+        if (isDown)
+        {
+            if (transform.parent.position.y <= transform.position.y)
+            {
+                transform.position += Vector3.down * speed * GameManager.instance.gameTime * Time.deltaTime;
+            }
+            else
+            {
+                transform.position = transform.parent.position;
+                GameManager.instance.downNodes.Remove(this);
+                if (GameManager.instance.downNodes.Count <= 0)
+                {
+                    Debug.Log("game state set idle");
+                    GameManager.instance.gameState = GameState.Idle;
+                }
+                
+                isDown = false;
+            }
+        }
     }
 
     public void ChangeNodeBase(Node target)
@@ -49,6 +77,14 @@ public class Node : MonoBehaviour
         }
     }
 
+    public void SetPosition(int x, int y)
+    {
+        GameManager.instance.puzzle[x, y] = this;
+        
+        this.x = x;
+        this.y = y;
+    }
+
     private void OnDrawGizmosSelected()
     {
         int[] move = { 0, 1, -1 };
@@ -61,15 +97,16 @@ public class Node : MonoBehaviour
                 if (newX > 4 || newY > 4 || newX < 0 || newY < 0 || (newX == x && newY == y))
                     continue;
                
-                if (GameManager.puzzle[newX, newY] == null)
+                if (GameManager.instance == null || GameManager.instance.puzzle[newX, newY] == null)
                     continue;
-                Transform target = GameManager.puzzle[newX, newY].transform;
+
+                Transform target = GameManager.instance.puzzle[newX, newY].transform;
                 Gizmos.color = Color.green;
                 Gizmos.DrawWireCube(target.position, target.localScale * 0.125f);
                 
                 Vector3 selectedNodeParentPos = this.transform.parent.position;
                 Vector3 targetNodeParentPos = target.parent.position;
-                Vector3 maxNodePos = Vector2.ClampMagnitude(targetNodeParentPos - selectedNodeParentPos, GameManager.maxDistance);
+                Vector3 maxNodePos = Vector2.ClampMagnitude(targetNodeParentPos - selectedNodeParentPos, GameManager.instance.maxDistance);
                 maxNodePos += selectedNodeParentPos;
                 maxNodePos.z = targetNodeParentPos.z - 10f;
                 Gizmos.color = Color.red;

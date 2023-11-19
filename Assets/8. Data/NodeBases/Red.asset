@@ -16,3 +16,4 @@ MonoBehaviour:
   mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   material: {fileID: 2100000, guid: 32fe127e611943345bdc4e1aeb9b8497, type: 2}
   baseColor: {r: 1, g: 0, b: 0, a: 1}
+  deleteParticle: {fileID: 198175801688348628, guid: f91d544d8bbc1654cb30a673a872e72c, type: 3}

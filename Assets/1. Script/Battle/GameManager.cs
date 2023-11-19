@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Net.NetworkInformation;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using static TreeEditor.TreeEditorHelper;
 
@@ -16,9 +17,12 @@ public enum GameState
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     private const int puzzleSize = 5;
 
     public GameState gameState = GameState.Idle;
+    [Range(0.0f, 1.0f)]
+    public float gameTime = 1.0f;
     public Transform puzzleParent;
     public Pattern[] patterns;
     public NodeBase[] nodeBases;
@@ -39,12 +43,15 @@ public class GameManager : MonoBehaviour
     private Node selectedNode;
     private Node targetNode;
     private HashSet<Transform> moveNodes = new HashSet<Transform>();
+    public HashSet<Node> downNodes = new HashSet<Node>();
 
     public Transform nodeSpawnPoints;
     private float spacing = 100f;
 
     private void Awake()
     {
+        if (instance == null) { instance = this; }
+
         foreach (Pattern pattern in patterns)
         {
             for (int i = 0; i < 3; i++)
@@ -65,7 +72,6 @@ public class GameManager : MonoBehaviour
         ResetCount();
         turn = 0;
     }
-
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -93,7 +99,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
     private void NodeSelect()
     {
         if (gameState != GameState.Idle)
@@ -108,7 +113,6 @@ public class GameManager : MonoBehaviour
             selectedNodeStartPos = Input.mousePosition;
         }
     }
-
     private void NodeDrag()
     {
         if (selectedNode == null)
@@ -172,7 +176,6 @@ public class GameManager : MonoBehaviour
         //if (targetNode)
         //    Debug.Log(targetNode.transform.parent.name);
     }
-
     private void PutNode()
     {
         if (selectedNode == null)
@@ -197,12 +200,12 @@ public class GameManager : MonoBehaviour
 
         moveNodes.Clear();
     }
-
     public void TurnEnd()
     {
         gameState = GameState.Change;
         turn++;
         HashSet<Node> deleteNodes = new HashSet<Node>();
+        foundPatternCount = 0;
 
         foreach (Pattern pattern in patterns)
         {
@@ -220,9 +223,12 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        NodeDelete(deleteNodes);
+        if (foundPatternCount == 0)
+            gameState = GameState.Idle;
+        else
+            NodeDelete(deleteNodes);
+
         ResetCount();
-        gameState = GameState.Idle;
     }
     private HashSet<Node> PatternCheck(Pattern pattern, int x, int y)
     {
@@ -258,16 +264,90 @@ public class GameManager : MonoBehaviour
 
     private void NodeDelete(HashSet<Node> deleteNode)
     {
-        int[] counts = new int[puzzleSize];
+        gameState = GameState.Change;
+        HashSet<int> deleteNodeX = new HashSet<int>();
 
         foreach (Node node in deleteNode)
         {
             Debug.Log($"({node.x}, {node.y}) {node.nodeBase.nodeType}");
-            node.transform.SetParent(nodeSpawnPoints.GetChild(node.x));
-            Vector3 pos = new Vector3(0, (node.transform.localScale.x + spacing) * counts[node.x]++, 0);
-            node.transform.localPosition = pos;
-            node.nodeBase = nodeBases[UnityEngine.Random.Range(0, nodeBases.Length)];
-            node.DrawNode();
+            deleteNodeX.Add(node.x);
+            node.isDelete = true;
+        }
+
+        foreach (int x in deleteNodeX)
+        {
+            StartCoroutine(NodeMove(x));
+        }
+    }
+
+    public IEnumerator NodeMove(int x)
+    {
+        int[] counts = new int[puzzleSize];
+
+        int maxY = 0;
+        for (int i = puzzleSize - 1; i >= 0; i--)
+        {
+            if (puzzle[x, i].isDelete)
+            {
+                //Debug.Log($"push stack ({x}, {i})");
+                maxY = i;
+                break;
+            }
+        }
+        //Debug.Log($"maxY: {maxY}");
+
+        Stack<NodeParentPosition> parents = new Stack<NodeParentPosition>();
+        for (int i = 0; i <= maxY; i++)
+        {
+            parents.Push(puzzle[x, i].GetComponentInParent<NodeParentPosition>());
+        }
+        //Debug.Log($"parents: {parents.Count}");
+
+        Queue<Node> deleteNode = new Queue<Node>();
+        for (int i = maxY; i >= 0; i--)
+        {
+            if (puzzle[x, i].isDelete)
+            {
+                if (puzzle[x, i].nodeBase.deleteParticle)
+                    puzzle[x, i].nodeBase.deleteParticle.Play();
+
+                yield return new WaitForSeconds(UnityEngine.Random.Range(0.0f, 0.25f));
+
+                deleteNode.Enqueue(puzzle[x, i]);
+                
+                puzzle[x, i].transform.SetParent(nodeSpawnPoints.GetChild(puzzle[x, i].x));
+                Vector3 pos = new Vector3(0, (puzzle[x, i].transform.localScale.x + spacing) * counts[puzzle[x, i].x]++, 0);
+                puzzle[x, i].transform.localPosition = pos;
+                puzzle[x, i].nodeBase = nodeBases[UnityEngine.Random.Range(0, nodeBases.Length)];
+                puzzle[x, i].DrawNode();
+                puzzle[x, i].isDelete = false;
+            }
+            else
+            {
+                NodeParentPosition parentPos = parents.Pop();
+                puzzle[x, i].transform.SetParent(parentPos.transform);
+                puzzle[x, i].SetPosition(parentPos.x, parentPos.y);
+                puzzle[x, i].isDown = true;
+                downNodes.Add(puzzle[x, i]);
+            }
+        }
+
+        while (deleteNode.Count > 0)
+        {
+            if (parents.Count > 0)
+            {
+                Node node = deleteNode.Dequeue();
+                NodeParentPosition parentPos = parents.Pop();
+                node.transform.SetParent(parentPos.transform);
+                node.SetPosition(parentPos.x, parentPos.y);
+                node.isDown = true;
+                downNodes.Add(node);
+            }
+            else
+            {
+                Debug.LogError("have few parents");
+                break;
+            }
         }
     }
 
