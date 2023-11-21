@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Player : EntityBase
 {
-    public GameObject bulletPrefab;
     public Pattern[] patterns;
+    public GameObject bulletPrefab;
+    public Vector3 bulletSpawnBoxPos;
+    public Vector3 bulletSpawnBoxSize;
 
     public void Attack(int count, float totalDamage)
     {
@@ -24,5 +26,11 @@ public class Player : EntityBase
     {
         Bullet newBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity).GetComponent<Bullet>();
         newBullet.Set(GameManager.instance.enemy.transform, damage, 10f);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(bulletSpawnBoxPos + transform.position, bulletSpawnBoxSize);
     }
 }

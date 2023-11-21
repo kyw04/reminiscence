@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Net.NetworkInformation;
+using Unity.VisualScripting;
 using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
     public float gameTime = 1.0f;
     public Transform puzzleParent;
     public NodeBase[] nodeBases;
+    Dictionary<NodeBase, int> currentNodeBaseCount = new Dictionary<NodeBase, int>();
     public Node[,] puzzle = new Node[puzzleSize, puzzleSize];
 
     public int maxMovementCount = 3;
@@ -71,6 +73,11 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        foreach (NodeBase nodeBase in nodeBases)
+        {
+            currentNodeBaseCount.Add(nodeBase, 0);
+        }
+
         GetPuzzle();
     }
 
@@ -89,6 +96,30 @@ public class GameManager : MonoBehaviour
         NodeDrag();
     }
 
+    private NodeBase GetRandomNodeBase()
+    {
+        List<NodeBase> randomNodeBase = new List<NodeBase>();
+
+        foreach (NodeBase nodeBase in nodeBases)
+        {
+            if (currentNodeBaseCount[nodeBase] < puzzleSize + 1)
+            {
+                randomNodeBase.Add(nodeBase);
+            }
+        }
+
+        int nodeBaseIndex = UnityEngine.Random.Range(0, randomNodeBase.Count);
+        foreach (NodeBase nodeBase in nodeBases)
+        {
+            if (nodeBase == randomNodeBase[nodeBaseIndex])
+            { 
+                currentNodeBaseCount[nodeBase]++;
+                return randomNodeBase[nodeBaseIndex];
+            }
+        }
+
+        return null;
+    }
     private void GetPuzzle()
     {
         for (int i = 0; i < puzzleSize; i++)
@@ -101,7 +132,7 @@ public class GameManager : MonoBehaviour
 
                 if (puzzle[i, j].nodeBase.nodeType == NodeType.None)
                 {
-                    puzzle[i, j].nodeBase = nodeBases[UnityEngine.Random.Range(0, nodeBases.Length)];
+                    puzzle[i, j].nodeBase = GetRandomNodeBase();
                 }
             }
         }
@@ -283,6 +314,7 @@ public class GameManager : MonoBehaviour
             //Debug.Log($"({node.x}, {node.y}) {node.nodeBase.nodeType}");
             deleteNodeX.Add(node.x);
             node.isDelete = true;
+            currentNodeBaseCount[node.nodeBase]--;
         }
 
         if (deleteNodeX.Count > 0)
@@ -338,7 +370,7 @@ public class GameManager : MonoBehaviour
                 puzzle[x, i].transform.SetParent(nodeSpawnPoints.GetChild(puzzle[x, i].x));
                 Vector3 pos = new Vector3(0, (puzzle[x, i].transform.localScale.x + spacing) * counts[puzzle[x, i].x]++, 0);
                 puzzle[x, i].transform.localPosition = pos;
-                puzzle[x, i].nodeBase = nodeBases[UnityEngine.Random.Range(0, nodeBases.Length)];
+                puzzle[x, i].nodeBase = GetRandomNodeBase();
                 puzzle[x, i].DrawNode();
                 puzzle[x, i].isDelete = false;
             }
