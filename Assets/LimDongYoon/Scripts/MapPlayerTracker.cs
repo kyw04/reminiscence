@@ -87,7 +87,16 @@ namespace Map
         {
             lastBattleResult = result;
         }
+        private void Start()
+        {
+            CheckBattleResult();
+        }
 
+        private void CheckBattleResult()
+        {
+            var result = GameStateManager.Instance.LastBattleResult;
+            // 배틀 결과에 따른 로직...
+        }
 
         private static void EnterNode(MapNode mapNode)
         {

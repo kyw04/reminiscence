@@ -370,6 +370,11 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    //전투가 끝났을때
+    public void EndBattle(bool playerWon)
+    {
+        GameStateManager.Instance.SetBattleResult(playerWon ? GameStateManager.BattleResult.Win : GameStateManager.BattleResult.Lose);
+    }
 
     public void EndNodeDown()
     {

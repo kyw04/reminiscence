@@ -5,7 +5,7 @@ public class MySceneManager : MonoBehaviour
 {
     // Function to load a scene by name
     public static MySceneManager Instance;
-
+    public bool sceneLocked = false;
     public void Awake()
     {
         if (Instance == null)
@@ -33,6 +33,7 @@ public class MySceneManager : MonoBehaviour
     // Function to load the next scene in the build settings
     public void LoadNextScene()
     {
+        if (sceneLocked) { Debug.Log("SceneChange is Locked!"); return; }
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = currentSceneIndex + 1;
 
