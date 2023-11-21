@@ -15,6 +15,7 @@ public enum GameState
     EndTurn,
     Change,
     Select,
+    Attack,
     End
 }
 
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     public int turn = 0;
     public int foundPatternCount = 0;
+    public float totalDamage = 0.0f;
 
     public float maxDistance = 21.38653f;
     public float moveSensitivity;
@@ -214,6 +216,7 @@ public class GameManager : MonoBehaviour
         turn++;
         HashSet<Node> deleteNodes = new HashSet<Node>();
         foundPatternCount = 0;
+        totalDamage = 0.0f;
 
         foreach (Pattern pattern in player.patterns)
         {
@@ -225,11 +228,13 @@ public class GameManager : MonoBehaviour
                     if (temp.Count() > 0)
                     {
                         foundPatternCount++;
+                        totalDamage += pattern.damage;
                         deleteNodes.UnionWith(temp);
                     }
                 }
             }
         }
+        player.Attack(foundPatternCount, totalDamage);
 
         if (foundPatternCount == 0)
             EndNodeDown();
@@ -266,7 +271,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        enemy.GetDamage(pattern.damage);
         return deleteNode;
     }
 

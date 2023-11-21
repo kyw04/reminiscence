@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class EntityBase : MonoBehaviour
 {
     public Image hpbar;
+    public Animator animator;
     public float maxHealth = 100;
     public float health = 100;
     public bool isDead;
@@ -13,6 +14,7 @@ public class EntityBase : MonoBehaviour
     protected virtual void Start()
     {
         isDead = false;
+        animator = GetComponent<Animator>();
         HealthImageUpdate();
     }
 
