@@ -18,5 +18,5 @@ public class NodeBase : ScriptableObject
     public Mesh mesh;
     public Material material;
     public Color baseColor;
-    public ParticleSystem deleteParticle;
+    public GameObject deleteParticle;
 }

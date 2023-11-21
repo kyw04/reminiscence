@@ -100,8 +100,8 @@ public class Node : MonoBehaviour
                     continue;
 
                 Transform target = GameManager.instance.puzzle[newX, newY].transform;
-                Gizmos.color = Color.green;
-                Gizmos.DrawWireCube(target.position, target.localScale * 0.125f);
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireCube(target.position, target.localScale * 0.125f * 0.006f);
                 
                 Vector3 selectedNodeParentPos = this.transform.parent.position;
                 Vector3 targetNodeParentPos = target.parent.position;

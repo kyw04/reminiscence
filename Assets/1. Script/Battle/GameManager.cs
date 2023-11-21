@@ -325,7 +325,11 @@ public class GameManager : MonoBehaviour
             if (puzzle[x, i].isDelete)
             {
                 if (puzzle[x, i].nodeBase.deleteParticle)
-                    puzzle[x, i].nodeBase.deleteParticle.Play();
+                {
+                    GameObject particle = Instantiate(puzzle[x, i].nodeBase.deleteParticle, puzzle[x, i].transform.parent);
+                    particle.transform.position += Vector3.back * 0.01f;
+                    Destroy(particle, 1.0f);
+                }
 
                 yield return new WaitForSeconds(UnityEngine.Random.Range(0.0f, 0.25f));
 
