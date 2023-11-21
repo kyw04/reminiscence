@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/LimDongYoon/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/3. Scenes/BattleScene.unity
+    path: Assets/Scenes/BattleScene.unity
     guid: 979b07c73f0b4d343a9762ceda91703b
   m_configObjects: {}
