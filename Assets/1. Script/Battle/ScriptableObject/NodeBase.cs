@@ -8,7 +8,8 @@ public enum NodeType
     Fire,
     Wind,
     Soil,
-    Water
+    Water,
+    Light
 }
 
 [CreateAssetMenu(fileName = "NodeBase", menuName = "Tools/NodeBase")]

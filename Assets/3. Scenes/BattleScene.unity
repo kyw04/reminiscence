@@ -781,7 +781,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &239026020
 MonoBehaviour:
@@ -1858,7 +1858,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &561049521
 MonoBehaviour:
@@ -1877,10 +1877,12 @@ MonoBehaviour:
   maxHealth: 100
   health: 100
   isDead: 0
-  bulletPrefab: {fileID: 5957188974623860291, guid: 24d51e355eede474a8d333ea40d269c8, type: 3}
   patterns:
   - {fileID: 11400000, guid: c3394f56dacf2284da7eeda74495acf8, type: 2}
   - {fileID: 11400000, guid: b2038ef6e2f853c4e9e1170af92f8435, type: 2}
+  bulletPrefab: {fileID: 5957188974623860291, guid: 24d51e355eede474a8d333ea40d269c8, type: 3}
+  bulletSpawnBoxPos: {x: 0, y: 0, z: 0}
+  bulletSpawnBoxSize: {x: 2, y: 2, z: 2}
 --- !u!54 &561049522
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2456,6 +2458,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ca545d584114fd64aa9c1a4719ac8467, type: 2}
   - {fileID: 11400000, guid: 613177a49ca438b44a0ce1ad1d9548b5, type: 2}
   - {fileID: 11400000, guid: 0556c2666d8282d4cab67fd2c87385c4, type: 2}
+  - {fileID: 11400000, guid: 5a2fa13c0d111e64dab10a1817cbe32d, type: 2}
   maxMovementCount: 3
   movementCountImages:
   - {fileID: 268676292}
@@ -9523,7 +9526,7 @@ Transform:
   - {fileID: 2529253341782015163}
   - {fileID: 6880996354202924444}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 112.893, z: 0}
 --- !u!23 &5859987486151621147
 MeshRenderer:
