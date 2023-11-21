@@ -25,6 +25,7 @@ public class EntityBase : MonoBehaviour
         {
             health = 0;
             isDead = true;
+            Death();
             GameManager.instance.gameState = GameState.End;
         }
 
@@ -34,4 +35,6 @@ public class EntityBase : MonoBehaviour
     {
         hpbar.fillAmount = health / maxHealth;
     }
+
+    public virtual void Death() { }
 }

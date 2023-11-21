@@ -406,6 +406,7 @@ public class GameManager : MonoBehaviour
     public void EndBattle(bool playerWon)
     {
         GameStateManager.Instance.SetBattleResult(playerWon ? GameStateManager.BattleResult.Win : GameStateManager.BattleResult.Lose);
+        MySceneManager.Instance.LoadPreviousScene();
     }
 
     public void EndNodeDown()

@@ -33,4 +33,9 @@ public class Player : EntityBase
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(bulletSpawnBoxPos + transform.position, bulletSpawnBoxSize);
     }
+    public override void Death()
+    {
+        GameManager.instance.EndBattle(false);
+        
+    }
 }

@@ -70,6 +70,7 @@ namespace Map
      
         private void ReturnFromBattle()
         {
+            MapNode currentNode = mapManager.CurrentMap.GetNodeAt(0);
             if (lastBattleResult == BattleResult.Lose)
             {
                 // 패배 로직 처리

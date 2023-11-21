@@ -20,8 +20,21 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
+    public void InitGameState()
+    {
+        LastBattleResult = BattleResult.None;
+    }
+
     public void SetBattleResult(BattleResult result)
     {
+        switch (result)
+        {
+            case BattleResult.Win:
+
+                break;
+            case BattleResult.Lose:
+                break;
+        }
         LastBattleResult = result;
     }
 }
