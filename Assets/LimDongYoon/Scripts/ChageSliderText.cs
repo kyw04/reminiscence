@@ -11,9 +11,10 @@ public class ChageSliderText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         text = GetComponent<TextMeshProUGUI>();
         slider = GetComponentInParent<Slider>();
+        ChangeSliderTextValue();
+
     }
 
     public void ChangeSliderTextValue()
