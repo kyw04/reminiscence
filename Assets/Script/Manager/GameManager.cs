@@ -192,6 +192,7 @@ public class GameManager : MonoBehaviour
                     if (Vector3.Distance(targetMaxNodePos, selectedNode.transform.position) / maxDistance > 0.75f)
                     {
                         targetNode.transform.position = targetNode.transform.parent.position;
+                        targetNode.SetMetarialAlpha(255);
                         targetNode = null;
                     }
                     else
@@ -221,6 +222,7 @@ public class GameManager : MonoBehaviour
 
                 if (lastTarget && targetNode && lastTarget != targetNode)
                 {
+                    lastTarget.SetMetarialAlpha(255);
                     lastTarget.transform.position = lastTarget.transform.parent.position;
                 }
             }
