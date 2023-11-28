@@ -7,8 +7,7 @@ using System.Net.NetworkInformation;
 using Unity.VisualScripting;
 using UnityEditor.VersionControl;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static TreeEditor.TreeEditorHelper;
+using UnityEngine.UI;
 
 public enum GameState
 {
@@ -27,6 +26,8 @@ public class GameManager : MonoBehaviour
 
     public Player player;
     public Enemy enemy;
+
+    public Image turnEndButtonImage;
 
     public GameState gameState = GameState.Idle;
     [Range(0.0f, 1.0f)]
@@ -94,6 +95,8 @@ public class GameManager : MonoBehaviour
             PutNode();
 
         NodeDrag();
+
+        turnEndButtonImage.color = gameState == GameState.Idle ? Color.white : Color.gray;
     }
 
     private NodeBase GetRandomNodeBase()
@@ -285,7 +288,7 @@ public class GameManager : MonoBehaviour
         }
 
         if (foundPatternCount == 0)
-            EndNodeDown();
+            StartCoroutine(EndNodeDown(0));
         else
             NodeDelete(deleteNodes);
 
@@ -350,7 +353,7 @@ public class GameManager : MonoBehaviour
             }
         }
         else
-            EndNodeDown();
+            StartCoroutine(EndNodeDown(0));
     }
 
     public IEnumerator NodeMove(int x)
@@ -434,8 +437,10 @@ public class GameManager : MonoBehaviour
         MySceneManager.Instance.LoadPreviousScene();
     }
 
-    public void EndNodeDown()
+    public IEnumerator EndNodeDown(float seconds)
     {
+        yield return new WaitForSeconds(seconds);
+
         if (gameState == GameState.EndTurn)
         {
             gameState = GameState.Change;

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EntityBase : MonoBehaviour
 {
-    public Image hpbar;
+    public Image[] hpbar;
     public Animator animator;
     public NodeBase nodeBase;
     public float maxHealth = 100;
@@ -35,7 +35,10 @@ public class EntityBase : MonoBehaviour
     }
     public void HealthImageUpdate()
     {
-        hpbar.fillAmount = health / maxHealth;
+        foreach (Image _hpbar in hpbar)
+        {
+            _hpbar.fillAmount = health / maxHealth;
+        }
     }
 
     public virtual void Death() { }

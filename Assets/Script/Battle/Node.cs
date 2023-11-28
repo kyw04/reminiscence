@@ -42,7 +42,7 @@ public class Node : MonoBehaviour
                 GameManager.instance.downNodes.Remove(this);
                 if (GameManager.instance.downNodes.Count <= 0)
                 {
-                    GameManager.instance.EndNodeDown();
+                    StartCoroutine(GameManager.instance.EndNodeDown(1.5f));
                 }
                 
                 isDown = false;

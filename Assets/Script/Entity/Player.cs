@@ -12,13 +12,21 @@ public class Player : EntityBase
     public void Attack(NodeBase nodeBase, float damage)
     {
         //animator.Play("Attack");
-        SpawnBullet(nodeBase, damage);
+        StartCoroutine(SpawnBullet(nodeBase, damage));
     }
 
-    public void SpawnBullet(NodeBase nodeBase, float damage)
+    public IEnumerator SpawnBullet(NodeBase nodeBase, float damage)
     {
-        Bullet newBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity).GetComponent<Bullet>();
-        newBullet.Set(nodeBase, GameManager.instance.enemy.transform, damage, 10f);
+        float x = UnityEngine.Random.Range(-bulletSpawnBoxSize.x / 2, bulletSpawnBoxSize.x / 2);
+        float y = UnityEngine.Random.Range(-bulletSpawnBoxSize.y / 2, bulletSpawnBoxSize.y / 2);
+        float z = UnityEngine.Random.Range(-bulletSpawnBoxSize.z / 2, bulletSpawnBoxSize.z / 2);
+        float speed = UnityEngine.Random.Range(1.5f, 3.0f);
+        Vector3 randomPos = new Vector3(x, y, z);
+
+        yield return new WaitForSeconds(UnityEngine.Random.Range(0.0f, 1.25f));
+
+        Bullet newBullet = Instantiate(bulletPrefab, bulletSpawnBoxPos + transform.position + randomPos, Quaternion.identity).GetComponent<Bullet>();
+        newBullet.Set(nodeBase, GameManager.instance.enemy.transform, damage, speed);
     }
 
     private void OnDrawGizmosSelected()

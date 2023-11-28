@@ -9,18 +9,23 @@ public class Bullet : MonoBehaviour
     public Vector3 direction;
     public float damage;
     public float speed;
+    public float moveDelay = 1.5f;
     public bool isMove;
+    public bool isDead;
 
     private void Start()
     {
+        moveDelay += Time.time;
         isMove = false;
+        isDead = false;
     }
 
     private void Update()
     {
-        if (isMove)
+        if (!isDead && moveDelay <= Time.time)
         {
             transform.position += direction * speed * Time.deltaTime * GameManager.instance.gameTime;
+            isMove = true;
         }
     }
 
@@ -29,7 +34,7 @@ public class Bullet : MonoBehaviour
         this.nodeBase = nodeBase;
         this.target = target;
         this.transform.LookAt(target);
-        this.direction = this.transform.position - target.position;
+        this.direction = target.position - this.transform.position;
         this.damage = damage;
         this.speed = speed;
     }
@@ -42,6 +47,8 @@ public class Bullet : MonoBehaviour
         isMove = false;
         if (collision.transform.GetComponent<Enemy>())
         {
+            isDead = true;
+            Destroy(this.gameObject, 0.5f);
             GameManager.instance.enemy.GetDamage(nodeBase, damage);
         }
     }
