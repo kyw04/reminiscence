@@ -797,6 +797,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpbar: {fileID: 863918831}
   animator: {fileID: 0}
+  nodeBase: {fileID: 11400000, guid: 14a00c732fc1aeb48acca344bce49458, type: 2}
   maxHealth: 100
   health: 100
   isDead: 0
@@ -1874,6 +1875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpbar: {fileID: 1763331943}
   animator: {fileID: 0}
+  nodeBase: {fileID: 11400000, guid: 613177a49ca438b44a0ce1ad1d9548b5, type: 2}
   maxHealth: 100
   health: 100
   isDead: 0
@@ -1881,7 +1883,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c3394f56dacf2284da7eeda74495acf8, type: 2}
   - {fileID: 11400000, guid: b2038ef6e2f853c4e9e1170af92f8435, type: 2}
   bulletPrefab: {fileID: 5957188974623860291, guid: 24d51e355eede474a8d333ea40d269c8, type: 3}
-  bulletSpawnBoxPos: {x: 0, y: 0, z: 0}
+  bulletSpawnBoxPos: {x: 0, y: 2, z: 0}
   bulletSpawnBoxSize: {x: 2, y: 2, z: 2}
 --- !u!54 &561049522
 Rigidbody:

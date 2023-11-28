@@ -63,7 +63,7 @@ public class Enemy : EntityBase
                 int index = Random.Range(0, sameNode.Count);
                 result.Add(sameNode[index]);
                 sameNode.RemoveAt(index);
-                GameManager.instance.player.GetDamage(damage);
+                GameManager.instance.player.GetDamage(nodeBase, damage);
             }
         }
 

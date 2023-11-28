@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public NodeBase nodeBase;
     public Transform target;
     public Vector3 direction;
     public float damage;
@@ -23,8 +24,9 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void Set(Transform target, float damage, float speed)
+    public void Set(NodeBase nodeBase, Transform target, float damage, float speed)
     {
+        this.nodeBase = nodeBase;
         this.target = target;
         this.transform.LookAt(target);
         this.direction = this.transform.position - target.position;
@@ -40,7 +42,7 @@ public class Bullet : MonoBehaviour
         isMove = false;
         if (collision.transform.GetComponent<Enemy>())
         {
-            GameManager.instance.enemy.GetDamage(damage);
+            GameManager.instance.enemy.GetDamage(nodeBase, damage);
         }
     }
 }

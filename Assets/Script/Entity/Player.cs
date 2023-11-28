@@ -9,23 +9,16 @@ public class Player : EntityBase
     public Vector3 bulletSpawnBoxPos;
     public Vector3 bulletSpawnBoxSize;
 
-    public void Attack(int count, float totalDamage)
+    public void Attack(NodeBase nodeBase, float damage)
     {
-        if (count <= 0)
-            return;
-
         //animator.Play("Attack");
-    
-        for (int i = 0; i < count; i++)
-        {
-            SpawnBullet(totalDamage / count);
-        }
+        SpawnBullet(nodeBase, damage);
     }
 
-    public void SpawnBullet(float damage)
+    public void SpawnBullet(NodeBase nodeBase, float damage)
     {
         Bullet newBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity).GetComponent<Bullet>();
-        newBullet.Set(GameManager.instance.enemy.transform, damage, 10f);
+        newBullet.Set(nodeBase, GameManager.instance.enemy.transform, damage, 10f);
     }
 
     private void OnDrawGizmosSelected()

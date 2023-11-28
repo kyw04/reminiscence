@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f0409e4dfa46d7408383fd537b82e77, type: 3}
-  m_Name: Blue
+  m_Name: Soil
   m_EditorClassIdentifier: 
   nodeType: 4
+  strong: 5
+  weak: 3
   mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  material: {fileID: 2100000, guid: b1f62b907fae44b439f3532563a8e6d4, type: 2}
-  baseColor: {r: 0, g: 0, b: 1, a: 1}
+  material: {fileID: 2100000, guid: bb699699782fb7e48a79e50ddc3e675f, type: 2}
+  baseColor: {r: 1, g: 0.2147651, b: 0, a: 1}
   deleteParticle: {fileID: 7343117478595098799, guid: 69b17b087a77b834880106d3307c5544, type: 3}

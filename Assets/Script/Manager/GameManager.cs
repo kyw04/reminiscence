@@ -283,7 +283,6 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        player.Attack(foundPatternCount, totalDamage);
 
         if (foundPatternCount == 0)
             EndNodeDown();
@@ -296,6 +295,7 @@ public class GameManager : MonoBehaviour
     {
         int[] dir = { -1, 0, 1 };
         HashSet<Node> deleteNode = new HashSet<Node>();
+        List<NodeBase> foundNodeBaes = new List<NodeBase>();
 
         for (int i = 0; i < 3; i++)
         {
@@ -310,14 +310,21 @@ public class GameManager : MonoBehaviour
                 bool outOfRange = newX > puzzleSize - 1 || newY > puzzleSize - 1 || newX < 0 || newY < 0;
                 if (outOfRange || pattern.nodePatternType[i, j] != puzzle[newX, newY].nodeBase.nodeType)
                 {
+                    foundNodeBaes.Clear();
                     deleteNode.Clear();
                     return deleteNode;
                 }
                 else
                 {
+                    foundNodeBaes.Add(puzzle[newX, newY].nodeBase);
                     deleteNode.Add(puzzle[newX, newY]);
                 }
             }
+        }
+        
+        foreach (NodeBase nodeBase in foundNodeBaes)
+        {
+            player.Attack(nodeBase, pattern.damage / foundNodeBaes.Count);
         }
 
         return deleteNode;
