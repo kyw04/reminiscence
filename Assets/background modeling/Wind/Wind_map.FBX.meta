@@ -7,58 +7,38 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 01 - Default
-    second: {fileID: 2100000, guid: 06e3bbeac3a8f624ba34dab7aeacd143, type: 2}
+      name: 02 - Default
+    second: {fileID: 2100000, guid: 65455bb67a3bf7740b3f2842be8a926a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: 03 - Default
-    second: {fileID: 2100000, guid: cb58ca9931eff4244a85b05a0df7ba2c, type: 2}
+    second: {fileID: 2100000, guid: d50e3fc94f7b6084a95bdaa6be818830, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 04 - Default
-    second: {fileID: 2100000, guid: 4d1234357386d4c45952a53f698e5d63, type: 2}
+      name: Material #5
+    second: {fileID: 2100000, guid: 7040970293067fd469f661647d80ad04, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material #1
-    second: {fileID: 2100000, guid: 1e7c826f8c207b24b8b1c2a6a60bc5e3, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material #2
-    second: {fileID: 2100000, guid: 0fff593b0adb399459cfeca0c43cae31, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material #3
-    second: {fileID: 2100000, guid: 76b999b64f1e1c94ca746d19f516e052, type: 2}
+      name: Material #6
+    second: {fileID: 2100000, guid: 31223ce60c8a15647abd5f940e06da53, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: branch
-    second: {fileID: 2100000, guid: 80e782883f323d04f8a3a63e09df348c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: default
-    second: {fileID: 2100000, guid: ac19bd9a49ea314469ab95f7388b95b9, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: defaultMat
-    second: {fileID: 2100000, guid: d4d8b64d970894844a28f62e9c4157ce, type: 2}
+    second: {fileID: 2100000, guid: 6f9148e29c94e324b8e7b48183278aba, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: leaf_adult
-    second: {fileID: 2100000, guid: 912145b6cff42fe40a427110ed6408d8, type: 2}
+    second: {fileID: 2100000, guid: 581ba36a99e11a240bca07991c6551ee, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: leaf_young
-    second: {fileID: 2100000, guid: e8d538fc5881e5740888a01eb220fce8, type: 2}
+    second: {fileID: 2100000, guid: 66fe69e0afa00e64daca7caf1ebfabe2, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
