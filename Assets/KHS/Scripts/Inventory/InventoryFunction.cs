@@ -8,6 +8,7 @@ public class InventoryFunction : MonoBehaviour
 {
     protected ItemDatabase itemDB;
     protected MakeItem makeItem;
+    protected ItemInfoUI itemInfoUI;
 
     public enum FunctionMode { ENHANCEMENT, OPTIONCHANGE, SYNTHESIS, EQUIP, NULL };
     static protected FunctionMode _mode = FunctionMode.NULL;
@@ -27,6 +28,7 @@ public class InventoryFunction : MonoBehaviour
     {
         itemDB = GameObject.Find("ItemDatabase").GetComponent<ItemDatabase>();
         makeItem = GameObject.Find("TempMakingbtn").GetComponent<MakeItem>(); //¾ðÁ¨°¡¾îµò°¡·Î¿Å±â±â
+        itemInfoUI = GameObject.Find("Canvas").transform.Find("ItemInfoUI").GetComponent<ItemInfoUI>();
 
         _fnUI = GameObject.Find("InvenFunctionUI");
     }
@@ -39,7 +41,7 @@ public class InventoryFunction : MonoBehaviour
             for (int i = 1; i < _targetIDList.Count; i++)
             {
                 int ingreGradeId = itemDB._items[_targetIDList[i]]._itemGradeID;
-                sumExp += Item._expRiseByGrade[ingreGradeId];
+                sumExp += Item.ExpRiseByGrade[ingreGradeId];
             }
             _sumExp = sumExp;
         }
@@ -70,14 +72,21 @@ public class InventoryFunction : MonoBehaviour
             else UI.SetActive(false);
         }
 
-        if (_targetIDList.Count == 1)
+        if (_mode == FunctionMode.EQUIP)
         {
-            int btnID = _targetIDList[0];
-            if (CanTargeted(btnID, true))
+            _targetIDList.Clear();
+        }
+        else
+        {
+            if (_targetIDList.Count == 1)
             {
-                _beneficiary = itemDB._items[btnID];
+                int btnID = _targetIDList[0];
+                if (CanTargeted(btnID, true))
+                {
+                    _beneficiary = itemDB._items[btnID];
+                }
+                else _targetIDList.Clear();
             }
-            else _targetIDList.Clear();
         }
     }
 
@@ -92,6 +101,9 @@ public class InventoryFunction : MonoBehaviour
 
             RemoveIngredients(true);
             _sumExp = 0;
+
+            Finish();
+
             if (_beneficiary._itemLevel < 10) _targetIDList.Add(itemDB._items.IndexOf(Item.memoryNewItem));
         }
     }
@@ -101,9 +113,27 @@ public class InventoryFunction : MonoBehaviour
     {
         if (_targetIDList.Count == 2)
         {
+            Item.ItemPart part = _beneficiary._itemPart;
+            int gradeID = _beneficiary._itemGradeID;
+            int level = _beneficiary._itemLevel;
+            int exp = _beneficiary._itemExp;
+            bool equip = false;
+            /*
             RemoveIngredients(false);
-            makeItem.Make(_beneficiary._itempart, _beneficiary._itemGradeID);
+            makeItem.Make(_beneficiary._itemPart, _beneficiary._itemGradeID);
+            _targetIDList.Add(itemDB._items.IndexOf(Item.memoryNewItem));*/
+
+            if (_beneficiary._onEquip) equip = true;
+            RemoveIngredients(false);
+            makeItem.Make(part, gradeID);//, false);
+
+            Item.memoryNewItem._itemLevel = level;
+            Item.memoryNewItem._itemExp = exp;
+            Item.memoryNewItem._onEquip = equip;
+
             _targetIDList.Add(itemDB._items.IndexOf(Item.memoryNewItem));
+            //_targetIDList.Add(itemDB._items.IndexOf(Item.memoryNewItem));
+            Finish();
         }
     }
 
@@ -125,7 +155,8 @@ public class InventoryFunction : MonoBehaviour
             else part = Item.ItemPart.ROBE;
 
             //makeItem.ItemSynthesis(higher+1);
-            makeItem.Make(part, _higherGradeID + 1);
+            makeItem.Make(part, _higherGradeID + 1);//, true);
+            Finish();
         }
     }
 
@@ -137,14 +168,25 @@ public class InventoryFunction : MonoBehaviour
 
         for (int i = _targetIDList.Count -1; i >= 0; i--)
         {
-            
             Item ingre = itemDB._items[_targetIDList[i]];
             //Debug.Log(i + " " + ingre._itemName);
             itemDB._items.Remove(ingre);
         }
 
         _targetIDList.Clear();
+        //Finished.Invoke();
+    }
+
+
+    private void Finish()
+    {
+        if (itemInfoUI.enabled)
+        {
+            itemInfoUI.Set(itemDB._items.IndexOf(Item.memoryNewItem));
+        }
         Finished.Invoke();
+
+        //if (_targetIDList.Count == 1) _beneficiary = Item.memoryNewItem;
     }
 
 
@@ -164,13 +206,36 @@ public class InventoryFunction : MonoBehaviour
                 if (isBenef) return true;
                 else
                 {
-                    if (target._itemGradeID <= _beneficiary._itemGradeID) return true;
+                    if (_targetIDList.Count < 2)
+                    {
+                        if (target._itemGradeID <= _beneficiary._itemGradeID) return true;
+                        else return false;
+                    }
                     else return false;
                 }
             case (FunctionMode.SYNTHESIS):
-                if (target._itemLevel >= 10 && target._itemGradeID < 3) return true;
+                if (_targetIDList.Count < 2)
+                {
+                    if (target._itemLevel >= 10 && target._itemGradeID < 3)
+                    {
+                        if (_targetIDList.Count == 0) return true;
+                        else
+                        {
+                            if (target._itemGradeID == itemDB._items[_targetIDList[0]]._itemGradeID) return true;
+                            else return false;
+                        }
+                    }
+                    else return false;
+                }
                 else return false;
-
+            case (FunctionMode.EQUIP):
+            {
+                switch (target._itemPart)
+                {
+                    //
+                }
+                return true;
+            }
             default: return true;
         }
     }

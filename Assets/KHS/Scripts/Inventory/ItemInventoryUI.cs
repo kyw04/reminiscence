@@ -29,7 +29,7 @@ public class ItemInventoryUI : MonoBehaviour
             _itemName.text = itemDB._items[_invenCnt]._itemName;
 
             _maden.transform.SetParent(this.gameObject.transform, false);
-            _maden.gameObject.GetComponent<InventoryItemBtn>().btnID = _invenCnt;
+            _maden.gameObject.GetComponent<InvenItemBtn>().btnID = _invenCnt;
         }
     }
 
