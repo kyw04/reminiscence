@@ -13,5 +13,6 @@ public class Pattern : ScriptableObject
     public NodePattern[] nodePatternTemp = new NodePattern[3];
     public NodeType[,] nodePatternType = new NodeType[3, 3];
 
+    public int level;
     public int damage;
 }

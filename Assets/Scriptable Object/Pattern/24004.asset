@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e27eb08f36592a42a237b9323a3b540, type: 3}
-  m_Name: NodePattern_1
+  m_Name: 24004
   m_EditorClassIdentifier: 
   nodePatternTemp:
   - index:
-    - {fileID: 11400000, guid: 14a00c732fc1aeb48acca344bce49458, type: 2}
+    - {fileID: 11400000, guid: ca545d584114fd64aa9c1a4719ac8467, type: 2}
     - {fileID: 11400000, guid: 613177a49ca438b44a0ce1ad1d9548b5, type: 2}
     - {fileID: 0}
   - index:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: ca545d584114fd64aa9c1a4719ac8467, type: 2}
     - {fileID: 11400000, guid: 14a00c732fc1aeb48acca344bce49458, type: 2}
     - {fileID: 0}
   - index:
+    - {fileID: 11400000, guid: ca545d584114fd64aa9c1a4719ac8467, type: 2}
+    - {fileID: 11400000, guid: 0556c2666d8282d4cab67fd2c87385c4, type: 2}
     - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-  damage: 10
+  level: 4
+  damage: 40
