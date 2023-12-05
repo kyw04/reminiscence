@@ -9,7 +9,6 @@ public class Itemdetail : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void OnPointerEnter(PointerEventData eventData)
     {
         ItemdetailObject.SetActive(true);
-        Debug.Log("Open");
     }
 
     public void OnPointerExit(PointerEventData eventData)
