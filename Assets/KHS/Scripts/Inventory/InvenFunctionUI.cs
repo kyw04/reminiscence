@@ -15,8 +15,9 @@ public class InvenFunctionUI : InventoryFunction // MonoBehaviour
     [Header("OptionChange")]
     [SerializeField] private Text _changed;
     [SerializeField] private Text _atkOrDef;
-    [SerializeField] private GameObject _resesObj;
     [SerializeField] private Text[] _reses;
+    //[SerializeField] private GameObject _atkOrDefObj;
+    [SerializeField] private GameObject _resesObj;
 
     [Header("Synthesis")]
     [SerializeField] private Text[] _ingredients;
@@ -45,16 +46,15 @@ public class InvenFunctionUI : InventoryFunction // MonoBehaviour
             case (FunctionMode.ENHANCEMENT):
                 _modeText.text = "아이템 강화";
 
-                InventoryItemBtn._canSelect = true;
+                InvenItemBtn._canSelect = true;
                 if (_targetIDList.Count > 0)
                 {
                     _enhanced.text = _beneficiary._itemName;
-                    _curLv.text = $"현재 Lv: {_beneficiary._itemLevel} ( {_beneficiary._itemExp} / {Item._requiredExp(_beneficiary)} )";
+                    _curLv.text = $"현재 Lv: {_beneficiary._itemLevel} ( {_beneficiary._itemExp} / {Item.RequiredExp(_beneficiary)} )";
 
-                    Item after = new Item(_beneficiary._itemType, "", _beneficiary._itemLevel, _beneficiary._itempart,
-                                          _beneficiary._itemGradeID, _beneficiary._itemExp + _sumExp);
+                    Item after = new Item("", _beneficiary._itemLevel, _beneficiary._itemExp + _sumExp, Item.ItemPart.NULL, _beneficiary._itemGradeID);
 
-                    if (after._itemExp >= Item._requiredExp(after))
+                    if (after._itemExp >= Item.RequiredExp(after))
                     {
                         if (Item.ItemLevelUP(after)._itemLevel < 10)
                         {
@@ -63,10 +63,10 @@ public class InvenFunctionUI : InventoryFunction // MonoBehaviour
                         else
                         {
                             after._itemLevel = 10;
-                            InventoryItemBtn._canSelect = false;
+                            InvenItemBtn._canSelect = false;
                         }
                     }
-                    _afterLv.text = $"강화 후 Lv: {after._itemLevel} ( {after._itemExp} / {Item._requiredExp(after)} )";
+                    _afterLv.text = $"강화 후 Lv: {after._itemLevel} ( {after._itemExp} / {Item.RequiredExp(after)} )";
                 }
                 else
                 {
@@ -82,23 +82,35 @@ public class InvenFunctionUI : InventoryFunction // MonoBehaviour
                 {
                     string atkOrDef()
                     {
-                        if (_beneficiary._itemType == Item.ItemType.WEAPON)
+                        if (_beneficiary._itemPart == Item.ItemPart.GRIMOIRE)
                         {
-                            _resesObj.SetActive(false);
-                            return "공격력";
+                            _resesObj.SetActive(true);
+                            _atkOrDef.gameObject.SetActive(false);
+
+                            _reses[0].text = $"화속성:{_beneficiary._itemFireResis} > {ChangedText("fireRes")}";
+                            _reses[1].text = $"수속성:{_beneficiary._itemWaterResis} > {ChangedText("waterRes")}";
+                            _reses[2].text = $"풍속성:{_beneficiary._itemAirResis} > {ChangedText("airRes")}";
+                            _reses[3].text = $"지속성:{_beneficiary._itemEarthResis} > {ChangedText("earthRes")}";
+
+                            return null;
                         }
                         else
                         {
-                            _resesObj.SetActive(true);
-                            _reses[0].text = $"화속성:{_beneficiary._itemFireResis} > ??";
-                            _reses[1].text = $"화속성:{_beneficiary._itemWaterResis} > ??";
-                            _reses[2].text = $"화속성:{_beneficiary._itemAirResis} > ??";
-                            _reses[3].text = $"화속성:{_beneficiary._itemEarthResis} > ??";
-                            return "방어력";
+                            _resesObj.SetActive(false);
+                            _atkOrDef.gameObject.SetActive(true);
+
+                            if (_beneficiary._itemPart == Item.ItemPart.STAFF) return "공격력";
+                            else return "방어력";
                         }
                     }
-                    _changed.text = _beneficiary._itemName;
-                    _atkOrDef.text = $"{atkOrDef()}: {_beneficiary._itemAtkOrDef} > ??";
+                    _changed.text = ChangedText("name");
+                    _atkOrDef.text = $"{atkOrDef()}: {_beneficiary._itemAtkOrDef} > {ChangedText("atkOrDef")}";
+                }
+                else
+                {
+                    _changed.text = null;
+                    _atkOrDef.gameObject.SetActive(false);
+                    _resesObj.SetActive(false);
                 }
                 break;
             case (FunctionMode.SYNTHESIS):
@@ -111,7 +123,7 @@ public class InvenFunctionUI : InventoryFunction // MonoBehaviour
                 }
 
                 if (_targetIDList.Count == 0) _result.text = "???";
-                else _result.text = $"{Item._name_grades[_higherGradeID + 1]} ???";
+                else _result.text = $"{Item.NameByGrades[_higherGradeID + 1]} ???";
 
                 break;
             default: break;
@@ -122,5 +134,36 @@ public class InvenFunctionUI : InventoryFunction // MonoBehaviour
     public void IsFinish(bool o)
     {
         _isFinished = o;
+    }
+
+
+    private string ChangedText(string stat)
+    {
+        if (stat == "name")
+        {
+            if (_isFinished) return Item.memoryNewItem._itemName;
+            else return _beneficiary._itemName;
+        }
+        else
+        {
+            if (_isFinished)
+            {
+                switch (stat)
+                {
+                    case ("atkOrDef"):
+                        return Item.memoryNewItem._itemAtkOrDef.ToString();
+                    case ("fireRes"):
+                        return Item.memoryNewItem._itemFireResis.ToString();
+                    case ("waterRes"):
+                        return Item.memoryNewItem._itemWaterResis.ToString();
+                    case ("airRes"):
+                        return Item.memoryNewItem._itemAirResis.ToString();
+                    case ("earthRes"):
+                        return Item.memoryNewItem._itemEarthResis.ToString();
+                    default: return null;
+                }
+            }
+            else return "??";
+        }
     }
 }

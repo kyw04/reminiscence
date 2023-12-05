@@ -1,17 +1,15 @@
 [System.Serializable]
 public class Item
 {
-    public enum ItemType { WEAPON, ARMOR }
-    public enum ItemPart { STAFF, GRIMOIRE, ROBE, NULL }
-    //public enum itemGrade { NORMAL, RARE, HEROIC, LEGENDARY }
-
-    public ItemType _itemType;
+    //public enum ItemType { WEAPON, ARMOR }
+    public enum ItemPart { STAFF, ROBE, GRIMOIRE, NULL }
 
     public string _itemName;
     public int _itemLevel;
-    public ItemPart _itempart;
-    public int _itemGradeID; //0~3
     public int _itemExp; //æ˜±◊∑π¿ÃµÂ ∞‘¿Ã¡ˆ
+    public ItemPart _itemPart;
+    public int _itemGradeID; //0:¿œπ› 1:»Ò±Õ 2:øµøı 3:¿¸º≥
+    public bool _onEquip; //¿Â¬¯ø©∫Œ
 
     public int _itemAtkOrDef;
 
@@ -20,90 +18,73 @@ public class Item
     public int _itemAirResis;
     public int _itemEarthResis;
 
-    public bool _onEquip;
-
     static public Item memoryNewItem = null;
 
 
-    public Item(ItemType type, string name, int level, ItemPart part, int itemGradeID, int exp,
-                int atkOrDef = 0, int fireRes = 0, int waterRes = 0, int airRes = 0, int earthRes = 0, bool onEquip = false)
+    public Item(string name, int level, int exp, ItemPart part, int itemGradeID, bool onEquip = false,
+                int atkOrDef = 0, int fireRes = 0, int waterRes = 0, int airRes = 0, int earthRes = 0)
     {
-        _itemType = type;
-
         _itemName = name;
         _itemLevel = level;
-        _itempart = part;
-        _itemGradeID = itemGradeID;
         _itemExp = exp;
+        _itemPart = part;
+        _itemGradeID = itemGradeID;
+
+        _onEquip = onEquip;
 
         _itemAtkOrDef = atkOrDef;
-
         _itemFireResis = fireRes;
         _itemWaterResis = waterRes;
         _itemAirResis = airRes;
         _itemEarthResis = earthRes;
-
-        _onEquip = onEquip;
     }
 
-    //¿œπ› »Ò±Õ øµøı ¿¸º≥
-    static public int[] _expRiseByGrade = new int[4] { 100, 250, 500, 1000 };
 
-    // §Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã§Ã
-    static public int[] _normalExpRequired = new int[10] { 400, 400, 400, 400, 400, 400, 400, 400, 400, 0 };
-    static public int[] _rareExpRequired = new int[10] { 400, 400, 400, 400, 400, 400, 400, 400, 400, 0 };
-    static public int[] _heroicExpRequired = new int[10] { 400, 400, 400, 400, 400, 400, 400, 400, 400, 0 };
-    static public int[] _legendaryExpRequired = new int[10] { 400, 400, 400, 400, 400, 400, 400, 400, 400, 0 };
-    /*static public int[] _expRequired(int gradeID) //æ∆∏∂µµ æ»ùïµÌ..
-    {
-        switch (gradeID)
-        {
-            case (0): return _normalExpRequired;
-            case (1): return _rareExpRequired;
-            case (2): return  _heroicExpRequired;
-            case (3): return _legendaryExpRequired;
-            default: return null;
-        }
-    }*/
+    static public int[] ExpRiseByGrade = new int[4] { 100, 250, 500, 1000 };
 
-    static public int _requiredExp(Item item)
+    static public int[] NormalExpRequired = new int[10] { 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 0 };
+    static public int[] RareExpRequired = new int[10] { 1000, 1400, 1800, 2200, 2600, 3000, 3400, 3800, 4200, 0 };
+    static public int[] HeroicExpRequired = new int[10] { 4000, 4600, 5200, 5800, 6400, 7000, 7600, 8200, 8800, 0 };
+    static public int[] LegendaryExpRequired = new int[10] { 8000, 8800, 9600, 10400, 11200, 12000, 12800, 13600, 14400, 0 };
+
+    static public int RequiredExp(Item item)
     {
         if (item._itemLevel < 10)
         {
             switch (item._itemGradeID)
             {
-                case (0): return _normalExpRequired[item._itemLevel -1];
-                case (1): return _rareExpRequired[item._itemLevel -1];
-                case (2): return _heroicExpRequired[item._itemLevel -1];
-                case (3): return _legendaryExpRequired[item._itemLevel -1];
+                case (0): return NormalExpRequired[item._itemLevel -1];
+                case (1): return RareExpRequired[item._itemLevel -1];
+                case (2): return HeroicExpRequired[item._itemLevel -1];
+                case (3): return LegendaryExpRequired[item._itemLevel -1];
                 default: return 0;
             }
         }
         else return 0;
     }
 
-    static public int[] _staffAtkMin = new int[4] { 1, 11, 21, 31 };
-    static public int[] _staffAtkMax = new int[4] { 10, 20, 30, 50 };
-    static public int[] _grimoireAtkMin = new int[4] { 0, 6, 11, 16 };
-    static public int[] _grimoireAtkMax = new int[4] { 5, 10, 15, 25 };
+    //µÓ±ﬁ∫∞∑Œ
+    static public int[] StaffAtkMin = new int[4] { 1, 11, 21, 31 };
+    static public int[] StaffAtkMax = new int[4] { 10, 20, 30, 50 };
 
-    static public int[] _armorDefMin = new int[4] { 1, 6, 11, 16 };
-    static public int[] _armorDefMax = new int[4] { 5, 10, 15, 25 };
-    static public int[] _armorResMin = new int[4] { 0, 6, 11, 16 };
-    static public int[] _armorResMax = new int[4] { 5, 10, 15, 25 };
+    static public int[] RobeDefMin = new int[4] { 0, 6, 11, 16 };
+    static public int[] RobeDefMax = new int[4] { 5, 10, 15, 25 };
 
-    static public string[] _name_grades = new string[4] { "¿œπ›", "»Ò±Õ", "øµøı", "¿¸º≥" };
-    static public string[] _name_resTypes = new string[4] { "»≠ø∞¿«", "∆ƒµµ¿«", "∆¯«≥¿«", "¥Î¡ˆ¿«" };
-    static public string[] _name_parts = new string[3] { "Ω∫≈¬«¡", "∏∂µµº≠", "∑Œ∫Í" };
+    static public int[] GrimoireResMin = new int[4] { 0, 6, 11, 16 };
+    static public int[] GrimoireResMax = new int[4] { 5, 10, 15, 25 };
+
+    static public string[] NameByGrades = new string[4] { "¿œπ›", "»Ò±Õ", "øµøı", "¿¸º≥" };
+    static public string[] NameByResTypes = new string[4] { "»≠ø∞¿«", "∆ƒµµ¿«", "∆¯«≥¿«", "¥Î¡ˆ¿«" };
+    static public string[] NameByParts = new string[3] { "Ω∫≈¬«¡", "∑Œ∫Í", "∏∂µµº≠" };
 
 
     static public Item ItemLevelUP(Item item)//, int curExp)
     {
         while (item._itemLevel < 10)
         {
-            if (item._itemExp >= _requiredExp(item))
+            if (item._itemExp >= RequiredExp(item))
             {
-                item._itemExp -= _requiredExp(item);
+                item._itemExp -= RequiredExp(item);
                 item._itemLevel += 1;
             }
             else break;
