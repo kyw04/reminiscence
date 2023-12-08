@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Map;
+using UnityEditor;
+using UnityEngine;
 
 namespace Map
 {
@@ -16,10 +18,12 @@ namespace Map
 
 namespace Map
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(fileName = "NewNodeBlueprint", menuName = "Map/Node Blueprint")]
     public class NodeBlueprint : ScriptableObject
     {
         public Sprite sprite;
+        public Sprite[] sprites;
         public NodeType nodeType;
     }
 }
+

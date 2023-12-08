@@ -95,7 +95,7 @@ namespace Map
 
         private void CheckBattleResult()
         {
-            var result = GameStateManager.Instance.LastBattleResult;
+            //var result = GameStateManager.Instance.LastBattleResult;
             // 배틀 결과에 따른 로직...
         }
 

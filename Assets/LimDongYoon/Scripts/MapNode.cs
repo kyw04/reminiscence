@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
 namespace Map
 {
     public enum NodeStates
@@ -12,6 +13,7 @@ namespace Map
         Visited,
         Attainable
     }
+ 
 }
 
 namespace Map
@@ -37,8 +39,15 @@ namespace Map
         {
             Node = node;
             Blueprint = blueprint;
+
+            if (sr != null && blueprint.nodeType == NodeType.MinorEnemy)
+            {
+                int randomNum = UnityEngine.Random.Range(0, blueprint.sprites.Length);
+                Sprite sprite = blueprint.sprites[0];
+            }
             if (sr != null) sr.sprite = blueprint.sprite;
             if (image != null) image.sprite = blueprint.sprite;
+            
             if (node.nodeType == NodeType.Boss) transform.localScale *= 1.5f;
             if (sr != null) initialScale = sr.transform.localScale.x;
             if (image != null) initialScale = image.transform.localScale.x;
