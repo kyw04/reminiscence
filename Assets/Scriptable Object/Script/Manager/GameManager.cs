@@ -19,31 +19,45 @@ public enum GameState
     End
 }
 
+[RequireComponent(typeof(AudioSource))]
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    private const int puzzleSize = 5;
 
+    #region Entity
     public Player player;
     public Enemy enemy;
 
-    public Image turnEndButtonImage;
+    #endregion
+    #region Audio
+    private AudioSource audioSource;
+    public AudioClip blockHoldAudio;
 
-    public GameState gameState = GameState.Idle;
-    [Range(0.0f, 1.0f)]
-    public float gameTime = 1.0f;
-    public Transform puzzleParent;
-    public NodeBase[] nodeBases;
-    Dictionary<NodeBase, int> currentNodeBaseCount = new Dictionary<NodeBase, int>();
-    public Node[,] puzzle = new Node[puzzleSize, puzzleSize];
+    #endregion
+    #region UI
+    public Image turnEndButtonImage;
 
     public int maxMovementCount = 3;
     private int currentMovementCount;
     public GameObject[] movementCountImages;
 
+    #endregion
+    #region GameInfo
+    public GameState gameState = GameState.Idle;
+
+    [Range(0.0f, 1.0f)]
+    public float gameTime = 1.0f;
+
     public int turn = 0;
     public int foundPatternCount = 0;
     public float totalDamage = 0.0f;
+
+    #endregion
+    #region Puzzle
+    private const int puzzleSize = 5; // 2D(puzzleSize x puzzleSize)
+
+    public Transform puzzleParent;
+    public NodeBase[] nodeBases;
 
     public float maxDistance = 21.38653f;
     public float moveSensitivity;
@@ -54,9 +68,13 @@ public class GameManager : MonoBehaviour
     private Node targetNode;
     private HashSet<Transform> moveNodes = new HashSet<Transform>();
     public HashSet<Node> downNodes = new HashSet<Node>();
+    private Dictionary<NodeBase, int> currentNodeBaseCount = new Dictionary<NodeBase, int>();
+    public Node[,] puzzle = new Node[puzzleSize, puzzleSize];
 
     public Transform nodeSpawnPoints;
     private float spacing = 100f;
+
+    #endregion
 
     private void Awake()
     {
@@ -84,6 +102,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         ResetCount();
         turn = 0;
     }
@@ -115,7 +134,7 @@ public class GameManager : MonoBehaviour
         foreach (NodeBase nodeBase in nodeBases)
         {
             if (nodeBase == randomNodeBase[nodeBaseIndex])
-            { 
+            {
                 currentNodeBaseCount[nodeBase]++;
                 return randomNodeBase[nodeBaseIndex];
             }
@@ -150,6 +169,7 @@ public class GameManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit, float.PositiveInfinity, LayerMask.GetMask("Node")))
         {
             gameState = GameState.Select;
+            audioSource.PlayOneShot(blockHoldAudio);
             selectedNode = hit.transform.GetComponent<Node>();
             selectedNodeStartPos = Input.mousePosition;
         }
@@ -324,7 +344,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        
+
         foreach (NodeBase nodeBase in foundNodeBaes)
         {
             player.Attack(nodeBase, pattern.damage / foundNodeBaes.Count);
@@ -394,7 +414,7 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForSeconds(UnityEngine.Random.Range(0.0f, 0.25f));
 
                 deleteNode.Enqueue(puzzle[x, i]);
-                
+
                 puzzle[x, i].transform.SetParent(nodeSpawnPoints.GetChild(puzzle[x, i].x));
                 Vector3 pos = new Vector3(0, (puzzle[x, i].transform.localScale.x + spacing) * counts[puzzle[x, i].x]++, 0);
                 puzzle[x, i].transform.localPosition = pos;
