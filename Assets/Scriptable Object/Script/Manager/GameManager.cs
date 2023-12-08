@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
 
     public Transform puzzleParent;
 
-    public float maxDistance = 21.38653f;
+    public float maxDistance = 21.38653f; // maxDistance *= Puzzle Canvas/Puzzle/Pos.Rect Transfrom.Scale.x
     public float moveSensitivity;
     private float moveDistance;
     private Vector3 selectedNodeStartPos;
