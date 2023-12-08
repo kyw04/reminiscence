@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5f491b607b1cd948b5bc856850b2616, type: 3}
-  m_Name: Mystery
+  m_Script: {fileID: 11500000, guid: 7368134a963b1fd4b81cec3945df9e89, type: 3}
+  m_Name: Agument1
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: f5cf776df5d142541b20f5b6da262a8c, type: 3}
-  sprites: []
-  nodeType: 6
-  nodeElementalType: 0
+  id: 0
+  name: 
+  description: 
+  actionType: 0
