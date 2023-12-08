@@ -25,16 +25,24 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     #region Entity
+    [Header("Entity")]
     public Player player;
     public Enemy enemy;
 
     #endregion
+
     #region Audio
-    private AudioSource audioSource;
+    [Space(5)]
+    [Header("Audio")]
+
     public AudioClip blockHoldAudio;
+    private AudioSource audioSource;
 
     #endregion
     #region UI
+    [Space(5)]
+    [Header("UI")]
+
     public Image turnEndButtonImage;
 
     public int maxMovementCount = 3;
@@ -43,10 +51,14 @@ public class GameManager : MonoBehaviour
 
     #endregion
     #region GameInfo
-    public GameState gameState = GameState.Idle;
+
+    [Space(5)]
+    [Header("Game Info")]
 
     [Range(0.0f, 1.0f)]
     public float gameTime = 1.0f;
+
+    public GameState gameState = GameState.Idle;
 
     public int turn = 0;
     public int foundPatternCount = 0;
@@ -55,9 +67,11 @@ public class GameManager : MonoBehaviour
     #endregion
     #region Puzzle
     private const int puzzleSize = 5; // 2D(puzzleSize x puzzleSize)
+    
+    [Space(5)]
+    [Header("Puzzle")]
 
     public Transform puzzleParent;
-    public NodeBase[] nodeBases;
 
     public float maxDistance = 21.38653f;
     public float moveSensitivity;
@@ -72,7 +86,9 @@ public class GameManager : MonoBehaviour
     public Node[,] puzzle = new Node[puzzleSize, puzzleSize];
 
     public Transform nodeSpawnPoints;
-    private float spacing = 100f;
+    private float spacing = 100.0f; // puzzle canvas size (default = 100.0f)
+
+    public NodeBase[] nodeBases;
 
     #endregion
 
@@ -161,7 +177,7 @@ public class GameManager : MonoBehaviour
     }
     private void NodeSelect()
     {
-        if (gameState != GameState.Idle)
+        if (gameState != GameState.Idle || currentMovementCount <= 0)
             return;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -176,7 +192,7 @@ public class GameManager : MonoBehaviour
     }
     private void NodeDrag()
     {
-        if (selectedNode == null || currentMovementCount <= 0)
+        if (selectedNode == null)
             return;
 
         Vector3 moveDirection = Input.mousePosition - selectedNodeStartPos;

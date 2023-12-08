@@ -767,27 +767,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 561049521}
   enemy: {fileID: 239026020}
-  gameState: 0
-  gameTime: 1
-  puzzleParent: {fileID: 1261683219}
-  nodeBases:
-  - {fileID: 11400000, guid: 14a00c732fc1aeb48acca344bce49458, type: 2}
-  - {fileID: 11400000, guid: ca545d584114fd64aa9c1a4719ac8467, type: 2}
-  - {fileID: 11400000, guid: 613177a49ca438b44a0ce1ad1d9548b5, type: 2}
-  - {fileID: 11400000, guid: 0556c2666d8282d4cab67fd2c87385c4, type: 2}
-  - {fileID: 11400000, guid: 5a2fa13c0d111e64dab10a1817cbe32d, type: 2}
+  blockHoldAudio: {fileID: 8300000, guid: 625ad317b451ec147984e94636d712a6, type: 3}
   turnEndButtonImage: {fileID: 355617910}
   maxMovementCount: 3
   movementCountImages:
   - {fileID: 268676292}
   - {fileID: 974563783}
   - {fileID: 487250187}
+  gameTime: 1
+  gameState: 0
   turn: 0
   foundPatternCount: 0
   totalDamage: 0
+  puzzleParent: {fileID: 1261683219}
   maxDistance: 0.12831917
   moveSensitivity: 0.0025
   nodeSpawnPoints: {fileID: 1843433310}
+  nodeBases:
+  - {fileID: 11400000, guid: 14a00c732fc1aeb48acca344bce49458, type: 2}
+  - {fileID: 11400000, guid: ca545d584114fd64aa9c1a4719ac8467, type: 2}
+  - {fileID: 11400000, guid: 613177a49ca438b44a0ce1ad1d9548b5, type: 2}
+  - {fileID: 11400000, guid: 0556c2666d8282d4cab67fd2c87385c4, type: 2}
+  - {fileID: 11400000, guid: 5a2fa13c0d111e64dab10a1817cbe32d, type: 2}
 --- !u!82 &822807992
 AudioSource:
   m_ObjectHideFlags: 0
