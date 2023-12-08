@@ -19,3 +19,4 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 662262e147b42714e891860584bde204, type: 2}
   baseColor: {r: 0, g: 0, b: 1, a: 1}
   deleteParticle: {fileID: 7343117478595098799, guid: 69b17b087a77b834880106d3307c5544, type: 3}
+  AttackParticle: {fileID: 5987572886358014243, guid: 923791c7c386b014dab87eb63f30018d, type: 3}

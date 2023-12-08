@@ -22,6 +22,7 @@ public class NodeBase : ScriptableObject
     public Material material;
     public Color baseColor;
     public GameObject deleteParticle;
+    public GameObject AttackParticle;
 
     public float GetTotalDamage(NodeBase attackerNodeBase, float damage)
     {
