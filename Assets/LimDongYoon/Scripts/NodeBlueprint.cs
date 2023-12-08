@@ -14,6 +14,13 @@ namespace Map
         Boss,
         Mystery
     }
+    public enum NodeElementalType
+    {
+        Fire = 0,
+        Water = 1,
+        Wind = 2,
+        Land =3
+    }
 }
 
 namespace Map
@@ -24,6 +31,7 @@ namespace Map
         public Sprite sprite;
         public Sprite[] sprites;
         public NodeType nodeType;
+        public NodeElementalType nodeElementalType;
     }
 }
 

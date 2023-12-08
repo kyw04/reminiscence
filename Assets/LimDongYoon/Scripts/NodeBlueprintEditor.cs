@@ -9,12 +9,14 @@ namespace Map
         SerializedProperty nodeTypeProp;
         SerializedProperty spriteProp;
         SerializedProperty spritesProp;
+        SerializedProperty nodeElementalTypeProp;
 
         void OnEnable()
         {
             nodeTypeProp = serializedObject.FindProperty("nodeType");
             spriteProp = serializedObject.FindProperty("sprite");
             spritesProp = serializedObject.FindProperty("sprites");
+            nodeElementalTypeProp = serializedObject.FindProperty("nodeElementalTypeProp");
         }
 
         public override void OnInspectorGUI()
@@ -28,6 +30,8 @@ namespace Map
             if ((NodeType)nodeTypeProp.enumValueIndex == NodeType.MinorEnemy)
             {
                 EditorGUILayout.PropertyField(spritesProp, true);
+                EditorGUILayout.PropertyField(nodeElementalTypeProp);
+                
             }
             else
             {

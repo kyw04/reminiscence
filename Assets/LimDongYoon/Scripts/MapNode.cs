@@ -13,6 +13,7 @@ namespace Map
         Visited,
         Attainable
     }
+   
  
 }
 
@@ -34,6 +35,7 @@ namespace Map
         private float mouseDownTime;
 
         private const float MaxClickDuration = 0.5f;
+       
 
         public void SetUp(Node node, NodeBlueprint blueprint)
         {
@@ -42,11 +44,17 @@ namespace Map
 
             if (sr != null && blueprint.nodeType == NodeType.MinorEnemy)
             {
+
                 int randomNum = UnityEngine.Random.Range(0, blueprint.sprites.Length);
-                Sprite sprite = blueprint.sprites[0];
+                Sprite sprite = blueprint.sprites[randomNum];
+                blueprint.sprite = sprite;
+                blueprint.nodeElementalType = (NodeElementalType)randomNum;
+                Debug.Log(randomNum);
             }
+            
             if (sr != null) sr.sprite = blueprint.sprite;
             if (image != null) image.sprite = blueprint.sprite;
+            
             
             if (node.nodeType == NodeType.Boss) transform.localScale *= 1.5f;
             if (sr != null) initialScale = sr.transform.localScale.x;
