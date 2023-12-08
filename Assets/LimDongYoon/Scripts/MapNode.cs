@@ -148,7 +148,7 @@ namespace Map
                 image.transform.DOScale(initialScale * HoverScaleFactor, 0.3f);
             }
         }
-
+        
         public void OnPointerExit(PointerEventData data)
         {
             if (sr != null)

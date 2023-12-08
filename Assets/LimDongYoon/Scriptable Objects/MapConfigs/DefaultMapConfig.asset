@@ -26,8 +26,9 @@ MonoBehaviour:
     min: 4
     max: 5
   numOfStartingNodes:
-    min: 3
+    min: 4
     max: 4
+  extraPaths: 0
   layers:
     array:
     - nodeType: 0
@@ -50,7 +51,7 @@ MonoBehaviour:
         max: 3
       nodesApartDistance: 2
       randomizePosition: 0.509
-      randomizeNodes: 0
+      randomizeNodes: 0.724
     - nodeType: 3
       distanceFromPreviousLayer:
         min: 2

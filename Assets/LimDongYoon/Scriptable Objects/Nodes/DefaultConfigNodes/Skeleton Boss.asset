@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5f491b607b1cd948b5bc856850b2616, type: 3}
   m_Name: Skeleton Boss
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 91f3a59db48995646a98d1c1658bb71e, type: 3}
+  sprite: {fileID: 21300000, guid: 7fe7589a7be9e104fbe0014efe71df7f, type: 3}
+  sprites: []
   nodeType: 5
+  nodeElementalType: 0
