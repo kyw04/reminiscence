@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class ItemInfoUI : InventoryFunction, IDragHandler//MonoBehaviour
 {
-    public int _infoID;
+    //public int _infoID;
 
     [SerializeField] private Text _itemName, _itemLevel, _requiredExp, _itemAtkOrDef;
     [SerializeField] private Text[] _itemReses;
@@ -36,11 +36,12 @@ public class ItemInfoUI : InventoryFunction, IDragHandler//MonoBehaviour
     public void Set(int ID)
     {
         _infoID = ID;
-        Item item = itemDB._items[_infoID];
+        Item item = itemDB._items[ID];
 
         _itemName.text = item._itemName;
         _itemLevel.text = item._itemLevel.ToString() + " Lv";
-        _itemExp.value = item._itemExp / (float)Item.RequiredExp(item);
+        if (item._itemLevel == 10) _itemExp.value = 0;
+        else _itemExp.value = item._itemExp / (float)Item.RequiredExp(item);
         _requiredExp.text = "다음 레벨까지 " +
                             (Item.RequiredExp(item) - item._itemExp).ToString();
 
@@ -73,6 +74,8 @@ public class ItemInfoUI : InventoryFunction, IDragHandler//MonoBehaviour
 
         if (this.gameObject.GetComponent<RectTransform>().anchoredPosition.y <= -250)
             this.gameObject.GetComponent<RectTransform>().anchoredPosition += new Vector2(0, -this.gameObject.GetComponent<RectTransform>().anchoredPosition.y - 250);
+        if (this.gameObject.GetComponent<RectTransform>().anchoredPosition.x <= -710)
+            this.gameObject.GetComponent<RectTransform>().anchoredPosition += new Vector2(-this.gameObject.GetComponent<RectTransform>().anchoredPosition.x - 710 , 0);
     }
 
 

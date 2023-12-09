@@ -13,8 +13,6 @@ public class ItemDatabase : MonoBehaviour
 
     private void Awake()
     {
-        //타입 이름 레벨 부위 등급 뭐더라경험치? 공격력/ 화수풍지
-
         string[] line = ItemDBTxt.text.Substring(0, ItemDBTxt.text.Length -1).Split('\n');
         for (int i = 0; i < line.Length -1; i++)
         {

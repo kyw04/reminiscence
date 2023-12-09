@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,18 +10,18 @@ public class InvenItemBtn : InventoryFunction
     static public bool _canSelect = true;
 
     public int btnID;
+    [SerializeField] private ItemInfoUI _infoPanel;
 
     private Image _image;
-    private Image _frame;
     private Color _cantTarget = new Color(0.2f, 0.2f, 0.2f);
 
 
     protected override void Awake()
     {
         base.Awake();
+        _infoPanel = GameObject.Find("Canvas").transform.Find("ItemInfoUI").GetComponent<ItemInfoUI>();
 
         _image = GetComponent<Image>();
-        _frame = this.transform.Find("Frame").GetComponent<Image>();
     }
 
 
@@ -31,26 +31,26 @@ public class InvenItemBtn : InventoryFunction
 
         if (!_isSelect)
         {
-            _image.color = Color.white;
-            _frame.color = Color.white;
+            if (itemDB._items[btnID]._onEquip) _image.color = Color.red;
+            else _image.color = Color.white;
 
             if (_mode == FunctionMode.ENHANCEMENT)
             {
                 if (_targetIDList.Count == 0)
                 {
-                    if (!CanTargeted(btnID, true)) { _image.color = _cantTarget; _frame.color = _cantTarget; }
+                    if (!CanTargeted(btnID, true)) _image.color = _cantTarget;
                 }
             }
             else if (_mode == FunctionMode.OPTIONCHANGE)
             {
                 if (_targetIDList.Count > 0)
                 {
-                    if (!CanTargeted(btnID, false)) { _image.color = _cantTarget; _frame.color = _cantTarget; }
+                    if (!CanTargeted(btnID, false)) _image.color = _cantTarget;
                 }
             }
             else if (_mode == FunctionMode.SYNTHESIS)
             {
-                if (!CanTargeted(btnID, false)) { _image.color = _cantTarget; _frame.color = _cantTarget; }
+                if (!CanTargeted(btnID, false)) _image.color = _cantTarget;
             }
 
             if (btnID == itemDB._items.IndexOf(Item.memoryNewItem)) _image.color = Color.yellow;
@@ -59,10 +59,8 @@ public class InvenItemBtn : InventoryFunction
         {
             if ((_mode == FunctionMode.ENHANCEMENT || _mode == FunctionMode.OPTIONCHANGE) && btnID == _targetIDList[0])
                 _image.color = Color.cyan;
-            else { _image.color = Color.gray; _frame.color = Color.gray; }
+            else _image.color = Color.gray;
         }
-
-        gameObject.transform.Find("OnEquipMark").gameObject.SetActive(itemDB._items[btnID]._onEquip);
     }
 
 
@@ -118,6 +116,7 @@ public class InvenItemBtn : InventoryFunction
                     }
                     else if (CanTargeted(btnID, false)) //새로고르는거는
                     {
+                        //if (_targetIDList.Count < 2) //1나만
                         _beneficiary = itemDB._items[_targetIDList[0]];
                         _targetIDList.Add(btnID);
                     }
@@ -130,7 +129,8 @@ public class InvenItemBtn : InventoryFunction
                 }
                 else //새로고르는거는
                 {
-                    if (CanTargeted(btnID, false))
+                    //if (_targetIDList.Count < 2) // 최대 2개까지
+                    if (CanTargeted(btnID, false)) //조건에 맞으면(만렙이면)
                     {
                         _targetIDList.Add(btnID);
                     }
@@ -139,24 +139,30 @@ public class InvenItemBtn : InventoryFunction
             case (FunctionMode.EQUIP):
                 Item item = itemDB._items[btnID];
 
-                int part = Item.PartToPartID(item._itemPart);
+                int part = 0;
+                switch (item._itemPart)
+                {
+                    case (Item.ItemPart.STAFF): part = 0; break;
+                    case (Item.ItemPart.ROBE): part = 1; break;
+                    case (Item.ItemPart.GRIMOIRE): part = 2; break;
+                }
 
+                Debug.Log(TTTempPlayerData.instance.PlayerEquip[part]);
                 if (item._onEquip)
                 {
-                    TempEquipData.instance.PlayerEquip[part] = null;
+                    TTTempPlayerData.instance.PlayerEquip[part] = null;
                     item._onEquip = false;
                 }
                 else
                 {
-                    if (TempEquipData.instance.PlayerEquip[part] != null && TempEquipData.instance.PlayerEquip[part]._onEquip)
+                    if (TTTempPlayerData.instance.PlayerEquip[part] != null)
                     {
-                        TempEquipData.instance.PlayerEquip[part]._onEquip = false;
+                        Debug.Log(TTTempPlayerData.instance.PlayerEquip[part]);
+                        TTTempPlayerData.instance.PlayerEquip[part]._onEquip = false;
                     }
-                    TempEquipData.instance.PlayerEquip[part] = item;
+                    TTTempPlayerData.instance.PlayerEquip[part] = item;
                     item._onEquip = true;
                 }
-
-                TempEquipData.instance.SetEquipmentStat();
                 break;
             case (FunctionMode.NULL):
                 if (_targetIDList.Count != 0) _targetIDList[0] = btnID;
@@ -166,12 +172,40 @@ public class InvenItemBtn : InventoryFunction
         }
     }
 
+    /*
+    public bool CanTargeted(bool isIngredient)//, FunctionMode mode)
+    {
+        Item target = itemDB._items[btnID];
+        switch (_mode)
+        {
+            case (FunctionMode.ENHANCEMENT):
+                if (!isIngredient)
+                {
+                    if (target._itemLevel < 10) return true;
+                    else return false;
+                }
+                else return true;
+            case (FunctionMode.OPTIONCHANGE):
+                if (!isIngredient) return true;
+                else
+                {
+                    if (target._itemGradeID <= _beneficiary._itemGradeID) return true;
+                    else return false;
+                }
+            case (FunctionMode.SYNTHESIS):
+                if (target._itemLevel >= 10 && target._itemGradeID < 3) return true;
+                else return false;
+
+            default: return true;
+        }
+    }
+
 
     private void AppearInfoUI()
     {
-        itemInfoUI.gameObject.SetActive(true);
+        _infoPanel.gameObject.SetActive(true);
         //_infoPanel.ID = btnID;
-        itemInfoUI.Set(btnID);
-        itemInfoUI.SetPos();
+        _infoPanel.Set(btnID);
+        _infoPanel.SetPos();
     }
-}
+}*/

@@ -1,3 +1,6 @@
+using System.Linq;
+using System.Collections.Generic;
+
 [System.Serializable]
 public class Item
 {
@@ -86,11 +89,54 @@ public class Item
             {
                 item._itemExp -= RequiredExp(item);
                 item._itemLevel += 1;
+                item = UpgradeByLevel(item);
             }
             else break;
         }
         if (item._itemLevel == 10) item._itemExp = 0;
 
         return item;
+    }
+
+
+    static public Item UpgradeByLevel(Item item)
+    {
+        if (item._itemPart != ItemPart.GRIMOIRE)
+        {
+            item._itemAtkOrDef += 1;
+        }
+        else
+        {
+            item._itemFireResis += 1;
+            item._itemWaterResis += 1;
+            item._itemAirResis += 1;
+            item._itemEarthResis += 1;
+        }
+
+        return item;
+    }
+
+
+    static public int PartToPartID(Item.ItemPart part)
+    {
+        if (part == Item.ItemPart.STAFF) return 0;
+        else if (part == Item.ItemPart.ROBE) return 1;
+        else return 2;
+    }
+
+
+    static public Item.ItemPart PartIDToPart(int ID)
+    {
+        if (ID == 0) return Item.ItemPart.STAFF;
+        else if (ID == 1) return Item.ItemPart.ROBE;
+        else return Item.ItemPart.GRIMOIRE;
+    }
+
+
+    static public int duddjfmfTMwk(Item item)
+    {
+        List<int> reses = new List<int>() { item._itemFireResis, item._itemWaterResis, item._itemAirResis, item._itemEarthResis };
+
+        return reses.IndexOf(reses.Max());
     }
 }

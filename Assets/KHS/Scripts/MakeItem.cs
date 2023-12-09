@@ -20,20 +20,14 @@ public class MakeItem : MonoBehaviour
 
     public void MakeTrash() //임시임시요
     {
-        Item.ItemPart part;
-        int rand = Random.Range(0,3);
-
-        if (rand  == 0)     part = Item.ItemPart.STAFF;
-        else if (rand == 1) part = Item.ItemPart.GRIMOIRE;
-        else                part = Item.ItemPart.ROBE;
-
-        Make(part, Random.Range(0, 4));//, true);
+        Make(Random.Range(0, 3), Random.Range(0, 4));
     }
 
 
-    public Item Make(Item.ItemPart part, int gradeID)//, bool save)
-    //public void Make(Item.ItemPart part, int gradeID)
+    public Item Make(int partID, int gradeID)
     {
+        Item.ItemPart part = Item.PartIDToPart(partID);
+
         Item maden;
         bool hasMaxOption = false;
 
@@ -52,9 +46,7 @@ public class MakeItem : MonoBehaviour
 
             for (int i = 0; i < reses.Count; i++)
             {
-                //if (i != reses.IndexOf(reses.Max()))
-                    if (reses[i] == curMax) curMaxIndexList.Add(i);
-                //else curMaxIndexList.Add(i); //왜 네문장이나썼지?이따가고치기
+                if (reses[i] == curMax) curMaxIndexList.Add(i);
             }
 
             if (curMaxIndexList.Count > 1)
@@ -193,15 +185,6 @@ public class MakeItem : MonoBehaviour
 
         return maden;
     }
-
-    /*
-    public void SaveMaking(Item maden)
-    {
-        itemDB._items.Add(maden);
-        Item.memoryNewItem = maden;
-
-        CompleteMaking.Invoke();
-    }*/
 
 
     private string Naming(Item.ItemPart part, bool hasMaxOption)

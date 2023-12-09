@@ -8,7 +8,10 @@ public class InventoryFunction : MonoBehaviour
 {
     protected ItemDatabase itemDB;
     protected MakeItem makeItem;
+
     protected ItemInfoUI itemInfoUI;
+    public int _infoID;
+    //protected EquipItemInfo eqiupItemInfoUI;
 
     public enum FunctionMode { ENHANCEMENT, OPTIONCHANGE, SYNTHESIS, EQUIP, NULL };
     static protected FunctionMode _mode = FunctionMode.NULL;
@@ -27,7 +30,8 @@ public class InventoryFunction : MonoBehaviour
     protected virtual void Awake()
     {
         itemDB = GameObject.Find("ItemDatabase").GetComponent<ItemDatabase>();
-        makeItem = GameObject.Find("TempMakingbtn").GetComponent<MakeItem>(); //¾ðÁ¨°¡¾îµò°¡·Î¿Å±â±â
+        //makeItem = GameObject.Find("TempMakingbtn").GetComponent<MakeItem>();
+        makeItem = GameObject.Find("ItemDatabase").GetComponent<MakeItem>();
         itemInfoUI = GameObject.Find("Canvas").transform.Find("ItemInfoUI").GetComponent<ItemInfoUI>();
 
         _fnUI = GameObject.Find("InvenFunctionUI");
@@ -118,21 +122,19 @@ public class InventoryFunction : MonoBehaviour
             int level = _beneficiary._itemLevel;
             int exp = _beneficiary._itemExp;
             bool equip = false;
-            /*
-            RemoveIngredients(false);
-            makeItem.Make(_beneficiary._itemPart, _beneficiary._itemGradeID);
-            _targetIDList.Add(itemDB._items.IndexOf(Item.memoryNewItem));*/
 
             if (_beneficiary._onEquip) equip = true;
             RemoveIngredients(false);
-            makeItem.Make(part, gradeID);//, false);
+            makeItem.Make(Item.PartToPartID(part), gradeID);
 
             Item.memoryNewItem._itemLevel = level;
             Item.memoryNewItem._itemExp = exp;
             Item.memoryNewItem._onEquip = equip;
 
+            for (int i = 1; i < level; i++)
+                Item.memoryNewItem = Item.UpgradeByLevel(Item.memoryNewItem);
+
             _targetIDList.Add(itemDB._items.IndexOf(Item.memoryNewItem));
-            //_targetIDList.Add(itemDB._items.IndexOf(Item.memoryNewItem));
             Finish();
         }
     }
@@ -148,14 +150,13 @@ public class InventoryFunction : MonoBehaviour
             else _higherGradeID = itemDB._items[_targetIDList[0]]._itemGradeID;*/
 
             RemoveIngredients(false);
-
+            /*
             Item.ItemPart part;
             if (Random.Range(0, 3) == 0) part = Item.ItemPart.STAFF;
             else if (Random.Range(0, 3) == 1) part = Item.ItemPart.GRIMOIRE;
-            else part = Item.ItemPart.ROBE;
+            else part = Item.ItemPart.ROBE; */
 
-            //makeItem.ItemSynthesis(higher+1);
-            makeItem.Make(part, _higherGradeID + 1);//, true);
+            makeItem.Make(Random.Range(0, 3), _higherGradeID + 1);//, true);
             Finish();
         }
     }
@@ -228,14 +229,6 @@ public class InventoryFunction : MonoBehaviour
                     else return false;
                 }
                 else return false;
-            case (FunctionMode.EQUIP):
-            {
-                switch (target._itemPart)
-                {
-                    //
-                }
-                return true;
-            }
             default: return true;
         }
     }

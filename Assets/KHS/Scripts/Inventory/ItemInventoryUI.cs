@@ -24,9 +24,21 @@ public class ItemInventoryUI : MonoBehaviour
 
         for (int _invenCnt = 0; _invenCnt < _itemCnt; _invenCnt++)
         {
+            Item item = itemDB._items[_invenCnt];
             GameObject _maden = Instantiate(_itemIconBase);
-            Text _itemName = _maden.transform.Find("ItemName").GetComponent<Text>();
-            _itemName.text = itemDB._items[_invenCnt]._itemName;
+
+            Image _itemObj = _maden.transform.transform.Find("Obj").GetComponent<Image>();
+            if (item._itemPart == Item.ItemPart.GRIMOIRE)
+                _itemObj.sprite = Resources.Load<Sprite>("Sprites/obj" + Item.PartToPartID(item._itemPart) + Item.duddjfmfTMwk(item));
+            else _itemObj.sprite = Resources.Load<Sprite>("Sprites/obj" + Item.PartToPartID(item._itemPart));
+            ///////
+            if (item._itemPart != Item.ItemPart.ROBE) _itemObj.transform.rotation = Quaternion.Euler(0, 0, 33);
+            //////
+
+            Image _itemGradeFrame = _maden.transform.Find("Frame").GetComponent<Image>();
+            _itemGradeFrame.sprite = Resources.Load<Sprite>("Sprites/frame" + item._itemGradeID);
+            //Text _itemName = _maden.transform.Find("ItemName").GetComponent<Text>();
+            //_itemName.text = item._itemName;
 
             _maden.transform.SetParent(this.gameObject.transform, false);
             _maden.gameObject.GetComponent<InvenItemBtn>().btnID = _invenCnt;

@@ -16,7 +16,6 @@ public class InvenFunctionUI : InventoryFunction // MonoBehaviour
     [SerializeField] private Text _changed;
     [SerializeField] private Text _atkOrDef;
     [SerializeField] private Text[] _reses;
-    //[SerializeField] private GameObject _atkOrDefObj;
     [SerializeField] private GameObject _resesObj;
 
     [Header("Synthesis")]
@@ -26,11 +25,10 @@ public class InvenFunctionUI : InventoryFunction // MonoBehaviour
     [Header("Equip")]
     [SerializeField] private Text _staffName;
     [SerializeField] private Text _staffAtk;
-    [SerializeField] private Text _grimoireName;
-    [SerializeField] private Text _grimoireAtk;
     [SerializeField] private Text _robeName;
     [SerializeField] private Text _robeDef;
-    [SerializeField] private Text[] _robeRes;
+    [SerializeField] private Text _grimoireName;
+    [SerializeField] private Text[] _grimoireReses;
 
 
     protected override void Awake()
@@ -119,11 +117,56 @@ public class InvenFunctionUI : InventoryFunction // MonoBehaviour
                 for (int i = 0; i < 2; i++)
                 {
                     if (_targetIDList.Count >= i + 1) _ingredients[i].text = itemDB._items[_targetIDList[i]]._itemName;
-                    else _ingredients[i].text = "ㅇㅅㅇ";
+                    else _ingredients[i].text = "???";
                 }
 
                 if (_targetIDList.Count == 0) _result.text = "???";
                 else _result.text = $"{Item.NameByGrades[_higherGradeID + 1]} ???";
+
+                break;
+            case (FunctionMode.EQUIP):
+                _modeText.text = "아이템 장착";
+
+                if (TempEquipData.instance.PlayerEquip[0] != null && TempEquipData.instance.PlayerEquip[0]._onEquip)
+                {
+                    _staffName.text = TempEquipData.instance.PlayerEquip[0]._itemName;
+                    _staffAtk.text = $"공격력: {TempEquipData.instance.PlayerEquip[0]._itemAtkOrDef.ToString()}";
+                }
+                else
+                {
+                    _staffName.text = "?? 스태프";
+                    _staffAtk.text = "공격력: ??";
+                }
+
+                if (TempEquipData.instance.PlayerEquip[1] != null && TempEquipData.instance.PlayerEquip[1]._onEquip)
+                {
+                    _robeName.text = TempEquipData.instance.PlayerEquip[1]._itemName;
+                    _robeDef.text = $"방어력: {TempEquipData.instance.PlayerEquip[1]._itemAtkOrDef.ToString()}";
+                }
+                else
+                {
+                    _robeName.text = "?? 로브";
+                    _robeDef.text = "방어력: ??";
+                }
+
+
+                if (TempEquipData.instance.PlayerEquip[2] != null && TempEquipData.instance.PlayerEquip[2]._onEquip)
+                {
+                    _grimoireName.text = TempEquipData.instance.PlayerEquip[2]._itemName;
+                    _grimoireReses[0].text = $"화속성 내성: {TempEquipData.instance.PlayerEquip[2]._itemFireResis.ToString()}";
+                    _grimoireReses[1].text = $"수속성 내성: {TempEquipData.instance.PlayerEquip[2]._itemWaterResis.ToString()}";
+                    _grimoireReses[2].text = $"풍속성 내성: {TempEquipData.instance.PlayerEquip[2]._itemAirResis.ToString()}";
+                    _grimoireReses[3].text = $"지속성 내성: {TempEquipData.instance.PlayerEquip[2]._itemEarthResis.ToString()}";
+                }
+                else
+                {
+                    _grimoireName.text = "?? ??의 마도서";
+                    _grimoireReses[0].text = "화속성 내성: ??";
+                    _grimoireReses[1].text = "수속성 내성: ??";
+                    _grimoireReses[2].text = "풍속성 내성: ??";
+                    _grimoireReses[3].text = "지속성 내성: ??";
+                }
+
 
                 break;
             default: break;
