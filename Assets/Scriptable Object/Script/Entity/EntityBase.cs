@@ -41,5 +41,5 @@ public class EntityBase : MonoBehaviour
         }
     }
 
-    public virtual void Death() { }
+    public virtual void Death() {  }
 }

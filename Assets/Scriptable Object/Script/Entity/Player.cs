@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : EntityBase
@@ -37,5 +39,10 @@ public class Player : EntityBase
     {
         GameManager.instance.EndBattle(false);
         
+    }
+
+    private void Awake()
+    {
+        if (GameStateManager.Instance.playerLoseMdoe) health = 1f;
     }
 }
