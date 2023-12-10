@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4b902008e2f89e4a895c655a9ef2083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneLocked: 1
+  sceneLocked: 0
 --- !u!4 &167130034
 Transform:
   m_ObjectHideFlags: 0
@@ -885,6 +885,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69285847a9a66eb468d547bbbce6ff78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerWinMode: 1
+  playerLoseMdoe: 0
+  mapNode: {fileID: 0}
 --- !u!4 &1174698224
 Transform:
   m_ObjectHideFlags: 0
@@ -1804,6 +1807,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5337413450055484461, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
+      propertyPath: lockAfterSelecting
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337413451386887161, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
+      propertyPath: xSize
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337413451386887161, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
+      propertyPath: yOffset
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337413451386887161, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
+      propertyPath: background
+      value: 
+      objectReference: {fileID: 21300000, guid: 04d7998b5ae904944885e8c653f78fcb, type: 3}
     - target: {fileID: 5337413451386887161, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
       propertyPath: linePointsCount
       value: 3

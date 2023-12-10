@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7368134a963b1fd4b81cec3945df9e89, type: 3}
   m_Name: Agument1 5
   m_EditorClassIdentifier: 
-  id: 0
-  name: 
-  description: 
+  id: 40000
+  name: "\uC30D\uB465\uC774\uC758 \uAC80"
+  description: "\uD134\uC774 \uC885\uB8CC\uB420 \uB54C \uC644\uC131\uB41C \uBB38\uC591\uC758
+    \uAC1C\uC218\uAC00 2\uAC1C\uC77C \uACBD\uC6B0 \uC801\uC758 \uCCB4\uB825\uC744
+    10 \uAC10\uC18C \uC2DC\uD0A8\uB2E4."
   actionType: 0
+  priority: 0
+  augmentType: 40000

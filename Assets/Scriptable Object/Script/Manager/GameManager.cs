@@ -466,10 +466,11 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    //ÀüÅõ°¡ ³¡³µÀ»¶§
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void EndBattle(bool playerWon)
     {
-        GameStateManager.Instance.SetBattleResult(playerWon ? GameStateManager.BattleResult.Win : GameStateManager.BattleResult.Lose);
+        Debug.Log("ê²Œìž„ê²°ê³¼ "+ playerWon);
+        GameStateManager.Instance.SetBattleResult(playerWon ? BattleResult.Win : BattleResult.Lose);
         MySceneManager.Instance.LoadPreviousScene();
     }
 

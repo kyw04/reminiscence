@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Linq;
 using DG.Tweening;
+using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.TextCore;
 
 namespace Map
 {
@@ -15,8 +18,7 @@ namespace Map
         public MySceneManager sceneManager;
 
         public static MapPlayerTracker Instance;
-        public enum BattleResult { None, Win, Lose }
-        public static BattleResult lastBattleResult = BattleResult.None;
+        
 
         
         public bool Locked { get; set; }
@@ -60,34 +62,43 @@ namespace Map
         {
             Locked = lockAfterSelecting;
             mapManager.CurrentMap.path.Add(mapNode.Node.point);
+            
+            switch (mapNode.Node.nodeType)
+            {
+                case NodeType.Boss:
+                case NodeType.MinorEnemy:
+                case NodeType.EliteEnemy:
+                    break;
+                default:
+                    mapManager.SaveMap();
+                    break;
+            }
+
+            view.SetAttainableNodes();
+            view.SetLineColors();
+            //mapNode.ShowSwirlAnimation();
+            DOTween.Sequence().AppendInterval(enterNodeDelay).OnComplete(() => EnterNode(mapNode));
+        }
+        
+        private void SendPlayerToNode(MapNode mapNode,bool saveMode)
+        {
+            
+            Locked = lockAfterSelecting;
+            mapManager.CurrentMap.path.Add(mapNode.Node.point);
             mapManager.SaveMap();
             view.SetAttainableNodes();
             view.SetLineColors();
             mapNode.ShowSwirlAnimation();
-
-            DOTween.Sequence().AppendInterval(enterNodeDelay).OnComplete(() => EnterNode(mapNode));
+            if (mapNode.Node.nodeType == NodeType.Boss)
+            {
+                mapManager.GenerateNewMap();
+                mapManager.SaveMap();
+            }
         }
      
-        private void ReturnFromBattle()
-        {
-           // MapNode currentNode = mapManager.CurrentMap.GetNodeAt(0);
-            if (lastBattleResult == BattleResult.Lose)
-            {
-                // 패배 로직 처리
-                // 예: 스테이지 재시도, 게임 오버 처리 등
-            }
-            else if (lastBattleResult == BattleResult.Win)
-            {
-                // 승리 로직 처리
-                // 예: 다음 스테이지로 진행
-            }
-        }
+     
 
-        // 배틀 씬에서의 결과 설정
-        public static void SetBattleResult(BattleResult result)
-        {
-            lastBattleResult = result;
-        }
+       
         private void Start()
         {
             CheckBattleResult();
@@ -95,36 +106,56 @@ namespace Map
 
         private void CheckBattleResult()
         {
-            //var result = GameStateManager.Instance.LastBattleResult;
-            // 배틀 결과에 따른 로직...
+            BattleResult battleResult = GameStateManager.Instance.GetBattleResult();
+            switch (battleResult)
+            {
+                case BattleResult.Win:
+                    Debug.Log(GameStateManager.Instance.point);
+                    GameStateManager.Instance.mapNode = view.GetNode(GameStateManager.Instance.point);
+                    SelectNode(view.GetNode(GameStateManager.Instance.point));
+                     mapManager.SaveMap();
+                    
+                    
+                    break;
+                case BattleResult.Lose:
+                    Debug.Log("False");
+                    break;
+            }
+            
         }
 
         private static void EnterNode(MapNode mapNode)
         {
-            // 배틀 씬으로 전환하기 전에 결과 초기화
-            lastBattleResult = BattleResult.None;
             Debug.Log("Entering node: " + mapNode.Node.blueprintName + " of type: " + mapNode.Node.nodeType);
             // we have access to blueprint name here as well
 
-            MySceneManager.Instance.LoadNextScene();
+            
             // load appropriate scene with context based on nodeType:
             // or show appropriate GUI over the map: 
             // if you choose to show GUI in some of these cases, do not forget to set "Locked" in MapPlayerTracker back to false
             switch (mapNode.Node.nodeType)
             {
+                case NodeType.Boss:
                 case NodeType.MinorEnemy:
-                    break;
                 case NodeType.EliteEnemy:
+                    Debug.Log("zz");
+                    DontDestroyOnLoad(mapNode.gameObject);
+                    GameStateManager.Instance.point = mapNode.Node.point;//new Point(x: mapNode.Node.point.x, y:mapNode.Node.point.y);
+                    MySceneManager.Instance.LoadNextScene();
                     break;
                 case NodeType.RestSite:
+                    
+                    Debug.Log("휴식");
                     break;
-                case NodeType.Treasure:
-                    break;
+                
                 case NodeType.Store:
-                    break;
-                case NodeType.Boss:
+                    Debug.Log("마법");
                     break;
                 case NodeType.Mystery:
+                    Debug.Log("증강체");
+                    break;
+                
+                case NodeType.Treasure:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
