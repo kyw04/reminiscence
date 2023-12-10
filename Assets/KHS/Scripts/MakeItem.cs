@@ -7,27 +7,10 @@ using UnityEngine.Events;
 public class MakeItem : MonoBehaviour
 {
     private ItemDatabase itemDB;
+    private string _nameByGrade, _nameByResType, _nameByPart;
 
-    //private Item_Weapon _newWeapon;
-    //private Item_Armor _newArmor;
-
-    /*private int[] _staffAtkMin = new int[4] { 1, 11, 21, 31 };
-    private int[] _staffAtkMax = new int[4] { 10, 20, 30, 50 };
-    private int[] _grimoireAtkMin = new int[4] { 0, 6, 11, 16 };
-    private int[] _grimoireAtkMax = new int[4] { 5, 10, 15, 25 };
-
-    private int[] _armorDefMin = new int[4] { 1, 6, 11, 16 };
-    private int[] _armorDefMax = new int[4] { 5, 10, 15, 25 };
-
-    private int[] _armorResMin = new int[4] { 0, 6, 11, 16 };
-    private int[] _armorResMax = new int[4] { 5, 10, 15, 25 };
-    
-    private string[] _name_grades = new string[4] { "일반", "희귀", "영웅", "전설" };
-    private string[] _name_resTypes = new string[4] { "화염의", "파도의", "폭풍의", "대지의" };
-    private string[] _name_parts = new string[3] { "스태프", "마도서", "로브" };*/
-
-    private string _name_grade, _name_resType, _name_part;
     public UnityEvent CompleteMaking;
+    [SerializeField] private GameObject _newItemInfo;
 
 
     private void Start()
@@ -38,38 +21,85 @@ public class MakeItem : MonoBehaviour
 
     public void MakeTrash() //임시임시요
     {
-        Item.ItemPart part;
-        if (Random.Range(0, 3) == 0)      part = Item.ItemPart.STAFF;
-        else if (Random.Range(0, 3) == 1) part = Item.ItemPart.GRIMOIRE;
-        else                              part = Item.ItemPart.ROBE;
-        Make(part, Random.Range(0, 4));
+        Make(Random.Range(0, 3), Random.Range(0, 4));
     }
 
-    /*
-    public void ItemOptionChange(Item.ItemPart part, int gradeID)
+
+    public Item Make(int partID, int gradeID)
     {
-        Make(part, gradeID);
-    }
+        Item.ItemPart part = Item.PartIDToPart(partID);
 
-    
-    public void ItemSynthesis(int gradeID)
-    {
-        Item.ItemPart part;
-        if (Random.Range(0, 3) == 0)      part = Item.ItemPart.STAFF;
-        else if (Random.Range(0, 3) == 1) part = Item.ItemPart.GRIMOIRE;
-        else                              part = Item.ItemPart.ROBE;
-
-        Make(part, gradeID + 1);
-    }*/
-
-
-    public void Make(Item.ItemPart part, int gradeID)
-    {
         Item maden;
-        bool hasMax = false;
+        bool hasMaxOption = false;
 
-        _name_grade = Item._name_grades[gradeID];
+        _nameByGrade = Item.NameByGrades[gradeID];
 
+        if (part == Item.ItemPart.GRIMOIRE)
+        {
+            _nameByPart = Item.NameByParts[2];
+
+            List<int> reses = new List<int>();
+            for (int i = 0; i < Item.NameByResTypes.Length; i++)
+                reses.Add(Random.Range(Item.GrimoireResMin[gradeID], Item.GrimoireResMax[gradeID] + 1));
+
+            int curMax = reses.Max();
+            List<int> curMaxIndexList = new List<int>();
+
+            for (int i = 0; i < reses.Count; i++)
+            {
+                if (reses[i] == curMax) curMaxIndexList.Add(i);
+            }
+
+            if (curMaxIndexList.Count > 1)
+            {
+                int chooseMax = Random.Range(0, curMaxIndexList.Count);
+                //내성 최댓값이 등급 최댓값의 근삿값일 시> 중복항목을 빼고 / 아닐시> 선택된 걸 올리고
+                if (curMax >= Item.GrimoireResMax[gradeID] / 2f)
+                {
+                    for (int i = 0; i < curMaxIndexList.Count; i++)
+                    {
+                        if (i != chooseMax) reses[curMaxIndexList[i]]--;
+                    }
+                }
+                else reses[curMaxIndexList[chooseMax]]++;
+            }
+            curMax = reses.Max();
+
+            _nameByResType = Item.NameByResTypes[reses.IndexOf(curMax)];
+            hasMaxOption = (curMax == Item.GrimoireResMax[gradeID]);
+
+            //이름 레벨 경험치 부위 등급 장착여부 공방 저항x4
+            maden = new Item(Naming(part, hasMaxOption), 1, 0, part, gradeID, false, 0, reses[0], reses[1], reses[2], reses[3]);
+        }
+        else
+        {
+            int stat;
+            int[] statMin, statMax = new int[4];
+
+            switch (part)
+            {
+                case (Item.ItemPart.STAFF):
+                    _nameByPart = Item.NameByParts[0];
+
+                    statMin = Item.StaffAtkMin;
+                    statMax = Item.StaffAtkMax;
+                    break;
+
+                case (Item.ItemPart.ROBE):
+                    _nameByPart = Item.NameByParts[1];
+
+                    statMin = Item.RobeDefMin;
+                    statMax = Item.RobeDefMax;
+                    break;
+                default: statMin = null; statMax = null; break;
+            }
+
+            stat = Random.Range(statMin[gradeID], statMax[gradeID] + 1);
+            hasMaxOption = (stat == statMax[gradeID]);
+
+            maden = new Item(Naming(part, hasMaxOption), 1, 0, part, gradeID, false, stat);
+        }
+        /*
         if (part == Item.ItemPart.ROBE)
         {
             _name_part = Item._name_parts[2];
@@ -113,7 +143,7 @@ public class MakeItem : MonoBehaviour
             _name_resType = Item._name_resTypes[reses.IndexOf(curMax)];
             hasMax = (curMax == Item._armorResMax[gradeID]);
 
-            maden = new Item(Item.ItemType.ARMOR, Naming(part, hasMax), 1, part, gradeID, 0, def, reses[0], reses[1], reses[2], reses[3]);
+            maden = new Item(Item.ItemType.ARMOR, Naming(part, hasMaxOption), 1, part, gradeID, 0, def, reses[0], reses[1], reses[2], reses[3]);
             //itemDB._items.Add(new Item(Item.ItemType.ARMOR, Naming(part, hasMax), 0, part, gradeID, 0, def, reses[0], reses[1], reses[2], reses[3]));
         }
         else
@@ -145,24 +175,36 @@ public class MakeItem : MonoBehaviour
             atk = Random.Range(atkMin[gradeID], atkMax[gradeID] + 1);
             hasMax = (atk == atkMax[gradeID]);
 
-            maden = new Item(Item.ItemType.WEAPON, Naming(part, hasMax), 1, part, gradeID, 0, atk);
-        }
+            maden = new Item(Item.ItemType.WEAPON, Naming(part, hasMaxOption), 1, part, gradeID, 0, atk);
+        }*/
+
+        
         itemDB._items.Add(maden);
         Item.memoryNewItem = maden;
 
         CompleteMaking.Invoke();
+        itemDB.ReArrange();
+
+        return maden;
     }
 
 
-    private string Naming(Item.ItemPart part, bool hasMax)
+    private string Naming(Item.ItemPart part, bool hasMaxOption)
     {
         string name = "";
 
-        name += _name_grade;
-        if (part == Item.ItemPart.ROBE && hasMax) name += (" " + _name_resType);
-        name += (" " + _name_part);
-        if (hasMax) name += "+";
+        name += _nameByGrade;
+        if (part == Item.ItemPart.GRIMOIRE) name += (" " + _nameByResType);
+        name += (" " + _nameByPart);
+        if (hasMaxOption) name += "+";
 
         return name;
+    }
+
+
+    public void AppearNewItemInfo()
+    {
+        _newItemInfo.SetActive(true);
+        _newItemInfo.GetComponent<NewItemInfoUI>().Set();
     }
 }
