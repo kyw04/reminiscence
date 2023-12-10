@@ -17,7 +17,7 @@ public class PatternInspector : Editor
         base.OnInspectorGUI();
         GUILayout.Space(10);
 
-        Texture tempImage = (Texture)AssetDatabase.LoadAssetAtPath("Assets/6. Texture/pattern_inspector_image.png", typeof(Texture));
+        Texture tempImage = (Texture)AssetDatabase.LoadAssetAtPath("Assets/Editor/Inspector/Image/inspector_default.png", typeof(Texture));
         GUILayoutOption[] smallOptions = new GUILayoutOption[] {
             GUILayout.Height(17.5f),
             GUILayout.MinHeight(17.5f),
