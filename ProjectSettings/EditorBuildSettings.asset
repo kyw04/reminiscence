@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/LimDongYoon/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/BattleScene_Wind.unity
+    path: Assets/Script/Scenes/BattleScene_Wind.unity
     guid: 979b07c73f0b4d343a9762ceda91703b
+  - enabled: 1
+    path: Assets/Script/Scenes/Main UI.unity
+    guid: b6c689120f750c048957a17dc049ec53
+  - enabled: 1
+    path: Assets/KHS/InventoryScene.unity
+    guid: 27159700668eed842ae3d6f74599f8cf
   m_configObjects: {}
