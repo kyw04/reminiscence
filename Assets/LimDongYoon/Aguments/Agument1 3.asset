@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7368134a963b1fd4b81cec3945df9e89, type: 3}
   m_Name: Agument1 3
   m_EditorClassIdentifier: 
-  id: 40002
-  name: "\uC6B4\uBA85 \uAC70\uBD80\uC790"
-  description: "\uBB38\uC591\uC744 \uC644\uC131\uD558\uC9C0 \uBABB\uD558\uACE0 \uD134
-    \uC885\uB8CC\uB97C \uD588\uC744 \uACBD\uC6B0 \uD37C\uC990\uC744 \uC804\uBD80
-    \uC154\uD50C \uD55C\uB2E4."
+  sprite: {fileID: 21300000, guid: 2e92d2d9146f2c3459aaa300567d0d28, type: 3}
+  id: 40000
+  name: "\uC30D\uB465\uC774\uC758 \uAC80"
+  description: "\uD134\uC774 \uC885\uB8CC\uB420 \uB54C \uC644\uC131\uB41C \uBB38\uC591\uC758
+    \uAC1C\uC218\uAC00 2\uAC1C\uC77C \uACBD\uC6B0 \uC801\uC758 \uCCB4\uB825\uC744
+    10 \uAC10\uC18C \uC2DC\uD0A8\uB2E4."
   actionType: 0
   priority: 0
-  augmentType: 40002
+  augmentType: 40000
