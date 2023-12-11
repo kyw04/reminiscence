@@ -163,6 +163,7 @@ public class InvenItemBtn : InventoryFunction
                 }
 
                 TempEquipData.instance.SetEquipmentStat();
+                itemDB.Save();
                 break;
             case (FunctionMode.NULL):
                 _targetIDList.Clear();
