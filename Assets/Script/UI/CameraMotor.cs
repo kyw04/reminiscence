@@ -30,7 +30,7 @@ public class CameraMotor : MonoBehaviour
         //x
         moveVector.x = 0;
         //y
-        moveVector.y = Mathf.Clamp(moveVector.y, 3, 5);
+        moveVector.y = Mathf.Clamp(moveVector.y, 5, 5);
         
         if(transition > 1.0f && !transitioningToMainCamera)
         {
@@ -55,6 +55,10 @@ public class CameraMotor : MonoBehaviour
             {
                 transform.position = Vector3.Lerp(startingPos, mainCamera.transform.position, (elapsedTime / animationDuration));
                 transform.rotation = Quaternion.Lerp(startingRot, mainCamera.transform.rotation, (elapsedTime / animationDuration));
+
+                float newFov = Mathf.Lerp(GetComponent<Camera>().fieldOfView, mainCamera.fieldOfView, (elapsedTime / animationDuration));
+                GetComponent<Camera>().fieldOfView = newFov;
+
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
