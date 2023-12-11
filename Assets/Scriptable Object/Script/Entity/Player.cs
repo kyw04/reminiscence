@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : EntityBase
 {
@@ -64,9 +65,9 @@ public class Player : EntityBase
         health -= reducedDamage;
         
         Debug.Log($"GetDamage.. current health: {health}");
-        if (health < 0)
+        if (GameStateManager.Instance.health < 0)
         {
-            health = 0;
+            GameStateManager.Instance.health = 0;
             isDead = true;
             Death();
             GameManager.instance.gameState = GameState.End;
@@ -75,6 +76,13 @@ public class Player : EntityBase
         HealthImageUpdate();
     }
 
+    public override void HealthImageUpdate()
+    {
+        foreach (Image _hpbar in hpbar)
+        {
+            _hpbar.fillAmount = GameStateManager.Instance.health / maxHealth;
+        }
+    }
 
     protected override void Start()
     {
@@ -82,8 +90,8 @@ public class Player : EntityBase
 
         maxHealth = GameStateManager.Instance.maxHealth;
         health = GameStateManager.Instance.health;
-
-        if (GameStateManager.Instance.playerLoseMdoe) health = 1f;
+        HealthImageUpdate();
+        if (GameStateManager.Instance.playerLoseMdoe) GameStateManager.Instance.health = 1f;
         else
         {
             

@@ -175,13 +175,22 @@ public class Enemy : EntityBase
             if (deleteNode.count > 0)
             {
                 StartCoroutine(PlayAttackSound(attackSpeed));
-                GameManager.instance.player.GetDamage(nodeBase, damage);
+                StartCoroutine(SlepSecondAndDamage(attackSpeed));
                 animator.SetTrigger("Attack");
                 //StartCoroutine(MoveAndComeBack(pos, 10.0f, deleteNode.count));
             }
         }
 
         return result;
+    }
+
+    public IEnumerator SlepSecondAndDamage(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        GameManager.instance.player.GetDamage(nodeBase, damage);
+        Vector3 hitPosition = GameManager.instance.player.transform.position + GameManager.instance.player.transform.forward * 0.5f + Vector3.up;
+        GameObject particle = Instantiate(attackParticle, hitPosition, Quaternion.identity).gameObject;
+        Destroy(particle, 3f);
     }
 
     public override void Death()

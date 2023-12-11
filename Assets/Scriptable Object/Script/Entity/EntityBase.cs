@@ -14,6 +14,7 @@ public class EntityBase : MonoBehaviour
     public float health = 100;
     public int power = 10;
     public float attackSpeed = 1.25f;
+    public ParticleSystem attackParticle;
     public bool isDead;
     
     protected virtual void Start()
@@ -38,7 +39,7 @@ public class EntityBase : MonoBehaviour
 
         HealthImageUpdate();
     }
-    public void HealthImageUpdate()
+    public virtual void HealthImageUpdate()
     {
         foreach (Image _hpbar in hpbar)
         {
