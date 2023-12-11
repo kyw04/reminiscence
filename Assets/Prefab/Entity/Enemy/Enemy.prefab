@@ -76,6 +76,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbde6b76fd222d447afbe1f1dee92a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  attackSound: {fileID: 0}
   hpbar:
   - {fileID: 0}
   animator: {fileID: 0}
@@ -83,6 +85,8 @@ MonoBehaviour:
   maxHealth: 100
   health: 100
   power: 10
+  attackSpeed: 1.25
+  attackParticle: {fileID: 19800002, guid: 1dd8a22856ba5004ebf3fc2efcf32372, type: 3}
   isDead: 0
   models:
   - {fileID: 1018301445508940398, guid: 633504f34974ac54c80cfaa6ad89319d, type: 3}
