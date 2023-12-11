@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/KHS/TempGetItemScene.unity
     guid: b57e6a7b3a50b644bac783f806afcdd5
+  - enabled: 1
+    path: Assets/Script/Scenes/StartScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
