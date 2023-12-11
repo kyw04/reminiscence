@@ -1,34 +1,40 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Itemdetail : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ItemDetail : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public GameObject ItemdetailObject;
-    public Vector2 offset;
+    public RectTransform itemDetailTransform;
+    public Vector3 detailObjectOffset;
+    public bool staticPosition;
 
     private void Start()
     {
-        ItemdetailObject.SetActive(false);
+        itemDetailTransform.gameObject.SetActive(false);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!ItemdetailObject.activeSelf)
+        if (!itemDetailTransform.gameObject.activeSelf)
         {
-            ItemdetailObject.SetActive(true);
+            //Debug.Log(detailObjectOffset);
+            if (staticPosition)
+                itemDetailTransform.position = detailObjectOffset;
+            else
+                itemDetailTransform.position = transform.position + detailObjectOffset;
+
+            itemDetailTransform.gameObject.SetActive(true);
         }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log(eventData.pointerCurrentRaycast.gameObject);
-        if (eventData.pointerCurrentRaycast.gameObject == ItemdetailObject)
+        //Debug.Log(eventData.pointerCurrentRaycast.gameObject);
+        if (eventData.pointerCurrentRaycast.gameObject == itemDetailTransform.gameObject)
         {
             Debug.Log("return");
             return;
         }
 
-        ItemdetailObject.SetActive(false);
+        itemDetailTransform.gameObject.SetActive(false);
     }
 }
