@@ -115,7 +115,7 @@ public class GameStateManager : MonoBehaviour
         HealthImageUpdate();
         aguments = tempAguments;
         patterns = tempPatterns;
-        stageLevel = 0;
+        stageLevel = 1;
         LastBattleResult = BattleResult.None;
         mapManager.GenerateNewMap();
         mapManager.SaveMap();

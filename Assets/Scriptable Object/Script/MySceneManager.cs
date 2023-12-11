@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using Map;
 public class MySceneManager : MonoBehaviour
 {
+    NodeElementalType nodeElementalType;
     // Function to load a scene by name
     public static MySceneManager Instance;
     public bool sceneLocked = false;
@@ -16,6 +17,25 @@ public class MySceneManager : MonoBehaviour
         else
         {
             Destroy(gameObject); // 중복 인스턴스 제거
+        }
+    }
+    public void LoadElmentalType(NodeElementalType nodeElementalType)
+    {
+        switch (nodeElementalType)
+        {
+            case NodeElementalType.Fire:
+                SceneManager.LoadScene("fire");
+                break;
+            case NodeElementalType.Water:
+                SceneManager.LoadScene("water");
+                break;
+            case NodeElementalType.Wind:
+                SceneManager.LoadScene("wind");
+                break;
+            case NodeElementalType.Land:
+                SceneManager.LoadScene("rock");
+                break;
+
         }
     }
     public void LoadScene(string sceneName)

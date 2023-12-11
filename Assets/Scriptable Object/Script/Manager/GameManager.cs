@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
     {
         if (instance == null) { instance = this; }
 
-        foreach (Pattern pattern in player.patterns)
+        foreach (Pattern pattern in GameStateManager.Instance.equipedPatterns)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -316,7 +316,7 @@ public class GameManager : MonoBehaviour
         foundPatternCount = 0;
         totalDamage = 0.0f;
 
-        foreach (Pattern pattern in player.patterns)
+        foreach (Pattern pattern in GameStateManager.Instance.equipedPatterns)
         {
             for (int i = 0; i < puzzleSize; i++)
             {
@@ -483,7 +483,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("게임결과 " + playerWon);
         GameStateManager.Instance.SetBattleResult(playerWon ? BattleResult.Win : BattleResult.Lose);
-        MySceneManager.Instance.LoadPreviousScene();
+        MySceneManager.Instance.LoadScene("StageScene");
     }
 
     public IEnumerator EndNodeDown(float seconds)

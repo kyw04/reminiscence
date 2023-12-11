@@ -76,6 +76,7 @@ public class PatternNode : MonoBehaviour
         //레벨1 스타터 팩
         foreach(var p in FilterLevelOnePatterns(GameStateManager.Instance.patterns))
         {
+       
             GetNewPattern(p);
             GameStateManager.Instance.patterns.Remove(p);
         }
