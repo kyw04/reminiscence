@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2501208496811444439}
+  defaultMeshRenderer: {fileID: 0}
+  defaultRendererMaterials: []
   meshRenderer:
   - {fileID: 3404653228887099220}
   - {fileID: 8017411449780068053}
@@ -105,7 +107,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ca2046e32776da4f9e513e5ccfcef59, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.177
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ca2046e32776da4f9e513e5ccfcef59, type: 3}
       propertyPath: m_LocalPosition.z
