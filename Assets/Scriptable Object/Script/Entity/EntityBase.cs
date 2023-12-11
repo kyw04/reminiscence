@@ -38,7 +38,7 @@ public class EntityBase : MonoBehaviour
 
         HealthImageUpdate();
     }
-    public void HealthImageUpdate()
+    public virtual void HealthImageUpdate()
     {
         foreach (Image _hpbar in hpbar)
         {
