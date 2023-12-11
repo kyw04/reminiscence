@@ -28,6 +28,7 @@ public class MainScene_Player : MonoBehaviour
 
     private float distanceMoved = 0f;
     private bool shouldMove = false;
+    private bool Run = false;
 
     private float yVelocity;
     private float yAngleOffset;
@@ -42,9 +43,12 @@ public class MainScene_Player : MonoBehaviour
     private float targetYRotation;
     private float targetXRotation;
 
+    private Animator animator;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -110,6 +114,11 @@ public class MainScene_Player : MonoBehaviour
         {
             targetControllerYRotation = Mathf.Atan2(x, y) * Mathf.Rad2Deg;
             targetControllerYRotation -= yAngleOffset;
+            animator.SetBool("IsRun", true);
+        }
+        else
+        {
+            animator.SetBool("IsRun", false);
         }
         currentControllerYRotation = Mathf.SmoothDampAngle(currentControllerYRotation, targetControllerYRotation, ref controllerYRotationVeloctiy, controllerLookSommthTime);
         controller.transform.eulerAngles = new Vector3(0f, currentControllerYRotation, 0f);

@@ -25,6 +25,7 @@ public class ItemDatabase : MonoBehaviour
         }
 
         Load();
+        //TempEquipData.instance.SetEquipmentStat();
     }
 
 
@@ -36,7 +37,7 @@ public class ItemDatabase : MonoBehaviour
     }
 
 
-    private void Save()
+    public void Save()
     {
         string serialized = JsonConvert.SerializeObject(_items);
         File.WriteAllText(Application.dataPath + "/Resources/KHS/ItemDataTxt.txt", serialized);

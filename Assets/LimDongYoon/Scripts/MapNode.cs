@@ -42,7 +42,7 @@ namespace Map
             Node = node;
             Blueprint = blueprint;
 
-            if (sr != null && blueprint.nodeType == NodeType.MinorEnemy)
+            if (sr != null && (blueprint.nodeType == NodeType.MinorEnemy ))//|| blueprint.nodeType == NodeType.Boss))
             {
 
                 int randomNum = UnityEngine.Random.Range(0, blueprint.sprites.Length);
