@@ -6,6 +6,7 @@ public class GameStateManager : MonoBehaviour
 {
     
     public static GameStateManager Instance { get; private set; }
+
     [Header("개발자 모드")] 
     public bool playerWinMode = false;
     public bool playerLoseMdoe = false;
@@ -18,12 +19,25 @@ public class GameStateManager : MonoBehaviour
 
 
     public List<Augment> aguments = new List<Augment>();
-    private CurrentBattleEnemy currentBattleEnemy;
+    public List<Augment> currentAguments = new List<Augment>();
+    public int stageLevel = 0;
+
+    public CurrentBattleEnemyInfo currentBattlleInfo;
     public BattleResult LastBattleResult { get; set; }
 
     public MapNode mapNode;
     public Point point;
 
+
+    public void Start()
+    {
+        currentBattlleInfo = new CurrentBattleEnemyInfo
+        {
+            currentStageLevel = 0,
+            nodeElementalType = NodeElementalType.Fire,
+            isBoss = false
+        };
+    }
     private void Awake()
     {
         if (Instance == null)
@@ -92,11 +106,10 @@ public enum BattleResult
     Lose
 }
 
-public class CurrentBattleEnemy
+public class CurrentBattleEnemyInfo
 {
-    public int currentStage = 0;
+    public int currentStageLevel = 0;
     public NodeElementalType nodeElementalType;
     public bool isBoss;
-    
 }
 

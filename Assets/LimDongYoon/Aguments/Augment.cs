@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class Augment : ScriptableObject
 {
+    public Sprite sprite;
     public enum ActionType
     {
         TurnEnd,

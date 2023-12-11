@@ -132,20 +132,21 @@ namespace Map
             Debug.Log("Entering node: " + mapNode.Node.blueprintName + " of type: " + mapNode.Node.nodeType);
             // we have access to blueprint name here as well
 
-            
+
             // load appropriate scene with context based on nodeType:
             // or show appropriate GUI over the map: 
             // if you choose to show GUI in some of these cases, do not forget to set "Locked" in MapPlayerTracker back to false
+            CurrentBattleEnemyInfo currentBattleEnemyInfo = new CurrentBattleEnemyInfo();
+
             switch (mapNode.Node.nodeType)
             {
-                
+
                 case NodeType.Boss:
                 case NodeType.MinorEnemy:
                 case NodeType.EliteEnemy:
                     if (MySceneManager.Instance.sceneLocked && lockAfterSelecting) Locked = false;
                     Debug.Log("zz");
-                    DontDestroyOnLoad(mapNode.gameObject);
-                    GameStateManager.Instance.point = mapNode.Node.point;//new Point(x: mapNode.Node.point.x, y:mapNode.Node.point.y);
+                    UpdateBattleInfo(mapNode);
                     MySceneManager.Instance.LoadNextScene();
                     break;
                 case NodeType.RestSite:
@@ -167,6 +168,17 @@ namespace Map
                     throw new ArgumentOutOfRangeException();
             }
         }
+       
+        public void UpdateBattleInfo(MapNode mapNode)
+        {
+            GameStateManager.Instance.currentBattlleInfo = new CurrentBattleEnemyInfo()
+            {
+                currentStageLevel = GameStateManager.Instance.stageLevel,
+                nodeElementalType = mapNode.nodeElementalType,
+                isBoss = (mapNode.Node.nodeType == NodeType.Boss) ? true : false
+            };
+        }
+        
         public void Rest(int healthAmount)
         {
             GameStateManager.Instance.health += healthAmount;
