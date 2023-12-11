@@ -19,8 +19,9 @@ public class EntityBase : MonoBehaviour
         HealthImageUpdate();
     }
 
-    public void GetDamage(NodeBase attackerNodeBase, float damage)
+    public virtual void GetDamage(NodeBase attackerNodeBase, float damage)
     {
+        
         health -= nodeBase.GetTotalDamage(attackerNodeBase, damage);
         Debug.Log($"GetDamage.. current health: {health}");
         if (health < 0)

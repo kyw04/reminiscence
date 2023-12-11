@@ -113,7 +113,9 @@ namespace Map
             switch (battleResult)
             {
                 case BattleResult.Win:
+                    Debug.Log("Win");
                     Debug.Log(GameStateManager.Instance.point);
+                    GameStateManager.Instance.HealthImageUpdate();
                     GameStateManager.Instance.mapNode = view.GetNode(GameStateManager.Instance.point);
                     break;
                 case BattleResult.Lose:
@@ -164,6 +166,11 @@ namespace Map
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+        public void Rest(int healthAmount)
+        {
+            GameStateManager.Instance.health += healthAmount;
+            GameStateManager.Instance.HealthImageUpdate();
         }
 
         public void SelectUIOn()
