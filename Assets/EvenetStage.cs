@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class EvenetStage : MonoBehaviour
 {
+    
     public Button btn;
     public EventType eventType;
 
@@ -37,6 +38,7 @@ public class EvenetStage : MonoBehaviour
                 break;
         }
     }
+    
     public void Rest(int _healthAmount)
     {
         GameStateManager.Instance.health += _healthAmount;
