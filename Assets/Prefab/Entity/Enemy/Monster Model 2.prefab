@@ -53,40 +53,40 @@ MonoBehaviour:
   meterial:
   - index:
     - materials:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
+      - {fileID: 2100000, guid: 7d5baf3a12956664d918e44f584dc617, type: 2}
+      - {fileID: 2100000, guid: 6ec313d7c6a339f42a2d2d0959e08a56, type: 2}
+      - {fileID: 2100000, guid: 0fc6c783ce766e241b755fe45ecc6cb6, type: 2}
     - materials:
-      - {fileID: 0}
+      - {fileID: 2100000, guid: 0f26edf2d706d5348bb2ad13a96e9ece, type: 2}
     - materials:
-      - {fileID: 0}
+      - {fileID: 2100000, guid: 0f26edf2d706d5348bb2ad13a96e9ece, type: 2}
   - index:
     - materials:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
+      - {fileID: 2100000, guid: 61026fa2de968894ab642096bc61919d, type: 2}
+      - {fileID: 2100000, guid: 29d516c054597ee43b941ef5f38e0cfa, type: 2}
+      - {fileID: 2100000, guid: c126d1059a4ff364ab6b4028171d01c0, type: 2}
     - materials:
-      - {fileID: 0}
+      - {fileID: 2100000, guid: 33eb0eb453cfc664e81c24340a048fb9, type: 2}
     - materials:
-      - {fileID: 0}
+      - {fileID: 2100000, guid: 33eb0eb453cfc664e81c24340a048fb9, type: 2}
   - index:
     - materials:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
+      - {fileID: 2100000, guid: c549c94d5bb653849a53f0fab484007e, type: 2}
+      - {fileID: 2100000, guid: a6851fd9efb9ae74a8917543a32b9fa6, type: 2}
+      - {fileID: 2100000, guid: 84b1ec06e1efa164cb2aa74b31431c8d, type: 2}
     - materials:
-      - {fileID: 0}
+      - {fileID: 2100000, guid: e667819d94ee1b3448f3cf55bdede035, type: 2}
     - materials:
-      - {fileID: 0}
+      - {fileID: 2100000, guid: e667819d94ee1b3448f3cf55bdede035, type: 2}
   - index:
     - materials:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
+      - {fileID: 2100000, guid: 38c940f0fef6c9a48956c152aeb1a16f, type: 2}
+      - {fileID: 2100000, guid: 212a84e774b7aab4c8b025b6a8d857e2, type: 2}
+      - {fileID: 2100000, guid: d4a5f30b795695249832959090ac7b57, type: 2}
     - materials:
-      - {fileID: 0}
+      - {fileID: 2100000, guid: 57af546f328a0ee4d82e4b5d50946f26, type: 2}
     - materials:
-      - {fileID: 0}
+      - {fileID: 2100000, guid: 57af546f328a0ee4d82e4b5d50946f26, type: 2}
 --- !u!1001 &8493528379869746410
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -14,16 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodePatternTemp:
   - index:
+    - {fileID: 11400000, guid: 0556c2666d8282d4cab67fd2c87385c4, type: 2}
+    - {fileID: 11400000, guid: 14a00c732fc1aeb48acca344bce49458, type: 2}
     - {fileID: 0}
-    - {fileID: 11400000, guid: 0556c2666d8282d4cab67fd2c87385c4, type: 2}
-    - {fileID: 11400000, guid: 0556c2666d8282d4cab67fd2c87385c4, type: 2}
   - index:
+    - {fileID: 11400000, guid: 14a00c732fc1aeb48acca344bce49458, type: 2}
     - {fileID: 0}
     - {fileID: 0}
-    - {fileID: 11400000, guid: 0556c2666d8282d4cab67fd2c87385c4, type: 2}
   - index:
+    - {fileID: 11400000, guid: 14a00c732fc1aeb48acca344bce49458, type: 2}
+    - {fileID: 11400000, guid: 14a00c732fc1aeb48acca344bce49458, type: 2}
     - {fileID: 0}
-    - {fileID: 11400000, guid: 0556c2666d8282d4cab67fd2c87385c4, type: 2}
-    - {fileID: 11400000, guid: 0556c2666d8282d4cab67fd2c87385c4, type: 2}
   level: 3
   damage: 30
+  sprite: {fileID: 21300000, guid: d4aa2b40549f3f145a0d45fde982d829, type: 3}
