@@ -27,3 +27,4 @@ MonoBehaviour:
     - {fileID: 0}
   level: 5
   damage: 50
+  sprite: {fileID: 21300000, guid: d468a1c8be6f1c8439fb0a37e9c690d4, type: 3}
