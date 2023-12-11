@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class InventoryFunction : MonoBehaviour
 {
     protected ItemDatabase itemDB;
     protected MakeItem makeItem;
 
+    protected ItemInfoUI itemInfoUI;
+    public int _infoID;
+    //protected EquipItemInfo eqiupItemInfoUI;
+
     public enum FunctionMode { ENHANCEMENT, OPTIONCHANGE, SYNTHESIS, EQUIP, NULL };
     static protected FunctionMode _mode = FunctionMode.NULL;
-    private GameObject _fnUI;
+    [SerializeField]  private GameObject _fnUI;
 
     static public List<int> _targetIDList = new List<int>();
     static protected Item _beneficiary;
@@ -26,9 +31,11 @@ public class InventoryFunction : MonoBehaviour
     protected virtual void Awake()
     {
         itemDB = GameObject.Find("ItemDatabase").GetComponent<ItemDatabase>();
-        makeItem = GameObject.Find("TempMakingbtn").GetComponent<MakeItem>(); //언젠가어딘가로옮기기
+        //makeItem = GameObject.Find("TempMakingbtn").GetComponent<MakeItem>();
+        makeItem = GameObject.Find("MakeItem").GetComponent<MakeItem>();
+        itemInfoUI = GameObject.Find("Canvas").transform.Find("ItemInfoUI").GetComponent<ItemInfoUI>();
 
-        _fnUI = GameObject.Find("InvenFunctionUI");
+        //_fnUI = GameObject.Find("InvenFunctionUI");
     }
 
     private void Update()
@@ -39,7 +46,7 @@ public class InventoryFunction : MonoBehaviour
             for (int i = 1; i < _targetIDList.Count; i++)
             {
                 int ingreGradeId = itemDB._items[_targetIDList[i]]._itemGradeID;
-                sumExp += Item._expRiseByGrade[ingreGradeId];
+                sumExp += Item.ExpRiseByGrade[ingreGradeId];
             }
             _sumExp = sumExp;
         }
@@ -70,14 +77,24 @@ public class InventoryFunction : MonoBehaviour
             else UI.SetActive(false);
         }
 
-        if (_targetIDList.Count == 1)
+        //선택유지
+        if (_mode == FunctionMode.EQUIP)
         {
-            int btnID = _targetIDList[0];
-            if (CanTargeted(btnID, true))
+            _targetIDList.Clear();
+        }
+        else
+        {
+            if (_targetIDList.Count != 0)
             {
-                _beneficiary = itemDB._items[btnID];
+                int btnID = _targetIDList[0];
+                _targetIDList.Clear();
+
+                if (CanTargeted(btnID, true))
+                {
+                    _beneficiary = itemDB._items[btnID];
+                    _targetIDList.Add(btnID);
+                }
             }
-            else _targetIDList.Clear();
         }
     }
 
@@ -86,13 +103,23 @@ public class InventoryFunction : MonoBehaviour
     {
         if (_targetIDList.Count > 1)
         {
+            bool onEquip = _beneficiary._onEquip;
+
             _beneficiary._itemExp += _sumExp;
             _beneficiary = Item.ItemLevelUP(_beneficiary);//, _sumExp);
             Item.memoryNewItem = _beneficiary;
 
             RemoveIngredients(true);
             _sumExp = 0;
+
+            Finish();
+
             if (_beneficiary._itemLevel < 10) _targetIDList.Add(itemDB._items.IndexOf(Item.memoryNewItem));
+            if (onEquip)
+            {
+                TempEquipData.instance.PlayerEquip[Item.PartToPartID(Item.memoryNewItem._itemPart)] = Item.memoryNewItem;
+                TempEquipData.instance.SetEquipmentStat();
+            }
         }
     }
 
@@ -101,9 +128,32 @@ public class InventoryFunction : MonoBehaviour
     {
         if (_targetIDList.Count == 2)
         {
+            bool onEquip = _beneficiary._onEquip;
+
+            Item.ItemPart part = _beneficiary._itemPart;
+            int gradeID = _beneficiary._itemGradeID;
+            int level = _beneficiary._itemLevel;
+            int exp = _beneficiary._itemExp;
+            bool equip = false;
+
+            if (_beneficiary._onEquip) equip = true;
             RemoveIngredients(false);
-            makeItem.Make(_beneficiary._itempart, _beneficiary._itemGradeID);
+            makeItem.Make(Item.PartToPartID(part), gradeID);
+
+            Item.memoryNewItem._itemLevel = level;
+            Item.memoryNewItem._itemExp = exp;
+            Item.memoryNewItem._onEquip = equip;
+
+            for (int i = 1; i < level; i++)
+                Item.memoryNewItem = Item.UpgradeByLevel(Item.memoryNewItem);
+
+            Finish();
             _targetIDList.Add(itemDB._items.IndexOf(Item.memoryNewItem));
+            if (onEquip)
+            {
+                TempEquipData.instance.PlayerEquip[Item.PartToPartID(Item.memoryNewItem._itemPart)] = Item.memoryNewItem;
+                TempEquipData.instance.SetEquipmentStat();
+            }
         }
     }
 
@@ -118,14 +168,14 @@ public class InventoryFunction : MonoBehaviour
             else _higherGradeID = itemDB._items[_targetIDList[0]]._itemGradeID;*/
 
             RemoveIngredients(false);
-
+            /*
             Item.ItemPart part;
             if (Random.Range(0, 3) == 0) part = Item.ItemPart.STAFF;
             else if (Random.Range(0, 3) == 1) part = Item.ItemPart.GRIMOIRE;
-            else part = Item.ItemPart.ROBE;
+            else part = Item.ItemPart.ROBE; */
 
-            //makeItem.ItemSynthesis(higher+1);
-            makeItem.Make(part, _higherGradeID + 1);
+            makeItem.Make(Random.Range(0, 3), _higherGradeID + 1);//, true);
+            Finish();
         }
     }
 
@@ -137,20 +187,36 @@ public class InventoryFunction : MonoBehaviour
 
         for (int i = _targetIDList.Count -1; i >= 0; i--)
         {
-            
             Item ingre = itemDB._items[_targetIDList[i]];
             //Debug.Log(i + " " + ingre._itemName);
             itemDB._items.Remove(ingre);
         }
 
         _targetIDList.Clear();
+        //Finished.Invoke();
+    }
+
+
+    private void Finish()
+    {
+        
         Finished.Invoke();
+
+        if (itemInfoUI.enabled)
+        {
+            itemInfoUI.Set(itemDB._items.IndexOf(Item.memoryNewItem));
+        }
+
+        //if (_targetIDList.Count == 1) _beneficiary = Item.memoryNewItem;
     }
 
 
     public bool CanTargeted(int btnID, bool isBenef)//, FunctionMode mode)
     {
         Item target = itemDB._items[btnID];
+
+        if (target._onEquip && !isBenef) return false;
+
         switch (_mode)
         {
             case (FunctionMode.ENHANCEMENT):
@@ -164,20 +230,54 @@ public class InventoryFunction : MonoBehaviour
                 if (isBenef) return true;
                 else
                 {
-                    if (target._itemGradeID <= _beneficiary._itemGradeID) return true;
+                    if (_targetIDList.Count < 2)
+                    {
+                        if (target._itemGradeID <= _beneficiary._itemGradeID) return true;
+                        else return false;
+                    }
                     else return false;
                 }
             case (FunctionMode.SYNTHESIS):
-                if (target._itemLevel >= 10 && target._itemGradeID < 3) return true;
+                if (_targetIDList.Count < 2)
+                {
+                    if (target._itemLevel >= 10 && target._itemGradeID < 3)
+                    {
+                        if (_targetIDList.Count == 0) return true;
+                        else
+                        {
+                            if (target._itemGradeID == itemDB._items[_targetIDList[0]]._itemGradeID) return true;
+                            else return false;
+                        }
+                    }
+                    else return false;
+                }
                 else return false;
-
             default: return true;
         }
     }
 
+
     public void QuitBtn()
     {
         _targetIDList.Clear();
+        _mode = FunctionMode.NULL;
+    }
+
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+
+    private void OnSceneLoaded(Scene s, LoadSceneMode m)
+    {
         _mode = FunctionMode.NULL;
     }
 }
