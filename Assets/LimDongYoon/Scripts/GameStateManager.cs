@@ -28,7 +28,7 @@ public class GameStateManager : MonoBehaviour
     public List<Pattern> equipedPatterns = new List<Pattern>();
 
 
-    public int stageLevel = 0;
+    public int stageLevel = 1;
 
     public CurrentBattleEnemyInfo currentBattlleInfo;
     public BattleResult LastBattleResult { get; set; }
@@ -43,7 +43,7 @@ public class GameStateManager : MonoBehaviour
         mapManager = FindAnyObjectByType<MapManager>();
         currentBattlleInfo = new CurrentBattleEnemyInfo
         {
-            currentStageLevel = 0,
+            currentStageLevel = 1,
             nodeElementalType = NodeElementalType.Fire,
             isBoss = false
         };
