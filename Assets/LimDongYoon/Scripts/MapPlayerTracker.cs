@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Linq;
 using DG.Tweening;
-using Unity.VisualScripting;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.TextCore;
+
 
 namespace Map
 {
