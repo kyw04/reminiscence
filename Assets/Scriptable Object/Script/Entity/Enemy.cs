@@ -172,7 +172,8 @@ public class Enemy : EntityBase
             }
 
             if (deleteNode.count > 0)
-                StartCoroutine(MoveAndComeBack(pos, 10.0f, deleteNode.count));
+                animator.SetTrigger("Attack");
+                //StartCoroutine(MoveAndComeBack(pos, 10.0f, deleteNode.count));
         }
 
         return result;
