@@ -10,12 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7368134a963b1fd4b81cec3945df9e89, type: 3}
-  m_Name: ChooseOne
+  m_Name: NewAugment
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 055b8ae122520eb4c9ffc64b9b1ced52, type: 3}
-  id: 40001
-  name: "\uC120\uD0DD\uBC1B\uC740\uC790"
-  description: "\uBAA9\uAC78\uC774\uB294 \uB108\uB97C \uC120\uD0DD\uD588\uB2E4."
-  actionType: 0
+  sprite: {fileID: 0}
+  id: 40003
+  name: "\uC77C\uC2DD"
+  description: "\uC804\uD22C\uAC00 \uC2DC\uC791\uB420 \uB54C \uC815\uC911\uC559\uC5D0
+    \uC6C0\uC9C1\uC77C \uC218 \uC5C6\uB294 \uBE14\uB85D\uC744 \uC0DD\uC131\uD55C\uB2E4.
+    \uB0B4 \uD134\uC774 \uC885\uB8CC\uB420 \uB54C \uCD5C\uB300 \uCCB4\uB825\uC758
+    5%\uB9CC\uD07C \uD68C\uBCF5\uD55C\uB2E4."
+  actionType: 7
   priority: 0
-  augmentType: 40001
+  augmentType: 40003
+  nodeBase: {fileID: 0}
+  playerMovement: {fileID: 0}

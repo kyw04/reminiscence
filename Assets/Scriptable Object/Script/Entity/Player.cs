@@ -10,17 +10,17 @@ public class Player : EntityBase
     public Vector3 bulletSpawnBoxPos;
     public Vector3 bulletSpawnBoxSize;
 
-    Animator animator2;
     bool IsAttack = false;
     public void Attack(NodeBase nodeBase, float damage)
     {
         //animator.Play("Attack");
-        animator2.SetBool("IsAttack", true);
+        animator.SetTrigger("IsAttack");
         StartCoroutine(SpawnBullet(nodeBase, damage));
     }
 
     public IEnumerator SpawnBullet(NodeBase nodeBase, float damage)
     {
+        Debug.Log("spawn bullet");
         float x = UnityEngine.Random.Range(-bulletSpawnBoxSize.x / 2, bulletSpawnBoxSize.x / 2);
         float y = UnityEngine.Random.Range(-bulletSpawnBoxSize.y / 2, bulletSpawnBoxSize.y / 2);
         float z = UnityEngine.Random.Range(-bulletSpawnBoxSize.z / 2, bulletSpawnBoxSize.z / 2);
@@ -61,8 +61,10 @@ public class Player : EntityBase
     }
 
 
-    private void Awake()
+    protected override void Start()
     {
+        base.Start();
+
         maxHealth = GameStateManager.Instance.maxHealth;
         health = GameStateManager.Instance.health;
 

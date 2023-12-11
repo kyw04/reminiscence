@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Net.NetworkInformation;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.VersionControl;
 using UnityEngine;
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour
     public int maxMovementCount = 3;
     private int currentMovementCount;
     public GameObject[] movementCountImages;
+    public TextMeshProUGUI enemyNameText;
 
     #endregion
     #region GameInfo
@@ -114,12 +116,11 @@ public class GameManager : MonoBehaviour
         }
 
         GetPuzzle();
-
-        //GameStateManager.Instance.currentBattleEnemy
     }
 
     private void Start()
     {
+        enemyNameText.text = enemy.enemyName;
         audioSource = GetComponent<AudioSource>();
         ResetCount();
         turn = 0;
@@ -371,8 +372,9 @@ public class GameManager : MonoBehaviour
         foreach (NodeBase nodeBase in foundNodeBaes)
         {
             // 장비 공격력 합산시킴
-            Debug.Log(TempEquipData.PlayerEquipmentStat._atk);
-            player.Attack(nodeBase, pattern.damage + TempEquipData.PlayerEquipmentStat._atk / (float)foundNodeBaes.Count);
+            player.Attack(nodeBase, pattern.damage / (float)foundNodeBaes.Count);
+            //Debug.Log(TempEquipData.PlayerEquipmentStat._atk);
+            //player.Attack(nodeBase, pattern.damage + TempEquipData.PlayerEquipmentStat._atk / (float)foundNodeBaes.Count);
         }
 
         return deleteNode;

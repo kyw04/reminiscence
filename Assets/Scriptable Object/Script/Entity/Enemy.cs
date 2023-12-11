@@ -1,6 +1,6 @@
+using Map;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : EntityBase
@@ -18,6 +18,8 @@ public class Enemy : EntityBase
         }
     };
 
+    public GameObject[] models = new GameObject[3];
+    public string enemyName;
     public float damage;
     public int maxNodeCount = 2;
     public int maxDeleteCount = 3;
@@ -28,6 +30,75 @@ public class Enemy : EntityBase
     {
         if (GameStateManager.Instance.playerWinMode) health = 1;
         base.Start();
+
+        CurrentBattleEnemyInfo battleEnemyInfo = GameStateManager.Instance.currentBattlleInfo;
+
+        maxHealth = 100 * battleEnemyInfo.currentStageLevel;
+        damage = 5 * battleEnemyInfo.currentStageLevel;
+        string boss = "";
+        if (battleEnemyInfo.isBoss)
+        {
+            boss = "°­·ÂÇÑ ";
+            maxHealth += 100;
+            damage += 10;
+            if (battleEnemyInfo.currentStageLevel >= 3)
+            {
+                maxHealth += 50;
+                damage += 5;
+            }
+        }
+        health = maxHealth;
+        HealthImageUpdate();
+
+        string elementalTypeString;
+        int elementalTypeIndex;
+        switch (battleEnemyInfo.nodeElementalType)
+        {
+            case NodeElementalType.Fire:
+                elementalTypeString = "È­¿°ÀÇ ";
+                elementalTypeIndex = 0;
+                break;
+            case NodeElementalType.Wind:
+                elementalTypeString = "ÆøÇ³ÀÇ ";
+                elementalTypeIndex = 1;
+                break;
+            case NodeElementalType.Water:
+                elementalTypeString = "ÆÄµµÀÇ ";
+                elementalTypeIndex = 2;
+                break;
+            case NodeElementalType.Land:
+                elementalTypeString = "´ëÁöÀÇ ";
+                elementalTypeIndex = 3;
+                break;
+            default:
+                Debug.LogWarning("error");
+                elementalTypeString = "";
+                elementalTypeIndex = -1;
+                break;
+        }
+
+        int modelIndex = UnityEngine.Random.Range(0, models.Length);
+        string modelName;
+        switch (modelIndex)
+        {
+            case 0:
+                modelName = "°ñ¸®¾Ñ";
+                break;
+            case 1:
+                modelName = "È÷µå¶ó";
+                break;
+            case 2:
+                modelName = "³ªÀÌÆ®";
+                break;
+            default:
+                modelName = "„¢‹S¶Õ";
+                break;
+        }
+
+        EnemyMaterial enemyMaterial = Instantiate(models[modelIndex], transform).GetComponent<EnemyMaterial>();
+        enemyMaterial.SetMaterials(elementalTypeIndex);
+        animator = enemyMaterial.animator;
+        enemyName = boss + elementalTypeString + modelName;
 
         nodeCount = UnityEngine.Random.Range(1, maxNodeCount);
         int nodeBaseLength = GameManager.instance.nodeBases.Length;
@@ -56,7 +127,7 @@ public class Enemy : EntityBase
         for (int i = 0; i < attackCount; i++)
         {
             // play attack animation
-            
+
             yield return new WaitForSeconds(0.5f); // animation delay
             GameManager.instance.player.GetDamage(nodeBase, damage);
         }
@@ -101,7 +172,8 @@ public class Enemy : EntityBase
             }
 
             if (deleteNode.count > 0)
-                StartCoroutine(MoveAndComeBack(pos, 10.0f, deleteNode.count));
+                animator.SetTrigger("Attack");
+                //StartCoroutine(MoveAndComeBack(pos, 10.0f, deleteNode.count));
         }
 
         return result;
@@ -109,6 +181,6 @@ public class Enemy : EntityBase
     public override void Death()
     {
         GameManager.instance.EndBattle(true);
-        
+
     }
 }
