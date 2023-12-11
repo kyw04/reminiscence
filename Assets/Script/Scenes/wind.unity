@@ -3281,6 +3281,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4dec00a0eefd44d81b957461da7e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDetailTransform: {fileID: 0}
+  itemDetailImage: {fileID: 0}
+  targetImage: {fileID: 0}
+  detailObjectOffset: {x: 0, y: 0, z: 0}
+  staticPosition: 0
 --- !u!1 &1472174228
 GameObject:
   m_ObjectHideFlags: 0
@@ -6710,6 +6715,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4dec00a0eefd44d81b957461da7e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDetailTransform: {fileID: 0}
+  itemDetailImage: {fileID: 0}
+  targetImage: {fileID: 0}
+  detailObjectOffset: {x: 0, y: 0, z: 0}
+  staticPosition: 0
 --- !u!4 &1111066003922212710
 Transform:
   m_ObjectHideFlags: 0
@@ -7899,6 +7909,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4dec00a0eefd44d81b957461da7e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDetailTransform: {fileID: 0}
+  itemDetailImage: {fileID: 0}
+  targetImage: {fileID: 0}
+  detailObjectOffset: {x: 0, y: 0, z: 0}
+  staticPosition: 0
 --- !u!114 &4592910954656581078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7911,6 +7926,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4dec00a0eefd44d81b957461da7e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDetailTransform: {fileID: 0}
+  itemDetailImage: {fileID: 0}
+  targetImage: {fileID: 0}
+  detailObjectOffset: {x: 0, y: 0, z: 0}
+  staticPosition: 0
 --- !u!33 &4605924925400382858
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -7931,6 +7951,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4dec00a0eefd44d81b957461da7e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDetailTransform: {fileID: 0}
+  itemDetailImage: {fileID: 0}
+  targetImage: {fileID: 0}
+  detailObjectOffset: {x: 0, y: 0, z: 0}
+  staticPosition: 0
 --- !u!222 &4689523345461012589
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8222,6 +8247,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4dec00a0eefd44d81b957461da7e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDetailTransform: {fileID: 0}
+  itemDetailImage: {fileID: 0}
+  targetImage: {fileID: 0}
+  detailObjectOffset: {x: 0, y: 0, z: 0}
+  staticPosition: 0
 --- !u!4 &5367898221378280276
 Transform:
   m_ObjectHideFlags: 0
@@ -8249,6 +8279,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4dec00a0eefd44d81b957461da7e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDetailTransform: {fileID: 0}
+  itemDetailImage: {fileID: 0}
+  targetImage: {fileID: 0}
+  detailObjectOffset: {x: 0, y: 0, z: 0}
+  staticPosition: 0
 --- !u!222 &5385570792718240880
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8383,6 +8418,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4dec00a0eefd44d81b957461da7e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDetailTransform: {fileID: 0}
+  itemDetailImage: {fileID: 0}
+  targetImage: {fileID: 0}
+  detailObjectOffset: {x: 0, y: 0, z: 0}
+  staticPosition: 0
 --- !u!23 &5658704769216431121
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8493,6 +8533,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4dec00a0eefd44d81b957461da7e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDetailTransform: {fileID: 0}
+  itemDetailImage: {fileID: 0}
+  targetImage: {fileID: 0}
+  detailObjectOffset: {x: 0, y: 0, z: 0}
+  staticPosition: 0
 --- !u!1 &6256179774969428879
 GameObject:
   m_ObjectHideFlags: 0
@@ -8523,6 +8568,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4dec00a0eefd44d81b957461da7e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDetailTransform: {fileID: 0}
+  itemDetailImage: {fileID: 0}
+  targetImage: {fileID: 0}
+  detailObjectOffset: {x: 0, y: 0, z: 0}
+  staticPosition: 0
 --- !u!1 &6357304912008925588
 GameObject:
   m_ObjectHideFlags: 0
@@ -10470,8 +10520,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -11723,6 +11773,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4dec00a0eefd44d81b957461da7e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDetailTransform: {fileID: 0}
+  itemDetailImage: {fileID: 0}
+  targetImage: {fileID: 0}
+  detailObjectOffset: {x: 0, y: 0, z: 0}
+  staticPosition: 0
 --- !u!1 &8278102359480955934
 GameObject:
   m_ObjectHideFlags: 0
@@ -11753,6 +11808,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4dec00a0eefd44d81b957461da7e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDetailTransform: {fileID: 0}
+  itemDetailImage: {fileID: 0}
+  targetImage: {fileID: 0}
+  detailObjectOffset: {x: 0, y: 0, z: 0}
+  staticPosition: 0
 --- !u!23 &8339844530424305533
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11946,6 +12006,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4dec00a0eefd44d81b957461da7e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDetailTransform: {fileID: 0}
+  itemDetailImage: {fileID: 0}
+  targetImage: {fileID: 0}
+  detailObjectOffset: {x: 0, y: 0, z: 0}
+  staticPosition: 0
 --- !u!23 &8657447282343797346
 MeshRenderer:
   m_ObjectHideFlags: 0
