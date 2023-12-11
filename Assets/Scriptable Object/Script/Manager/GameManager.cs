@@ -266,6 +266,8 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        if (selectedNode.nodeBase.nodeType == NodeType.None)
+            selectedNode = null;
 
         //if (targetNode)
         //    Debug.Log(targetNode.transform.parent.name);

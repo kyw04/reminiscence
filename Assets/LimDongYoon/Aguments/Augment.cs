@@ -43,9 +43,9 @@ public class Augment : ScriptableObject
         BambooNecklace = 40018,
         HeroicNecklace = 40019,
         InfiniteWell = 40020
-       
+
     }
-    
+
     public int id;
     public string name;
     public string description;
@@ -62,58 +62,6 @@ public class Augment : ScriptableObject
         this.name = name;
         this.description = description;
         this.actionType = actionType;
-    }
-
-    // 각 증강체의 특별한 행동을 여기에 구현할 수 있습니다.
-    public void ActivateEffect()
-    {
-        switch (id)
-        {
-            case 40000:
-                // "쌍둥이의 검" 효과 구현
-                TwinBlades();
-                
-                break;
-            // 다른 증강체 효과들을 여기에 구현합니다.
-
-            case 40001:
-
-            case 40002:
-                Eclipse();
-                break;
-            // ...
-            default:
-                break;
-        }
-    }
-
-    public void TwinBlades()
-    {
-        if (GameManager.instance.foundPatternCount == 2 && GameManager.instance.gameState == GameState.EndTurn)
-        {
-            GameManager.instance.enemy.GetDamage(nodeBase, 10);
-        }
-    }
-
-    public void Fatereject()
-    {
-
-    }
-
-    public void Eclipse()
-    {
-        if(playerMovement.canvasActivated)
-        {
-           
-        }
-    }
-
-    public void TeacherHat()
-    {
-        if(GameManager.instance.gameState == GameState.End)
-        {
- 
-        }
     }
 }
 
