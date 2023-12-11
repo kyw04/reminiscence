@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : EntityBase
 {
@@ -42,7 +43,8 @@ public class Player : EntityBase
     {
 
         GameManager.instance.EndBattle(false);
-        
+        SceneManager.LoadScene("GameOver");
+
     }
     public override void GetDamage(NodeBase attackerNodeBase, float damage)
     {
