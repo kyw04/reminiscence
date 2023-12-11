@@ -129,5 +129,10 @@ public class AugmentActive : MonoBehaviour
         }
     }
 
+    public void IndomitableWill()
+    {
+
+    }
+
 
 }
