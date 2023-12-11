@@ -91,10 +91,13 @@ public class Enemy : EntityBase
                 modelName = "나이트";
                 break;
             default:
-                modelName = "오류";
+                modelName = "꽓딺뚫";
                 break;
         }
-        Instantiate(models[modelIndex], transform).GetComponent<EnemyMaterial>().SetMaterials(elementalTypeIndex);
+
+        EnemyMaterial enemyMaterial = Instantiate(models[modelIndex], transform).GetComponent<EnemyMaterial>();
+        enemyMaterial.SetMaterials(elementalTypeIndex);
+        animator = enemyMaterial.animator;
         enemyName = boss + elementalTypeString + modelName;
 
         nodeCount = UnityEngine.Random.Range(1, maxNodeCount);

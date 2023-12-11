@@ -45,20 +45,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d947e358596fb824ab9b7454d896f7ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 1560108725529366615}
-  inspectorMeterials:
-  - materials:
-    - {fileID: 2100000, guid: 3bdc2d58a0d0a5f4b8880728f6205790, type: 2}
-    - {fileID: 2100000, guid: 55741e14d9b075349ac855f7035496f3, type: 2}
-  - materials:
-    - {fileID: 2100000, guid: eb112d931fceb724eb194ba563204658, type: 2}
-    - {fileID: 2100000, guid: c1386436c9e6d454082505b12623f10d, type: 2}
-  - materials:
-    - {fileID: 2100000, guid: 103165306a45a54488cea888a8b54855, type: 2}
-    - {fileID: 2100000, guid: 6f8c0485b3520b147bf5f403b5920d2d, type: 2}
-  - materials:
-    - {fileID: 2100000, guid: 281105dc6b78dd842ada0f93956e14d8, type: 2}
-    - {fileID: 2100000, guid: fcb8345af6d2069479b9af2f298bc7bf, type: 2}
+  animator: {fileID: 0}
+  meshRenderer:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  meterial:
+  - index:
+    - materials:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+    - materials:
+      - {fileID: 0}
+    - materials:
+      - {fileID: 0}
+  - index:
+    - materials:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+    - materials:
+      - {fileID: 0}
+    - materials:
+      - {fileID: 0}
+  - index:
+    - materials:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+    - materials:
+      - {fileID: 0}
+    - materials:
+      - {fileID: 0}
+  - index:
+    - materials:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+    - materials:
+      - {fileID: 0}
+    - materials:
+      - {fileID: 0}
 --- !u!1001 &173119477742357715
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -131,11 +159,6 @@ PrefabInstance:
 --- !u!4 &427193536479603512 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
-  m_PrefabInstance: {fileID: 173119477742357715}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &1560108725529366615 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
   m_PrefabInstance: {fileID: 173119477742357715}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9212683674579757304

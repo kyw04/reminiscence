@@ -22,7 +22,7 @@ public class EntityBase : MonoBehaviour
 
     public virtual void GetDamage(NodeBase attackerNodeBase, float damage)
     {
-        
+        animator.SetTrigger("Hit");
         health -= nodeBase.GetTotalDamage(attackerNodeBase, damage);
         Debug.Log($"GetDamage.. current health: {health}");
         if (health < 0)

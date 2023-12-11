@@ -2,18 +2,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct InspectorMeterials
+public struct Index
 {
     public Material[] materials;
 }
 
+[System.Serializable]
+public struct Meterials
+{
+    public Index[] index;
+}
+
 public class EnemyMaterial : MonoBehaviour
 {
-    public MeshRenderer meshRenderer;
-    public InspectorMeterials[] inspectorMeterials;
+    public Animator animator;
+    public SkinnedMeshRenderer[] meshRenderer;
+    public Meterials[] meterial;
 
     public void SetMaterials(int index)
     {
-        meshRenderer.materials = inspectorMeterials[index].materials;
+        for (int i = 0; i < meshRenderer.Length; i++)
+        {
+            meshRenderer[i].materials = meterial[index].index[i].materials;
+        }
     }
 }
