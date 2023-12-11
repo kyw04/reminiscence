@@ -32,7 +32,7 @@ public class Enemy : EntityBase
         base.Start();
 
         CurrentBattleEnemyInfo battleEnemyInfo = GameStateManager.Instance.currentBattlleInfo;
-
+        Debug.LogWarning(battleEnemyInfo.currentStageLevel);
         maxHealth = 100 * battleEnemyInfo.currentStageLevel;
         damage = 5 * battleEnemyInfo.currentStageLevel;
         string boss = "";
@@ -99,6 +99,7 @@ public class Enemy : EntityBase
         enemyMaterial.SetMaterials(elementalTypeIndex);
         animator = enemyMaterial.animator;
         enemyName = boss + elementalTypeString + modelName;
+        GameManager.instance.enemyNameText.text = enemyName;
 
         nodeCount = UnityEngine.Random.Range(1, maxNodeCount);
         int nodeBaseLength = GameManager.instance.nodeBases.Length;

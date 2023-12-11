@@ -122,7 +122,6 @@ public class GameManager : MonoBehaviour
     {
         var a = GameStateManager.Instance.currentBattlleInfo;
         Debug.Log(a.currentStageLevel.ToString() + " "+ a.isBoss + " "+ a.nodeElementalType);
-        enemyNameText.text = enemy.enemyName;
         audioSource = GetComponent<AudioSource>();
         ResetCount();
         turn = 0;
