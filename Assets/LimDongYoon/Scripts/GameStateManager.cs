@@ -111,8 +111,8 @@ public class GameStateManager : MonoBehaviour
     }
     public IEnumerator UpdateHealthBar()
     {
-        yield return new WaitForSeconds(2f);
-        float duration = 3f; // 체력 바가 업데이트되는데 걸리는 시간 (초)
+
+        float duration = 4f; // 체력 바가 업데이트되는데 걸리는 시간 (초)
         float elapsed = 0f;
 
         float startFill = hpBar.fillAmount;

@@ -152,7 +152,7 @@ public class EvenetStage : MonoBehaviour
     public void Rest(int _healthAmount)
     {
         GameStateManager.Instance.health += _healthAmount;
-        StartCoroutine(GameStateManager.Instance.UpdateHealthBar());
+        
     }
     // Update is called once per frame
     void Update()
@@ -227,6 +227,7 @@ public class EvenetStage : MonoBehaviour
         }
 
         yield return new WaitForSeconds(delay);
+        if(eventType == EventType.rest) StartCoroutine(GameStateManager.Instance.UpdateHealthBar());
         image.color = temp;
         mouseLock = false;
         button.enabled = true;
@@ -234,7 +235,7 @@ public class EvenetStage : MonoBehaviour
         
         foreach (var a in otherEventStages)
         {
-            if (eventType == EventType.rest) break;
+   
 
             a.mouseLock = false;
             var i = a.GetComponent<Image>();
