@@ -7,6 +7,8 @@ public class GameStateManager : MonoBehaviour
     
     public static GameStateManager Instance { get; private set; }
 
+    private MapManager mapManager;
+
     [Header("개발자 모드")] 
     public bool playerWinMode = false;
     public bool playerLoseMdoe = false;
@@ -14,12 +16,16 @@ public class GameStateManager : MonoBehaviour
     public float maxHealth = 100;
     public float health = 100;
 
-    public Image hpBar; 
+    public Image hpBar;
 
 
-
+    private List<Augment> tempAguments;
     public List<Augment> aguments = new List<Augment>();
     public List<Augment> equipedAguments = new List<Augment>();
+
+    private List<Pattern> tempPatterns;
+    public List<Pattern> patterns = new List<Pattern>();
+    public List<Pattern> equipedPatterns = new List<Pattern>();
 
 
     public int stageLevel = 0;
@@ -33,6 +39,8 @@ public class GameStateManager : MonoBehaviour
 
     public void Start()
     {
+        
+        mapManager = FindAnyObjectByType<MapManager>();
         currentBattlleInfo = new CurrentBattleEnemyInfo
         {
             currentStageLevel = 0,
@@ -42,6 +50,8 @@ public class GameStateManager : MonoBehaviour
     }
     private void Awake()
     {
+        tempAguments = aguments;
+        tempPatterns = patterns;
         if (Instance == null)
         {
             Instance = this;
@@ -95,6 +105,20 @@ public class GameStateManager : MonoBehaviour
         if(!hpBar)
         hpBar = FindFirstObjectByType<hpBarTag>().GetComponent<Image>(); 
         hpBar.fillAmount = health / maxHealth;
+
+    }
+    public void InitGame()
+    {
+
+        maxHealth = 100;
+        health = 100;
+        HealthImageUpdate();
+        aguments = tempAguments;
+        patterns = tempPatterns;
+        stageLevel = 0;
+        LastBattleResult = BattleResult.None;
+        mapManager.GenerateNewMap();
+        mapManager.SaveMap();
 
     }
 

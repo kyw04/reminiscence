@@ -13,28 +13,29 @@ public class AugmentNode : MonoBehaviour
     // Start is called before the first frame update
     public void LoadAugment()
     {
-        var aguments = GameStateManager.Instance.equipedAguments;
+        var augments = GameStateManager.Instance.equipedAguments;
 
-        
         int count = 0;
-        foreach (var a in aguments)
+        foreach (var a in augments)
         {
-            
-            if (images.Length < count - 1)
+            // 'images' 배열의 길이를 체크하여 인덱스 초과를 방지합니다.
+            if (count >= images.Length)
             {
                 Debug.Log("증강체 초과 표시되지 않습니다.");
                 break;
             }
-            var image = images[count];
-            if (a.sprite == null)
-            {
 
+            var image = images[count];
+            if (a.sprite != null)
+            {
+                image.sprite = a.sprite;
+                image.enabled = true; // 스프라이트가 있는 경우 이미지를 활성화합니다.
             }
             else
             {
-                image.sprite = a.sprite;
+                image.enabled = false; // 스프라이트가 없는 경우 이미지를 비활성화할 수 있습니다.
             }
-            image.enabled = true;
+
             count++;
         }
     }

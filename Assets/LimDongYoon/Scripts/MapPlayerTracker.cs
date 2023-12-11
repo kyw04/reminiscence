@@ -160,8 +160,8 @@ namespace Map
                     SelectUIOn();
                     break;
                 case NodeType.Store:
-                    Debug.Log("마법");
-                    selectUI = patternUI;
+                    Debug.Log("휴식");
+                    selectUI = restUI;
                     SelectUIOn();
                     break;
                 case NodeType.Mystery:
@@ -170,7 +170,7 @@ namespace Map
                     SelectUIOn();
                     break;
                 case NodeType.Treasure:
-                    selectUI = augmentUI;
+                    selectUI = patternUI;
                     SelectUIOn();
                     break;
                 default:
