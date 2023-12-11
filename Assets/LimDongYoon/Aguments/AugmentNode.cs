@@ -71,4 +71,8 @@ public class AugmentNode : MonoBehaviour
     {
 
     }
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 }

@@ -11,9 +11,12 @@ public class PatternNode : MonoBehaviour
     public List<Augment> equipedAugments;
     public Sprite defaultSprite;
 
-
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     // Start is called before the first frame update
-   
+
     public void LoadPattern()
     {
         var patterns = GameStateManager.Instance.equipedPatterns;
