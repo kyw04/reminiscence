@@ -172,12 +172,16 @@ public class Enemy : EntityBase
             }
 
             if (deleteNode.count > 0)
+            {
+                StartCoroutine(PlayAttackSound(attackSpeed));
                 animator.SetTrigger("Attack");
                 //StartCoroutine(MoveAndComeBack(pos, 10.0f, deleteNode.count));
+            }
         }
 
         return result;
     }
+
     public override void Death()
     {
         GameManager.instance.EndBattle(true);

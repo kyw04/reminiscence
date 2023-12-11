@@ -5,12 +5,15 @@ using UnityEngine.UI;
 
 public class EntityBase : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public AudioClip attackSound;
     public Image[] hpbar;
     public Animator animator;
     public NodeBase nodeBase;
     public float maxHealth = 100;
     public float health = 100;
     public int power = 10;
+    public float attackSpeed = 1.25f;
     public bool isDead;
     
     protected virtual void Start()
@@ -44,4 +47,11 @@ public class EntityBase : MonoBehaviour
     }
 
     public virtual void Death() {  }
+
+    public IEnumerator PlayAttackSound(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        Debug.Log("Á×¾î ±èÀ¯ÇÑ");
+        audioSource.PlayOneShot(attackSound);
+    }
 }
