@@ -24,28 +24,26 @@ public class Augment : ScriptableObject
     public enum AugmentType
     {
         TwinBlades = 40000,
-        ChosenOne = 40001,
-        FateRejector = 40002,
-        Eclipse = 40003,
-        MastersAmulet = 40004,
-        NaturalTalent = 40005,
-        BrokenHornOfTheBeast = 40006,
-        KingsChoice = 40007,
-        RoyalSigil = 40008,
-        IdolOfJealousy = 40009,
-        MirrorOfBetrayal = 40010,
-        Meteor = 40011,
-        IdolOfRejection = 40012,
-        ShieldOfWill = 40013,
-        ConcentrationStaff = 40014,
-        DiffractionStaff = 40015,
-        NecklaceOfWill = 40016,
-        SealedMemoriesNecklace = 40017,
-        BambooNecklace = 40018,
-        HeroicNecklace = 40019,
-        InfiniteWell = 40020
-
+        FateRejector = 40001,
+        Eclipse = 40002,
+        MastersAmulet = 40003,
+        NaturalTalent = 40004,
+        BrokenHornOfTheBeast = 40005,
+        KingsChoice = 40006,
+        RoyalSigil = 40007,
+        IdolOfJealousy = 40008,
+        Meteor = 40009,
+        IdolOfRejection = 40010,
+        UnyieldingWill = 40011,
+        WanderingMemories = 40012,
+        SignOfTheAbyss = 40013,
+        WillManifestation = 40014,
+        KeyOfTheGate = 40015,
+        HeroicPath = 40016,
+        ChosenOne = 40017,
+       
     }
+
 
     public int id;
     public string name;

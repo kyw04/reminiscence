@@ -149,7 +149,7 @@ public class EvenetStage : MonoBehaviour
         black.a = 0.98f;
         image.color = black;
 
-        GetComponent<Image>().enabled = false;
+        //GetComponent<Image>().enabled = false;
         foreach(var a in otherEventStages)
         {
             GameStateManager.Instance.aguments.Add(a.currentAugment);
