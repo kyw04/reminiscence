@@ -10,6 +10,7 @@ public class EntityBase : MonoBehaviour
     public NodeBase nodeBase;
     public float maxHealth = 100;
     public float health = 100;
+    public int power = 10;
     public bool isDead;
     
     protected virtual void Start()
@@ -19,8 +20,9 @@ public class EntityBase : MonoBehaviour
         HealthImageUpdate();
     }
 
-    public void GetDamage(NodeBase attackerNodeBase, float damage)
+    public virtual void GetDamage(NodeBase attackerNodeBase, float damage)
     {
+        
         health -= nodeBase.GetTotalDamage(attackerNodeBase, damage);
         Debug.Log($"GetDamage.. current health: {health}");
         if (health < 0)

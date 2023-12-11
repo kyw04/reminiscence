@@ -1,55 +1,40 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Itemdetail : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ItemDetail : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public GameObject ItemdetailObject;
-    public Canvas canvas;
-
-    private bool isHovering = false;
-    private GameObject currentHoveredObject;
-    private bool itemDetailActive = false;
+    public RectTransform itemDetailTransform;
+    public Vector3 detailObjectOffset;
+    public bool staticPosition;
 
     private void Start()
     {
-        ItemdetailObject.SetActive(false);
+        itemDetailTransform.gameObject.SetActive(false);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        isHovering = true;
-        currentHoveredObject = eventData.pointerEnter.gameObject;
-
-        if (!itemDetailActive)
+        if (!itemDetailTransform.gameObject.activeSelf)
         {
-            ItemdetailObject.SetActive(true);
-            itemDetailActive = true;
-        }
+            //Debug.Log(detailObjectOffset);
+            if (staticPosition)
+                itemDetailTransform.position = detailObjectOffset;
+            else
+                itemDetailTransform.position = transform.position + detailObjectOffset;
 
-        // Disable collider of the object being hovered
-        Collider collider = currentHoveredObject.GetComponent<Collider>();
-        if (collider != null)
-        {
-            collider.enabled = false;
+            itemDetailTransform.gameObject.SetActive(true);
         }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        isHovering = false;
-
-        // Re-enable collider of the object being exited
-        if (currentHoveredObject != null)
+        //Debug.Log(eventData.pointerCurrentRaycast.gameObject);
+        if (eventData.pointerCurrentRaycast.gameObject == itemDetailTransform.gameObject)
         {
-            Collider collider = currentHoveredObject.GetComponent<Collider>();
-            if (collider != null)
-            {
-                collider.enabled = true;
-            }
+            Debug.Log("return");
+            return;
         }
 
-        ItemdetailObject.SetActive(false);
-        itemDetailActive = false;
+        itemDetailTransform.gameObject.SetActive(false);
     }
 }

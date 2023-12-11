@@ -40,12 +40,36 @@ public class Player : EntityBase
     }
     public override void Death()
     {
+
         GameManager.instance.EndBattle(false);
         
     }
+    public override void GetDamage(NodeBase attackerNodeBase, float damage)
+    {
+        GameStateManager.Instance.health -= nodeBase.GetTotalDamage(attackerNodeBase, damage);
+        health -= nodeBase.GetTotalDamage(attackerNodeBase, damage);
+        Debug.Log($"GetDamage.. current health: {health}");
+        if (health < 0)
+        {
+            health = 0;
+            isDead = true;
+            Death();
+            GameManager.instance.gameState = GameState.End;
+        }
+
+        HealthImageUpdate();
+    }
+
 
     private void Awake()
     {
+        maxHealth = GameStateManager.Instance.maxHealth;
+        health = GameStateManager.Instance.health;
+
         if (GameStateManager.Instance.playerLoseMdoe) health = 1f;
+        else
+        {
+            
+        }
     }
 }

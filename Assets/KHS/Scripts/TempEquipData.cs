@@ -50,9 +50,10 @@ public class TempEquipData : MonoBehaviour
             }
             if (check == 3) break;
         }
+        SetEquipmentStat();
     }
 
-    public EquipmentStat PlayerEquipmentStat;
+    static public EquipmentStat PlayerEquipmentStat;
 
     public void SetEquipmentStat()
     {
