@@ -15,15 +15,16 @@ MonoBehaviour:
   nodePatternTemp:
   - index:
     - {fileID: 0}
-    - {fileID: 11400000, guid: ca545d584114fd64aa9c1a4719ac8467, type: 2}
-    - {fileID: 11400000, guid: ca545d584114fd64aa9c1a4719ac8467, type: 2}
-  - index:
-    - {fileID: 11400000, guid: ca545d584114fd64aa9c1a4719ac8467, type: 2}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 0556c2666d8282d4cab67fd2c87385c4, type: 2}
+    - {fileID: 11400000, guid: 0556c2666d8282d4cab67fd2c87385c4, type: 2}
   - index:
     - {fileID: 0}
-    - {fileID: 11400000, guid: ca545d584114fd64aa9c1a4719ac8467, type: 2}
-    - {fileID: 11400000, guid: ca545d584114fd64aa9c1a4719ac8467, type: 2}
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 0556c2666d8282d4cab67fd2c87385c4, type: 2}
+  - index:
+    - {fileID: 0}
+    - {fileID: 11400000, guid: 0556c2666d8282d4cab67fd2c87385c4, type: 2}
+    - {fileID: 11400000, guid: 0556c2666d8282d4cab67fd2c87385c4, type: 2}
   level: 3
   damage: 30
+  sprite: {fileID: 21300000, guid: b7febb185a4f38248a661cb68cc6b7bc, type: 3}
