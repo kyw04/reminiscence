@@ -64,14 +64,20 @@ public class AugmentActive : MonoBehaviour
 
     public void Fatereject()
     {
-
+        //문양을 완성하지 못하고 턴 종료를 했을 경우 퍼즐 전체 셔플
     }
 
     public void Eclipse()
     {
         if (playerMovement.canvasActivated)
         {
+            // 정중앙에 움직일 수 없는 블록을 생성
             //GameNodeType.None;
+        }
+
+        if(GameManager.instance.gameState == GameState.EndTurn)
+        {
+            GameManager.instance.player.health += 5 / GameManager.instance.player.health;
         }
     }
 
@@ -90,7 +96,9 @@ public class AugmentActive : MonoBehaviour
 
     public void BrokenHorn()
     {
+        // 적 턴이 종료될 때 랜덤한 블록 한개가 파괴된다.
 
+        GameManager.instance.enemy.health -= 10 / GameManager.instance.enemy.health;
     }
     public void KingChoice()
     {
@@ -125,14 +133,53 @@ public class AugmentActive : MonoBehaviour
     {
         if (GameManager.instance.gameState == GameState.EndTurn && GameManager.instance.foundPatternCount != 3)
         {
-            //
+            //턴 종료 시 행동 횟수가 남아있다면 10% 확률로 적의 공격을 방어한다.
         }
     }
 
     public void IndomitableWill()
     {
-
+        if(GameManager.instance.player.health <= 0)
+        {
+            //전투가 종료되지않고
+            GameManager.instance.player.health = 1;
+        }
+    }
+    public void MemoriesOfWandering()
+    {
+        // 적턴이 종료될 때 정중앙 9개의 블록이 파괴된다.
     }
 
+    public void OmenOfHell()
+    {
+        // 적턴이 종료될 때 정중앙 9개의 블록을 제외한 블록들이 파괴된다.
+    }
 
+    public void ManifestationOfWill()
+    {
+        GameManager.instance.maxMovementCount--;
+        GameManager.instance.player.power += 10;
+    }
+    public void KeyOfDoor()
+    {
+        if(playerMovement.canvasActivated)
+        {
+            GameManager.instance.enemy.health -= 50 / GameManager.instance.enemy.maxHealth;
+        }
+
+        if(GameManager.instance.foundPatternCount == 5)
+        {
+            GameManager.instance.enemy.health = GameManager.instance.enemy.maxHealth;
+        }
+    }
+    public void HeroRoad()
+    {
+        GameManager.instance.player.power *= 2;
+        GameManager.instance.enemy.power*= 2;
+    }
+
+    public void ChosenOne()
+    {
+        GameManager.instance.player.power += 8;
+    }
 }
