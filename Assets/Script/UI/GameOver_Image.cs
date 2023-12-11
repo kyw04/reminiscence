@@ -28,7 +28,7 @@ public class GameOver_Image : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(delayBeforeSceneChange);
-
+        GameStateManager.Instance.LastBattleResult = BattleResult.Lose;
         SceneManager.LoadScene("Main UI");
 
     }

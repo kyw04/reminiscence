@@ -131,7 +131,7 @@ namespace Map
                 case BattleResult.Lose:
                     Debug.Log("Lose");
                     GameStateManager.Instance.InitGame();
-                    MySceneManager.Instance.LoadScene("Main UI");
+                 
                     break;
             }
             

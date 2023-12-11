@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Map;
 using UnityEngine.UI;
+using System.Collections;
+
 public class GameStateManager : MonoBehaviour
 {
     
@@ -39,7 +41,7 @@ public class GameStateManager : MonoBehaviour
 
     public void Start()
     {
-        
+        hpBar = FindFirstObjectByType<hpBarTag>().GetComponent<Image>();
         mapManager = FindAnyObjectByType<MapManager>();
         currentBattlleInfo = new CurrentBattleEnemyInfo
         {
@@ -106,6 +108,25 @@ public class GameStateManager : MonoBehaviour
         hpBar = FindFirstObjectByType<hpBarTag>().GetComponent<Image>(); 
         hpBar.fillAmount = health / maxHealth;
 
+    }
+    public IEnumerator UpdateHealthBar()
+    {
+        yield return new WaitForSeconds(2f);
+        float duration = 3f; // 체력 바가 업데이트되는데 걸리는 시간 (초)
+        float elapsed = 0f;
+
+        float startFill = hpBar.fillAmount;
+        float endFill = health / maxHealth;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            hpBar.fillAmount = Mathf.Lerp(startFill, endFill, elapsed / duration);
+            yield return null;
+        }
+
+        // 최종 값으로 설정
+       hpBar.fillAmount = endFill;
     }
     public void InitGame()
     {
