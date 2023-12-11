@@ -5084,7 +5084,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1365991a51f2d6049a586592ce4531e7, type: 2}
   - {fileID: 11400000, guid: 3a0b4a9998b8ae74290c115f2b8cb110, type: 2}
   equipedPatterns: []
-  stageLevel: 0
+  stageLevel: 3
   mapNode: {fileID: 0}
 --- !u!4 &1174698224
 Transform:
