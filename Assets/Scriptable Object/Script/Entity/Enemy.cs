@@ -174,6 +174,7 @@ public class Enemy : EntityBase
             if (deleteNode.count > 0)
             {
                 StartCoroutine(PlayAttackSound(attackSpeed));
+                GameManager.instance.player.GetDamage(nodeBase, damage);
                 animator.SetTrigger("Attack");
                 //StartCoroutine(MoveAndComeBack(pos, 10.0f, deleteNode.count));
             }
