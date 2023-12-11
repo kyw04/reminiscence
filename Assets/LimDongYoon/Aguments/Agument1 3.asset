@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7368134a963b1fd4b81cec3945df9e89, type: 3}
   m_Name: Agument1 3
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 2e92d2d9146f2c3459aaa300567d0d28, type: 3}
+  sprite: {fileID: 21300000, guid: 5e816d7b218d5df4abe62549b4037653, type: 3}
   id: 40000
   name: "\uC30D\uB465\uC774\uC758 \uAC80"
   description: "\uD134\uC774 \uC885\uB8CC\uB420 \uB54C \uC644\uC131\uB41C \uBB38\uC591\uC758

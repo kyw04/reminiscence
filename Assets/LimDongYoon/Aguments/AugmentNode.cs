@@ -20,7 +20,7 @@ public class AugmentNode : MonoBehaviour
         foreach (var a in aguments)
         {
             
-            if (images.Length < count)
+            if (images.Length < count - 1)
             {
                 Debug.Log("증강체 초과 표시되지 않습니다.");
                 break;
