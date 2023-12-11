@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7368134a963b1fd4b81cec3945df9e89, type: 3}
-  m_Name: "\uC30D\uB465\uC774\uC758 \uAC80"
+  m_Name: NewAugment 1
   m_EditorClassIdentifier: 
-  id: 4000
-  name: "\uC30D\uB465\uC774\uC758 \uAC80"
-  description: 
+  id: 40012
+  name: "\uAC70\uBD80\uC758 \uC6B0\uC0C1"
+  description: "\uD134 \uC885\uB8CC \uC2DC \uD589\uB3D9 \uD69F\uC218\uAC00 \uB0A8\uC544\uC788\uB2E4\uBA74
+    10% \uD655\uB960\uB85C \uC801\uC758 \uACF5\uACA9\uC744 \uBC29\uC5B4\uD55C\uB2E4."
   actionType: 0
   priority: 0
-  augmentType: 40000
+  augmentType: 40012
