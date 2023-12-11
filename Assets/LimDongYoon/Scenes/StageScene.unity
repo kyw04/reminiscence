@@ -1431,6 +1431,10 @@ MonoBehaviour:
   otherEventStages: []
   name: {fileID: 2100966479}
   description: {fileID: 147422419}
+  image: {fileID: 0}
+  restSprite: {fileID: 21300000, guid: 699ba18dafae91d4db627555dd67b557, type: 3}
+  augmentSprite: {fileID: 21300000, guid: 514600205c0a51d4a93793b9c6a8e101, type: 3}
+  patternSprite: {fileID: 21300000, guid: f1c709422705f514595dc18b6f730fa1, type: 3}
   currentAugment: {fileID: 0}
   augmentInfinity: {fileID: 11400000, guid: 13daef4286c5b3249a07179e97d9f225, type: 2}
   button: {fileID: 0}
@@ -1979,6 +1983,10 @@ MonoBehaviour:
   otherEventStages: []
   name: {fileID: 1515375225}
   description: {fileID: 1715081010}
+  image: {fileID: 0}
+  restSprite: {fileID: 21300000, guid: 699ba18dafae91d4db627555dd67b557, type: 3}
+  augmentSprite: {fileID: 21300000, guid: 514600205c0a51d4a93793b9c6a8e101, type: 3}
+  patternSprite: {fileID: 21300000, guid: f1c709422705f514595dc18b6f730fa1, type: 3}
   currentAugment: {fileID: 0}
   augmentInfinity: {fileID: 11400000, guid: a761e4db0cf8f094fa79a527715aef5f, type: 2}
   button: {fileID: 0}
@@ -2174,6 +2182,10 @@ MonoBehaviour:
   otherEventStages: []
   name: {fileID: 943279312}
   description: {fileID: 2004819325}
+  image: {fileID: 0}
+  restSprite: {fileID: 21300000, guid: 699ba18dafae91d4db627555dd67b557, type: 3}
+  augmentSprite: {fileID: 21300000, guid: 514600205c0a51d4a93793b9c6a8e101, type: 3}
+  patternSprite: {fileID: 21300000, guid: f1c709422705f514595dc18b6f730fa1, type: 3}
   currentAugment: {fileID: 0}
   augmentInfinity: {fileID: 11400000, guid: 13daef4286c5b3249a07179e97d9f225, type: 2}
   button: {fileID: 0}
@@ -3499,6 +3511,10 @@ MonoBehaviour:
   otherEventStages: []
   name: {fileID: 778222371}
   description: {fileID: 963804848}
+  image: {fileID: 0}
+  restSprite: {fileID: 21300000, guid: 699ba18dafae91d4db627555dd67b557, type: 3}
+  augmentSprite: {fileID: 21300000, guid: 514600205c0a51d4a93793b9c6a8e101, type: 3}
+  patternSprite: {fileID: 21300000, guid: f1c709422705f514595dc18b6f730fa1, type: 3}
   currentAugment: {fileID: 0}
   augmentInfinity: {fileID: 11400000, guid: a761e4db0cf8f094fa79a527715aef5f, type: 2}
   button: {fileID: 0}
@@ -5223,6 +5239,10 @@ MonoBehaviour:
   otherEventStages: []
   name: {fileID: 1976690500}
   description: {fileID: 1610380575}
+  image: {fileID: 0}
+  restSprite: {fileID: 21300000, guid: 699ba18dafae91d4db627555dd67b557, type: 3}
+  augmentSprite: {fileID: 21300000, guid: 514600205c0a51d4a93793b9c6a8e101, type: 3}
+  patternSprite: {fileID: 21300000, guid: f1c709422705f514595dc18b6f730fa1, type: 3}
   currentAugment: {fileID: 0}
   augmentInfinity: {fileID: 11400000, guid: a761e4db0cf8f094fa79a527715aef5f, type: 2}
   button: {fileID: 0}
@@ -5912,6 +5932,10 @@ MonoBehaviour:
   otherEventStages: []
   name: {fileID: 293902217}
   description: {fileID: 182568957}
+  image: {fileID: 0}
+  restSprite: {fileID: 0}
+  augmentSprite: {fileID: 0}
+  patternSprite: {fileID: 21300000, guid: f1c709422705f514595dc18b6f730fa1, type: 3}
   currentAugment: {fileID: 0}
   augmentInfinity: {fileID: 11400000, guid: a761e4db0cf8f094fa79a527715aef5f, type: 2}
   button: {fileID: 0}
@@ -6739,6 +6763,10 @@ MonoBehaviour:
   otherEventStages: []
   name: {fileID: 255373022}
   description: {fileID: 700864273}
+  image: {fileID: 0}
+  restSprite: {fileID: 0}
+  augmentSprite: {fileID: 0}
+  patternSprite: {fileID: 21300000, guid: f1c709422705f514595dc18b6f730fa1, type: 3}
   currentAugment: {fileID: 0}
   augmentInfinity: {fileID: 11400000, guid: a761e4db0cf8f094fa79a527715aef5f, type: 2}
   button: {fileID: 0}
@@ -7087,6 +7115,10 @@ MonoBehaviour:
   otherEventStages: []
   name: {fileID: 1020944833}
   description: {fileID: 1891294289}
+  image: {fileID: 0}
+  restSprite: {fileID: 0}
+  augmentSprite: {fileID: 0}
+  patternSprite: {fileID: 21300000, guid: f1c709422705f514595dc18b6f730fa1, type: 3}
   currentAugment: {fileID: 0}
   augmentInfinity: {fileID: 11400000, guid: a761e4db0cf8f094fa79a527715aef5f, type: 2}
   button: {fileID: 0}
@@ -8123,6 +8155,10 @@ MonoBehaviour:
   otherEventStages: []
   name: {fileID: 149390123}
   description: {fileID: 1584657582}
+  image: {fileID: 0}
+  restSprite: {fileID: 21300000, guid: 699ba18dafae91d4db627555dd67b557, type: 3}
+  augmentSprite: {fileID: 21300000, guid: 514600205c0a51d4a93793b9c6a8e101, type: 3}
+  patternSprite: {fileID: 21300000, guid: f1c709422705f514595dc18b6f730fa1, type: 3}
   currentAugment: {fileID: 0}
   augmentInfinity: {fileID: 11400000, guid: 13daef4286c5b3249a07179e97d9f225, type: 2}
   button: {fileID: 0}
@@ -8884,9 +8920,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5337413450055484461, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
+      propertyPath: restUI
+      value: 
+      objectReference: {fileID: 1462624991}
+    - target: {fileID: 5337413450055484461, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
       propertyPath: selectUI
       value: 
       objectReference: {fileID: 1147724822}
+    - target: {fileID: 5337413450055484461, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
+      propertyPath: augmentUI
+      value: 
+      objectReference: {fileID: 1147724822}
+    - target: {fileID: 5337413450055484461, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
+      propertyPath: patternUI
+      value: 
+      objectReference: {fileID: 951437624}
     - target: {fileID: 5337413450055484461, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
       propertyPath: lockAfterSelecting
       value: 1

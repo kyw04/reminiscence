@@ -15,4 +15,5 @@ public class Pattern : ScriptableObject
 
     public int level;
     public int damage;
+    public Sprite sprite;
 }

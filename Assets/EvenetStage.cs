@@ -13,6 +13,13 @@ public class EvenetStage : MonoBehaviour
     public TextMeshProUGUI name;
     public TextMeshProUGUI description;
 
+    public Image image;
+
+    public Sprite restSprite;
+    public Sprite augmentSprite;
+    public Sprite patternSprite;
+
+
     public Augment currentAugment;
     public Augment augmentInfinity;
     public Button button;
@@ -39,24 +46,47 @@ public class EvenetStage : MonoBehaviour
     private void OnEnable()
     {
         isMouseOver = false;
-        var augments = GameStateManager.Instance.aguments;
-        if (augments.Count > 0)
+        switch (eventType)
         {
-            Augment augment = augments[Random.Range(0, augments.Count)];
-            currentAugment = augment;
-            name.text = currentAugment.name;
-            description.text = currentAugment.description;
+            case EventType.agument:
+                var augments = GameStateManager.Instance.aguments;
+                if (augments.Count > 0)
+                {
+                    Augment augment = augments[Random.Range(0, augments.Count)];
+                    currentAugment = augment;
+                    name.text = currentAugment.name;
+                    description.text = currentAugment.description;
+                }
+                else
+                {
+                    currentAugment = augmentInfinity;
+                    // 리스트가 비어 있는 경우의 처리
+                }
+                GameStateManager.Instance.aguments.Remove(currentAugment);
+                break;
         }
-        else
+    }
+    
+    public void SetUp()
+    {
+        switch (eventType)
         {
-            currentAugment = augmentInfinity;
-            // 리스트가 비어 있는 경우의 처리
+            case EventType.rest:
+                image.sprite = restSprite;
+                break;
+            case EventType.agument:
+                image.sprite = augmentSprite;
+                break;
+            case EventType.pattern:
+                image.sprite = patternSprite;
+                break;
         }
-        GameStateManager.Instance.aguments.Remove(currentAugment);
     }
     // Start is called before the first frame update
     void Start()
     {
+        image = GetComponent<Image>();
+        SetUp();
         mapPlayerTracker = FindAnyObjectByType<MapPlayerTracker>();
         parent = transform.parent.parent;
 
@@ -80,7 +110,6 @@ public class EvenetStage : MonoBehaviour
             case EventType.agument:
                 SelectAugment();
                 break;
-
             case EventType.pattern:
                 break;
         }
@@ -142,12 +171,15 @@ public class EvenetStage : MonoBehaviour
 
     IEnumerator ScaleAndDisable(float delay)
     {
+
+        if (!image.isActiveAndEnabled) yield return null;
+
         mouseLock = true;
-        var image = parent.GetComponent<Image>();
+        var _image = parent.GetComponent<Image>();
         Color temp = image.color;
         Color black = Color.black;
         black.a = 0.98f;
-        image.color = black;
+        _image.color = black;
 
         //GetComponent<Image>().enabled = false;
         foreach(var a in otherEventStages)
@@ -172,8 +204,11 @@ public class EvenetStage : MonoBehaviour
         mouseLock = false;
 
         GetComponent<Image>().enabled = true;
+        
         foreach (var a in otherEventStages)
         {
+            if (eventType == EventType.rest) break;
+
             a.mouseLock = false;
             var i = a.GetComponent<Image>();
             var texts = a.GetComponentsInChildren<TextMeshProUGUI>();

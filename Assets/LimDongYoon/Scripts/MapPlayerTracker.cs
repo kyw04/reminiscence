@@ -18,6 +18,11 @@ namespace Map
         public MySceneManager sceneManager;
 
         public GameObject selectUI;
+
+        public GameObject augmentUI;
+        public GameObject restUI;
+        public GameObject patternUI;
+
         
 
         public static MapPlayerTracker Instance;
@@ -151,17 +156,21 @@ namespace Map
                     break;
                 case NodeType.RestSite:
                     Debug.Log("휴식");
+                    selectUI = restUI;
                     SelectUIOn();
                     break;
                 case NodeType.Store:
                     Debug.Log("마법");
+                    selectUI = patternUI;
                     SelectUIOn();
                     break;
                 case NodeType.Mystery:
+                    selectUI = augmentUI;
                     Debug.Log("증강체");
                     SelectUIOn();
                     break;
                 case NodeType.Treasure:
+                    selectUI = augmentUI;
                     SelectUIOn();
                     break;
                 default:
@@ -183,6 +192,21 @@ namespace Map
         {
             GameStateManager.Instance.health += healthAmount;
             GameStateManager.Instance.HealthImageUpdate();
+        }
+        public void RestSelectUIOn()
+        {
+            restUI.SetActive(true);
+            SelectUIOn();
+        }
+        public void PatternSelectUIOn()
+        {
+            patternUI.SetActive(true);
+            SelectUIOn();
+        }
+        public void AugmentSelectUIOn()
+        {
+            augmentUI.SetActive(true);
+            SelectUIOn();
         }
 
         public void SelectUIOn()
