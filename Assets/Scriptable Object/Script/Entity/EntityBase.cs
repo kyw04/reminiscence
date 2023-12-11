@@ -10,6 +10,7 @@ public class EntityBase : MonoBehaviour
     public NodeBase nodeBase;
     public float maxHealth = 100;
     public float health = 100;
+    public int power = 10;
     public bool isDead;
     
     protected virtual void Start()

@@ -10,9 +10,12 @@ public class Player : EntityBase
     public Vector3 bulletSpawnBoxPos;
     public Vector3 bulletSpawnBoxSize;
 
+    Animator animator2;
+    bool IsAttack = false;
     public void Attack(NodeBase nodeBase, float damage)
     {
         //animator.Play("Attack");
+        animator2.SetBool("IsAttack", true);
         StartCoroutine(SpawnBullet(nodeBase, damage));
     }
 
