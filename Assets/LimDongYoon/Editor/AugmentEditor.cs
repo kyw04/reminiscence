@@ -4,8 +4,14 @@ using UnityEngine;
 [CustomEditor(typeof(Augment))]
 public class AugmentEditor : Editor
 {
+    SerializedProperty spriteProp;
+    private void OnEnable()
+    {
+        spriteProp = serializedObject.FindProperty("sprite");
+    }
     public override void OnInspectorGUI()
     {
+        
         serializedObject.Update(); // SerializedObject를 업데이트합니다.
 
         Augment augment = (Augment)target;
@@ -84,9 +90,10 @@ public class AugmentEditor : Editor
 
             // ... 다른 증강체 타입에 대한 설정을 계속 추가합니다 ...
         }
-        
+
 
         // 나머지 필드를 그리는 기본 인스펙터 UI를 사용합니다.
+        DrawSpritePreview(spriteProp);
         DrawDefaultInspector();
 
         if (EditorGUI.EndChangeCheck()) // 변경이 감지된 경우
@@ -96,7 +103,23 @@ public class AugmentEditor : Editor
 
         serializedObject.ApplyModifiedProperties(); // 변경 사항을 적용합니다.
     }
-    
+    private void DrawSpritePreview(SerializedProperty spriteProp)
+    {
+        Sprite sprite = (Sprite)spriteProp.objectReferenceValue;
+        if (sprite != null)
+        {
+            Rect spriteRect = new Rect(sprite.textureRect.x / sprite.texture.width,
+                sprite.textureRect.y / sprite.texture.height,
+                sprite.textureRect.width / sprite.texture.width,
+                sprite.textureRect.height / sprite.texture.height);
+
+            GUILayout.Label("", GUILayout.Height(400)); // 또는 원하는 높이
+            Rect lastRect = GUILayoutUtility.GetLastRect();
+            GUI.DrawTextureWithTexCoords(lastRect, sprite.texture, spriteRect);
+            // DrawSpritePreview 함수 구현은 이전과 동일
+        }
+    }
+
     private void UpdateAugmentFields(Augment augment, int id, string name, string description, Augment.ActionType actionType, int priority)
     {
         augment.id = id;

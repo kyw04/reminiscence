@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5f491b607b1cd948b5bc856850b2616, type: 3}
-  m_Name: Minor Enemy
+  m_Name: Minor Enemy Fire
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 84009b84161522e4fbbdcd8b10311831, type: 3}
+  sprite: {fileID: 21300000, guid: 7fe7589a7be9e104fbe0014efe71df7f, type: 3}
   sprites:
   - {fileID: 21300000, guid: 7fe7589a7be9e104fbe0014efe71df7f, type: 3}
   - {fileID: 21300000, guid: 84009b84161522e4fbbdcd8b10311831, type: 3}
   - {fileID: 21300000, guid: 5a5e3a59334c98d41ba0c38ce9832011, type: 3}
   - {fileID: 21300000, guid: aa1776881c08ba048b3856185ae4a257, type: 3}
   nodeType: 0
-  nodeElementalType: 1
+  nodeElementalType: 0
