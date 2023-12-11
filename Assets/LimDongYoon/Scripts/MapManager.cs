@@ -49,6 +49,7 @@ namespace Map
 
         public void GenerateNewMap()
         {
+           
             var map = MapGenerator.GetMap(config);
             CurrentMap = map;
             Debug.Log(map.ToJson());
