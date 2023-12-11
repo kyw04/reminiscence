@@ -46,8 +46,21 @@ public class Player : EntityBase
     }
     public override void GetDamage(NodeBase attackerNodeBase, float damage)
     {
-        GameStateManager.Instance.health -= nodeBase.GetTotalDamage(attackerNodeBase, damage);
-        health -= nodeBase.GetTotalDamage(attackerNodeBase, damage);
+        float reducedDamage = nodeBase.GetTotalDamage(attackerNodeBase, damage);
+
+        reducedDamage -= TempEquipData.PlayerEquipmentStat._def;
+        if (attackerNodeBase.nodeType == NodeType.Fire) reducedDamage -= TempEquipData.PlayerEquipmentStat._fireRes;
+        else if (attackerNodeBase.nodeType == NodeType.Water) reducedDamage -= TempEquipData.PlayerEquipmentStat._waterRes;
+        else if (attackerNodeBase.nodeType == NodeType.Wind) reducedDamage -= TempEquipData.PlayerEquipmentStat._airRes;
+        else if (attackerNodeBase.nodeType == NodeType.Soil) reducedDamage -= TempEquipData.PlayerEquipmentStat._earthRes;
+
+        if (reducedDamage < 0) reducedDamage = 0;
+
+        //GameStateManager.Instance.health -= nodeBase.GetTotalDamage(attackerNodeBase, damage);
+        //health -= nodeBase.GetTotalDamage(attackerNodeBase, damage);
+        GameStateManager.Instance.health -= reducedDamage;
+        health -= reducedDamage;
+        
         Debug.Log($"GetDamage.. current health: {health}");
         if (health < 0)
         {

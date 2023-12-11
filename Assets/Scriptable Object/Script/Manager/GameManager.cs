@@ -372,9 +372,8 @@ public class GameManager : MonoBehaviour
         foreach (NodeBase nodeBase in foundNodeBaes)
         {
             // 장비 공격력 합산시킴
-            player.Attack(nodeBase, pattern.damage / (float)foundNodeBaes.Count);
-            //Debug.Log(TempEquipData.PlayerEquipmentStat._atk);
-            //player.Attack(nodeBase, pattern.damage + TempEquipData.PlayerEquipmentStat._atk / (float)foundNodeBaes.Count);
+            //player.Attack(nodeBase, pattern.damage / (float)foundNodeBaes.Count);
+            player.Attack(nodeBase, pattern.damage + TempEquipData.PlayerEquipmentStat._atk / (float)foundNodeBaes.Count);
         }
 
         return deleteNode;
