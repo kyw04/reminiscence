@@ -53,8 +53,7 @@ public class Augment : ScriptableObject
     public ActionType actionType;
     public int priority;
     public AugmentType augmentType;
-    public NodeBase nodeBase;
-    public PlayerMovement playerMovement;
+
 
 
     public Augment(int id, string name, string description, ActionType actionType)

@@ -19,7 +19,7 @@ public class GameStateManager : MonoBehaviour
 
 
     public List<Augment> aguments = new List<Augment>();
-    public List<Augment> currentAguments = new List<Augment>();
+    public List<Augment> equipedAguments = new List<Augment>();
     public int stageLevel = 0;
 
     public CurrentBattleEnemyInfo currentBattlleInfo;
