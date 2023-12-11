@@ -17,6 +17,9 @@ namespace Map
         public MapView view;
         public MySceneManager sceneManager;
 
+        public GameObject selectUI;
+        
+
         public static MapPlayerTracker Instance;
         
 
@@ -63,6 +66,7 @@ namespace Map
             Locked = lockAfterSelecting;
             mapManager.CurrentMap.path.Add(mapNode.Node.point);
             
+            /*
             switch (mapNode.Node.nodeType)
             {
                 case NodeType.Boss:
@@ -73,11 +77,14 @@ namespace Map
                     mapManager.SaveMap();
                     break;
             }
+            */
+            mapManager.SaveMap();
 
             view.SetAttainableNodes();
             view.SetLineColors();
             //mapNode.ShowSwirlAnimation();
             DOTween.Sequence().AppendInterval(enterNodeDelay).OnComplete(() => EnterNode(mapNode));
+            
         }
         
         private void SendPlayerToNode(MapNode mapNode,bool saveMode)
@@ -89,11 +96,7 @@ namespace Map
             view.SetAttainableNodes();
             view.SetLineColors();
             mapNode.ShowSwirlAnimation();
-            if (mapNode.Node.nodeType == NodeType.Boss)
-            {
-                mapManager.GenerateNewMap();
-                mapManager.SaveMap();
-            }
+            
         }
      
      
@@ -112,19 +115,17 @@ namespace Map
                 case BattleResult.Win:
                     Debug.Log(GameStateManager.Instance.point);
                     GameStateManager.Instance.mapNode = view.GetNode(GameStateManager.Instance.point);
-                    SelectNode(view.GetNode(GameStateManager.Instance.point));
-                     mapManager.SaveMap();
-                    
-                    
                     break;
                 case BattleResult.Lose:
-                    Debug.Log("False");
+                    Debug.Log("Lose");
+                    mapManager.GenerateNewMap();
+                    mapManager.SaveMap();
                     break;
             }
             
         }
 
-        private static void EnterNode(MapNode mapNode)
+        private void EnterNode(MapNode mapNode)
         {
             Debug.Log("Entering node: " + mapNode.Node.blueprintName + " of type: " + mapNode.Node.nodeType);
             // we have access to blueprint name here as well
@@ -135,33 +136,53 @@ namespace Map
             // if you choose to show GUI in some of these cases, do not forget to set "Locked" in MapPlayerTracker back to false
             switch (mapNode.Node.nodeType)
             {
+                
                 case NodeType.Boss:
                 case NodeType.MinorEnemy:
                 case NodeType.EliteEnemy:
+                    if (MySceneManager.Instance.sceneLocked && lockAfterSelecting) Locked = false;
                     Debug.Log("zz");
                     DontDestroyOnLoad(mapNode.gameObject);
                     GameStateManager.Instance.point = mapNode.Node.point;//new Point(x: mapNode.Node.point.x, y:mapNode.Node.point.y);
                     MySceneManager.Instance.LoadNextScene();
                     break;
                 case NodeType.RestSite:
-                    
                     Debug.Log("휴식");
+                    SelectUIOn();
                     break;
-                
                 case NodeType.Store:
                     Debug.Log("마법");
+                    SelectUIOn();
                     break;
                 case NodeType.Mystery:
                     Debug.Log("증강체");
+                    SelectUIOn();
                     break;
-                
                 case NodeType.Treasure:
+                    SelectUIOn();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
+        public void SelectUIOn()
+        {
+            FindObjectOfType<ScrollNonUI>().freezeX = true;
+            selectUI.SetActive(true);
+        }
+
+        public void SelectUIOff()
+        {
+            Locked = false;
+            FindObjectOfType<ScrollNonUI>().freezeX = false;
+            selectUI.SetActive(false);
+        }
+
+        public void GetSelectItem()
+        {
+            
+        }
         private void PlayWarningThatNodeCannotBeAccessed()
         {
             Debug.Log("Selected node cannot be accessed");

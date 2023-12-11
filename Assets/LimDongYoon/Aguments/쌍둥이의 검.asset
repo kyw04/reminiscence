@@ -17,4 +17,4 @@ MonoBehaviour:
   description: 
   actionType: 0
   priority: 0
-  augmentType: 0
+  augmentType: 40000

@@ -1,14 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Map;
 public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager Instance { get; private set; }
     [Header("개발자 모드")] 
-    
     public bool playerWinMode = false;
     public bool playerLoseMdoe = false;
 
-    
+    public List<Augment> aguments = new List<Augment>();
+    private CurrentBattleEnemy currentBattleEnemy;
     public BattleResult LastBattleResult { get; set; }
 
     public MapNode mapNode;
@@ -38,6 +39,7 @@ public class GameStateManager : MonoBehaviour
     }
     public BattleResult GetBattleResult()
     {
+        
         var temp = LastBattleResult;
         if (LastBattleResult == BattleResult.None)
         {
@@ -69,5 +71,13 @@ public enum BattleResult
     None,
     Win,
     Lose
+}
+
+public class CurrentBattleEnemy
+{
+    public int currentStage = 0;
+    public NodeElementalType nodeElementalType;
+    public bool isBoss;
+    
 }
 
