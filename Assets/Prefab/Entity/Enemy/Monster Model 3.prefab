@@ -48,10 +48,10 @@ MonoBehaviour:
   animator: {fileID: 0}
   defaultMeshRenderer: {fileID: 195069742439754577}
   defaultRendererMaterials:
-  - {fileID: 2100000, guid: 538909d69b7e2ab48bcf0c2c6c6ab50e, type: 2}
   - {fileID: 2100000, guid: 208a58a40735cbd498e362d7f36bc119, type: 2}
-  - {fileID: 2100000, guid: 0a79d9b54116ec24fa36336d4ec57789, type: 2}
   - {fileID: 2100000, guid: 6d010628944de6c4cabe96ee5532b7b6, type: 2}
+  - {fileID: 2100000, guid: 0a79d9b54116ec24fa36336d4ec57789, type: 2}
+  - {fileID: 2100000, guid: 538909d69b7e2ab48bcf0c2c6c6ab50e, type: 2}
   meshRenderer:
   - {fileID: 4303359150553387088}
   - {fileID: 8022390513349413444}
@@ -67,29 +67,6 @@ MonoBehaviour:
   meterial:
   - index:
     - materials:
-      - {fileID: 2100000, guid: 281105dc6b78dd842ada0f93956e14d8, type: 2}
-    - materials:
-      - {fileID: 2100000, guid: 281105dc6b78dd842ada0f93956e14d8, type: 2}
-    - materials:
-      - {fileID: 2100000, guid: 281105dc6b78dd842ada0f93956e14d8, type: 2}
-    - materials:
-      - {fileID: 2100000, guid: fcb8345af6d2069479b9af2f298bc7bf, type: 2}
-    - materials:
-      - {fileID: 2100000, guid: fcb8345af6d2069479b9af2f298bc7bf, type: 2}
-    - materials:
-      - {fileID: 2100000, guid: fcb8345af6d2069479b9af2f298bc7bf, type: 2}
-    - materials:
-      - {fileID: 2100000, guid: fcb8345af6d2069479b9af2f298bc7bf, type: 2}
-    - materials:
-      - {fileID: 2100000, guid: fcb8345af6d2069479b9af2f298bc7bf, type: 2}
-    - materials:
-      - {fileID: 2100000, guid: fcb8345af6d2069479b9af2f298bc7bf, type: 2}
-    - materials:
-      - {fileID: 2100000, guid: 281105dc6b78dd842ada0f93956e14d8, type: 2}
-    - materials:
-      - {fileID: 2100000, guid: 281105dc6b78dd842ada0f93956e14d8, type: 2}
-  - index:
-    - materials:
       - {fileID: 2100000, guid: 3bdc2d58a0d0a5f4b8880728f6205790, type: 2}
     - materials:
       - {fileID: 2100000, guid: 3bdc2d58a0d0a5f4b8880728f6205790, type: 2}
@@ -113,6 +90,29 @@ MonoBehaviour:
       - {fileID: 2100000, guid: 3bdc2d58a0d0a5f4b8880728f6205790, type: 2}
   - index:
     - materials:
+      - {fileID: 2100000, guid: eb112d931fceb724eb194ba563204658, type: 2}
+    - materials:
+      - {fileID: 2100000, guid: eb112d931fceb724eb194ba563204658, type: 2}
+    - materials:
+      - {fileID: 2100000, guid: eb112d931fceb724eb194ba563204658, type: 2}
+    - materials:
+      - {fileID: 2100000, guid: c1386436c9e6d454082505b12623f10d, type: 2}
+    - materials:
+      - {fileID: 2100000, guid: c1386436c9e6d454082505b12623f10d, type: 2}
+    - materials:
+      - {fileID: 2100000, guid: c1386436c9e6d454082505b12623f10d, type: 2}
+    - materials:
+      - {fileID: 2100000, guid: c1386436c9e6d454082505b12623f10d, type: 2}
+    - materials:
+      - {fileID: 2100000, guid: c1386436c9e6d454082505b12623f10d, type: 2}
+    - materials:
+      - {fileID: 2100000, guid: c1386436c9e6d454082505b12623f10d, type: 2}
+    - materials:
+      - {fileID: 2100000, guid: eb112d931fceb724eb194ba563204658, type: 2}
+    - materials:
+      - {fileID: 2100000, guid: eb112d931fceb724eb194ba563204658, type: 2}
+  - index:
+    - materials:
       - {fileID: 2100000, guid: 103165306a45a54488cea888a8b54855, type: 2}
     - materials:
       - {fileID: 2100000, guid: 103165306a45a54488cea888a8b54855, type: 2}
@@ -136,27 +136,28 @@ MonoBehaviour:
       - {fileID: 2100000, guid: 103165306a45a54488cea888a8b54855, type: 2}
   - index:
     - materials:
-      - {fileID: 2100000, guid: eb112d931fceb724eb194ba563204658, type: 2}
+      - {fileID: 2100000, guid: 281105dc6b78dd842ada0f93956e14d8, type: 2}
     - materials:
-      - {fileID: 2100000, guid: eb112d931fceb724eb194ba563204658, type: 2}
+      - {fileID: 2100000, guid: 281105dc6b78dd842ada0f93956e14d8, type: 2}
     - materials:
-      - {fileID: 2100000, guid: eb112d931fceb724eb194ba563204658, type: 2}
+      - {fileID: 2100000, guid: 281105dc6b78dd842ada0f93956e14d8, type: 2}
     - materials:
-      - {fileID: 2100000, guid: c1386436c9e6d454082505b12623f10d, type: 2}
+      - {fileID: 2100000, guid: fcb8345af6d2069479b9af2f298bc7bf, type: 2}
     - materials:
-      - {fileID: 2100000, guid: c1386436c9e6d454082505b12623f10d, type: 2}
+      - {fileID: 2100000, guid: fcb8345af6d2069479b9af2f298bc7bf, type: 2}
     - materials:
-      - {fileID: 2100000, guid: c1386436c9e6d454082505b12623f10d, type: 2}
+      - {fileID: 2100000, guid: fcb8345af6d2069479b9af2f298bc7bf, type: 2}
     - materials:
-      - {fileID: 2100000, guid: c1386436c9e6d454082505b12623f10d, type: 2}
+      - {fileID: 2100000, guid: fcb8345af6d2069479b9af2f298bc7bf, type: 2}
     - materials:
-      - {fileID: 2100000, guid: c1386436c9e6d454082505b12623f10d, type: 2}
+      - {fileID: 2100000, guid: fcb8345af6d2069479b9af2f298bc7bf, type: 2}
     - materials:
-      - {fileID: 2100000, guid: c1386436c9e6d454082505b12623f10d, type: 2}
+      - {fileID: 2100000, guid: fcb8345af6d2069479b9af2f298bc7bf, type: 2}
     - materials:
-      - {fileID: 2100000, guid: eb112d931fceb724eb194ba563204658, type: 2}
+      - {fileID: 2100000, guid: 281105dc6b78dd842ada0f93956e14d8, type: 2}
     - materials:
-      - {fileID: 2100000, guid: eb112d931fceb724eb194ba563204658, type: 2}
+      - {fileID: 2100000, guid: 281105dc6b78dd842ada0f93956e14d8, type: 2}
+  attackSpeed: 0
 --- !u!1001 &7214039274079219105
 PrefabInstance:
   m_ObjectHideFlags: 0
