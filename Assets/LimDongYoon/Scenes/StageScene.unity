@@ -4485,6 +4485,33 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f8fe95fcaaf7e824f8ef23eaf2881ba1, type: 2}
   - {fileID: 11400000, guid: 645e586facb54494a9e05aa4ce66af83, type: 2}
   equipedAguments: []
+  patterns:
+  - {fileID: 11400000, guid: c3394f56dacf2284da7eeda74495acf8, type: 2}
+  - {fileID: 11400000, guid: 3a68679704e7e6648ae71eac9ce0c5e5, type: 2}
+  - {fileID: 11400000, guid: 2b7aa8af1c6542147b98e14874493c35, type: 2}
+  - {fileID: 11400000, guid: 3926fc29947203943b6a3b085b1b58dc, type: 2}
+  - {fileID: 11400000, guid: 9e44fa6cb5c428347a53a938e1425dd1, type: 2}
+  - {fileID: 11400000, guid: f61bb686599c50444944792f1c524f3c, type: 2}
+  - {fileID: 11400000, guid: f9b34158b5ed5b445aa8691dda77dc20, type: 2}
+  - {fileID: 11400000, guid: b209f88e6cc77904f8b2279c83a9476b, type: 2}
+  - {fileID: 11400000, guid: f02f64a5fa875494fbf3fbd380bb0da4, type: 2}
+  - {fileID: 11400000, guid: b5e0ddf5a8adbc84dab509162300cc7d, type: 2}
+  - {fileID: 11400000, guid: e3075f198e59a3140b1f8e6ce29cec46, type: 2}
+  - {fileID: 11400000, guid: b1c6dba3221ae9747acd468f93dfaa44, type: 2}
+  - {fileID: 11400000, guid: e4fbe8994dfc6634ca7159709485b3d3, type: 2}
+  - {fileID: 11400000, guid: e3bec7d181fd189449eb7cd55567fb18, type: 2}
+  - {fileID: 11400000, guid: 4fa9968c0ffdff147976acef162d2185, type: 2}
+  - {fileID: 11400000, guid: 1365991a51f2d6049a586592ce4531e7, type: 2}
+  - {fileID: 11400000, guid: 0dca3119db4c3f444be2c1b030103f97, type: 2}
+  - {fileID: 11400000, guid: 3421f39f21ad396479456b0bfe177c4a, type: 2}
+  - {fileID: 11400000, guid: 465374d967f928945814bd19806aeae7, type: 2}
+  - {fileID: 11400000, guid: ed3c937af9c0cbc4f884b67b7d995d4e, type: 2}
+  - {fileID: 11400000, guid: 3a0b4a9998b8ae74290c115f2b8cb110, type: 2}
+  - {fileID: 11400000, guid: b2b094d1170c7ec429cbb26364781d38, type: 2}
+  - {fileID: 11400000, guid: ac220cc83e8d3974f8f43ed0440ab46d, type: 2}
+  - {fileID: 11400000, guid: 480f75688e2e80743be647222f1945cd, type: 2}
+  - {fileID: 11400000, guid: 2c6ce2dccdc06fb4cb44fc8a05bf1db2, type: 2}
+  equipedPatterns: []
   stageLevel: 0
   mapNode: {fileID: 0}
 --- !u!4 &1174698224

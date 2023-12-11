@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Map;
+using System;
+using System.Text.RegularExpressions;
+using Random = UnityEngine.Random;
 
 public class EvenetStage : MonoBehaviour
 {
@@ -22,9 +25,11 @@ public class EvenetStage : MonoBehaviour
 
     public Augment currentAugment;
     public Augment augmentInfinity;
+    public Pattern currentPattern;
     public Button button;
     public EventType eventType;
     public AugmentNode augmentNode;
+    public PatternNode patternNode;
     public int healthAmount = 10;
 
     public float scaleMultiplier = 1.5f;
@@ -65,6 +70,17 @@ public class EvenetStage : MonoBehaviour
                 GameStateManager.Instance.aguments.Remove(currentAugment);
                 GameStateManager.Instance.aguments.RemoveAll(item => item == null);
                 break;
+            case EventType.pattern:
+                var patterns = GameStateManager.Instance.patterns;
+                if (patterns.Count > 0)
+                {
+                    Pattern pattern = patterns[Random.Range(0, patterns.Count)];
+                    currentPattern = pattern;
+                    name.text = ConvertToLevelFormat(currentPattern.sprite.name);
+                    description.text = "문양을 완성하면 "+  + pattern.damage + " 데미지를 입히는 " +pattern.level + " 레벨의 스킬입니다.";
+                }
+                GameStateManager.Instance.patterns.Remove(currentPattern);
+                break;
         }
     }
     
@@ -97,6 +113,7 @@ public class EvenetStage : MonoBehaviour
         button = GetComponent<Button>();
         button.onClick.AddListener(ActiveEvenet);
         augmentNode = FindAnyObjectByType<AugmentNode>();
+        patternNode = FindAnyObjectByType<PatternNode>();
         originalScale = button.transform.localScale;
         button.onClick.AddListener(OnClick);
     }
@@ -112,34 +129,18 @@ public class EvenetStage : MonoBehaviour
                 SelectAugment();
                 break;
             case EventType.pattern:
+                SelectPattern();
                 break;
         }
     }
     public void SelectAugment()
     {
         augmentNode.GetNewAugment(currentAugment);
-        /*var augments = GameStateManager.Instance.aguments;
-        if (augments.Count > 0)
-        {
-            Augment augment = currentAugment;
-            augmentNode.GetNewAugment(augment);
-        }
-        else
-        {
-            augmentNode.GetNewAugment(augmentInfinity);
-            // 리스트가 비어 있는 경우의 처리
-        }*/
 
     }
     public void SelectPattern()
     {
-        var augments = GameStateManager.Instance.aguments;
-        int ranNum = Random.Range(0, augments.Count);
-        Augment augment = augments[ranNum];
-        Debug.Log("삭제전 " +augments.Count);
-        GameStateManager.Instance.aguments.RemoveAt(ranNum);
-        Debug.Log("삭제후 " + augments.Count + " " + GameStateManager.Instance.aguments.Count);
-        augmentNode.GetNewAugment(augment);
+        patternNode.GetNewPattern(currentPattern);
 
     }
     public void Rest(int _healthAmount)
@@ -164,6 +165,22 @@ public class EvenetStage : MonoBehaviour
     {
         if (!mouseLock)
             isMouseOver = false;
+    }
+    string ConvertToLevelFormat(string input)
+    {
+        // 정규 표현식을 사용하여 숫자를 제외한 부분과 숫자 부분을 찾습니다.
+        var match = Regex.Match(input, @"(\D+)(\d+)");
+
+        if (match.Success)
+        {
+            // 그룹 1은 숫자를 제외한 부분, 그룹 2는 숫자 부분입니다.
+            string prefix = match.Groups[1].Value;
+            string number = match.Groups[2].Value;
+            return $"{prefix} Lv.{number}";
+        }
+
+        // 매치되는 패턴이 없으면 원본 문자열을 반환합니다.
+        return input;
     }
 
     void OnClick()

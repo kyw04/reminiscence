@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AugmentNode : MonoBehaviour
+public class PatternNode : MonoBehaviour
 {
     public Image[] images;
     public EquipElement[] equipElements;
@@ -11,15 +11,16 @@ public class AugmentNode : MonoBehaviour
     public Sprite defaultSprite;
 
     // Start is called before the first frame update
-    public void LoadAugment()
+    public void LoadPattern()
     {
-        var augments = GameStateManager.Instance.equipedAguments;
+        var patterns = GameStateManager.Instance.equipedPatterns;
+
 
         int count = 0;
-        foreach (var a in augments)
+        foreach (var a in patterns)
         {
             // 'images' 배열의 길이를 체크하여 인덱스 초과를 방지합니다.
-            if (count >= images.Length)
+            if (images.Length <= count)
             {
                 Debug.Log("증강체 초과 표시되지 않습니다.");
                 break;
@@ -29,41 +30,42 @@ public class AugmentNode : MonoBehaviour
             if (a.sprite != null)
             {
                 image.sprite = a.sprite;
-                image.enabled = true; // 스프라이트가 있는 경우 이미지를 활성화합니다.
+                image.enabled = true;
             }
             else
             {
-                image.enabled = false; // 스프라이트가 없는 경우 이미지를 비활성화할 수 있습니다.
+                // 여기에 'a.sprite'가 null일 때의 로직을 추가할 수 있습니다.
+                // 예: image.enabled = false;
             }
 
             count++;
         }
     }
-    public void GetNewAugment(Augment augment)
+    public void GetNewPattern(Pattern pattern)
     {
         if (images.Length >= equipedAugments.Count)
         {
-            Debug.Log("증강체 획득 초과");
+            Debug.Log("패턴 획득 초과");
         }
-        GameStateManager.Instance.equipedAguments.Add(augment);
-        LoadAugment();
-        
+        GameStateManager.Instance.equipedPatterns.Add(pattern);
+        LoadPattern();
+
     }
     public void SaveAugments()
     {
-        
+
     }
     void Start()
     {
         var a = GetComponentsInChildren<EquipElement>();
         images = new Image[a.Length];
         int count = 0;
-        foreach(var s in a)
+        foreach (var s in a)
         {
             images[count] = s.GetComponent<Image>();
             count++;
         }
-        LoadAugment();
+        LoadPattern();
     }
 
     // Update is called once per frame
