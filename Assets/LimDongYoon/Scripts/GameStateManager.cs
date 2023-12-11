@@ -21,6 +21,9 @@ public class GameStateManager : MonoBehaviour
     public List<Augment> aguments = new List<Augment>();
     public List<Augment> equipedAguments = new List<Augment>();
 
+    public List<Pattern> patterns = new List<Pattern>();
+    public List<Pattern> equipedPatterns = new List<Pattern>();
+
 
     public int stageLevel = 0;
 

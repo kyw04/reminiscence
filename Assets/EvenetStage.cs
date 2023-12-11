@@ -63,6 +63,7 @@ public class EvenetStage : MonoBehaviour
                     // 리스트가 비어 있는 경우의 처리
                 }
                 GameStateManager.Instance.aguments.Remove(currentAugment);
+                GameStateManager.Instance.aguments.RemoveAll(item => item == null);
                 break;
         }
     }
@@ -116,7 +117,8 @@ public class EvenetStage : MonoBehaviour
     }
     public void SelectAugment()
     {
-        var augments = GameStateManager.Instance.aguments;
+        augmentNode.GetNewAugment(currentAugment);
+        /*var augments = GameStateManager.Instance.aguments;
         if (augments.Count > 0)
         {
             Augment augment = currentAugment;
@@ -126,7 +128,7 @@ public class EvenetStage : MonoBehaviour
         {
             augmentNode.GetNewAugment(augmentInfinity);
             // 리스트가 비어 있는 경우의 처리
-        }
+        }*/
 
     }
     public void SelectPattern()
@@ -173,7 +175,7 @@ public class EvenetStage : MonoBehaviour
     {
 
         if (!image.isActiveAndEnabled) yield return null;
-
+        button.enabled = false;
         mouseLock = true;
         var _image = parent.GetComponent<Image>();
         Color temp = image.color;
@@ -182,8 +184,10 @@ public class EvenetStage : MonoBehaviour
         _image.color = black;
 
         //GetComponent<Image>().enabled = false;
+        
         foreach(var a in otherEventStages)
         {
+            if(eventType== EventType.agument)
             GameStateManager.Instance.aguments.Add(a.currentAugment);
 
             a.mouseLock = true;
@@ -202,7 +206,7 @@ public class EvenetStage : MonoBehaviour
         yield return new WaitForSeconds(delay);
         image.color = temp;
         mouseLock = false;
-
+        button.enabled = true;
         GetComponent<Image>().enabled = true;
         
         foreach (var a in otherEventStages)
