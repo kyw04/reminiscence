@@ -50,6 +50,7 @@ namespace Map
 
         protected GameObject firstParent;
         protected GameObject mapParent;
+        
         private List<List<Point>> paths;
         private Camera cam;
         // ALL nodes:
@@ -322,7 +323,7 @@ namespace Map
             lineConnections.Add(new LineConnection(lineRenderer, null, from, to));
         }
 
-        protected MapNode GetNode(Point p)
+        public MapNode  GetNode(Point p)
         {
             return MapNodes.FirstOrDefault(n => n.Node.point.Equals(p));
         }

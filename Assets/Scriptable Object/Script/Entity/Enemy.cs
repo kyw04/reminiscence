@@ -26,6 +26,7 @@ public class Enemy : EntityBase
 
     protected override void Start()
     {
+        if (GameStateManager.Instance.playerWinMode) health = 1;
         base.Start();
 
         nodeCount = UnityEngine.Random.Range(1, maxNodeCount);
@@ -104,5 +105,10 @@ public class Enemy : EntityBase
         }
 
         return result;
+    }
+    public override void Death()
+    {
+        GameManager.instance.EndBattle(true);
+        
     }
 }

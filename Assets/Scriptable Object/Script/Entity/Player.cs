@@ -1,11 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : EntityBase
 {
     public Pattern[] patterns;
-    public GameObject bulletPrefab;
     public Vector3 bulletSpawnBoxPos;
     public Vector3 bulletSpawnBoxSize;
 
@@ -23,9 +24,9 @@ public class Player : EntityBase
         float speed = UnityEngine.Random.Range(1.5f, 3.0f);
         Vector3 randomPos = new Vector3(x, y, z);
 
-        yield return new WaitForSeconds(UnityEngine.Random.Range(0.0f, 1.25f));
+        yield return new WaitForSeconds(UnityEngine.Random.Range(0.0f, 0.75f));
 
-        Bullet newBullet = Instantiate(bulletPrefab, bulletSpawnBoxPos + transform.position + randomPos, Quaternion.identity).GetComponent<Bullet>();
+        Bullet newBullet = Instantiate(nodeBase.AttackParticle, bulletSpawnBoxPos + transform.position + randomPos, Quaternion.identity).GetComponent<Bullet>();
         newBullet.Set(nodeBase, GameManager.instance.enemy.transform, damage, speed);
     }
 
@@ -38,5 +39,10 @@ public class Player : EntityBase
     {
         GameManager.instance.EndBattle(false);
         
+    }
+
+    private void Awake()
+    {
+        if (GameStateManager.Instance.playerLoseMdoe) health = 1f;
     }
 }
