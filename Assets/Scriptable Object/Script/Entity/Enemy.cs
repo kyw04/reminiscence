@@ -1,6 +1,6 @@
+using Map;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : EntityBase
@@ -18,6 +18,8 @@ public class Enemy : EntityBase
         }
     };
 
+    public GameObject[] models = new GameObject[3];
+    public string enemyName;
     public float damage;
     public int maxNodeCount = 2;
     public int maxDeleteCount = 3;
@@ -28,6 +30,72 @@ public class Enemy : EntityBase
     {
         if (GameStateManager.Instance.playerWinMode) health = 1;
         base.Start();
+
+        CurrentBattleEnemyInfo battleEnemyInfo = GameStateManager.Instance.currentBattlleInfo;
+
+        maxHealth = 100 * battleEnemyInfo.currentStageLevel;
+        damage = 5 * battleEnemyInfo.currentStageLevel;
+        string boss = "";
+        if (battleEnemyInfo.isBoss)
+        {
+            boss = "강력한 ";
+            maxHealth += 100;
+            damage += 10;
+            if (battleEnemyInfo.currentStageLevel >= 3)
+            {
+                maxHealth += 50;
+                damage += 5;
+            }
+        }
+        health = maxHealth;
+        HealthImageUpdate();
+
+        string elementalTypeString;
+        int elementalTypeIndex;
+        switch (battleEnemyInfo.nodeElementalType)
+        {
+            case NodeElementalType.Fire:
+                elementalTypeString = "화염의 ";
+                elementalTypeIndex = 0;
+                break;
+            case NodeElementalType.Wind:
+                elementalTypeString = "폭풍의 ";
+                elementalTypeIndex = 1;
+                break;
+            case NodeElementalType.Water:
+                elementalTypeString = "파도의 ";
+                elementalTypeIndex = 2;
+                break;
+            case NodeElementalType.Land:
+                elementalTypeString = "대지의 ";
+                elementalTypeIndex = 3;
+                break;
+            default:
+                Debug.LogWarning("error");
+                elementalTypeString = "";
+                elementalTypeIndex = -1;
+                break;
+        }
+
+        int modelIndex = UnityEngine.Random.Range(0, models.Length);
+        string modelName;
+        switch (modelIndex)
+        {
+            case 0:
+                modelName = "골리앗";
+                break;
+            case 1:
+                modelName = "히드라";
+                break;
+            case 2:
+                modelName = "나이트";
+                break;
+            default:
+                modelName = "오류";
+                break;
+        }
+        Instantiate(models[modelIndex], transform).GetComponent<EnemyMaterial>().SetMaterials(elementalTypeIndex);
+        enemyName = boss + elementalTypeString + modelName;
 
         nodeCount = UnityEngine.Random.Range(1, maxNodeCount);
         int nodeBaseLength = GameManager.instance.nodeBases.Length;
@@ -56,7 +124,7 @@ public class Enemy : EntityBase
         for (int i = 0; i < attackCount; i++)
         {
             // play attack animation
-            
+
             yield return new WaitForSeconds(0.5f); // animation delay
             GameManager.instance.player.GetDamage(nodeBase, damage);
         }
@@ -109,6 +177,6 @@ public class Enemy : EntityBase
     public override void Death()
     {
         GameManager.instance.EndBattle(true);
-        
+
     }
 }

@@ -1,0 +1,209 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &688222717087585794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 637502913259664921}
+  - component: {fileID: 210320051255737404}
+  m_Layer: 0
+  m_Name: Monster Model 3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &637502913259664921
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688222717087585794}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 427193536479603512}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &210320051255737404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688222717087585794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d947e358596fb824ab9b7454d896f7ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 1560108725529366615}
+  inspectorMeterials:
+  - materials:
+    - {fileID: 2100000, guid: 3bdc2d58a0d0a5f4b8880728f6205790, type: 2}
+    - {fileID: 2100000, guid: 55741e14d9b075349ac855f7035496f3, type: 2}
+  - materials:
+    - {fileID: 2100000, guid: eb112d931fceb724eb194ba563204658, type: 2}
+    - {fileID: 2100000, guid: c1386436c9e6d454082505b12623f10d, type: 2}
+  - materials:
+    - {fileID: 2100000, guid: 103165306a45a54488cea888a8b54855, type: 2}
+    - {fileID: 2100000, guid: 6f8c0485b3520b147bf5f403b5920d2d, type: 2}
+  - materials:
+    - {fileID: 2100000, guid: 281105dc6b78dd842ada0f93956e14d8, type: 2}
+    - {fileID: 2100000, guid: fcb8345af6d2069479b9af2f298bc7bf, type: 2}
+--- !u!1001 &173119477742357715
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 637502913259664921}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
+      propertyPath: m_Name
+      value: Knight Monster Modeling Low 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
+--- !u!4 &427193536479603512 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
+  m_PrefabInstance: {fileID: 173119477742357715}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1560108725529366615 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 006175dd4637c9141bf1f7df04b2a558, type: 3}
+  m_PrefabInstance: {fileID: 173119477742357715}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &9212683674579757304
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 427193536479603512}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 51dfccc05e176a048848e93211dcf52d, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 51dfccc05e176a048848e93211dcf52d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 51dfccc05e176a048848e93211dcf52d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 51dfccc05e176a048848e93211dcf52d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 51dfccc05e176a048848e93211dcf52d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0289
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 51dfccc05e176a048848e93211dcf52d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0026
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 51dfccc05e176a048848e93211dcf52d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.061
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 51dfccc05e176a048848e93211dcf52d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.80541056
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 51dfccc05e176a048848e93211dcf52d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.5927174
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 51dfccc05e176a048848e93211dcf52d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 51dfccc05e176a048848e93211dcf52d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 51dfccc05e176a048848e93211dcf52d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 72.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 51dfccc05e176a048848e93211dcf52d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 51dfccc05e176a048848e93211dcf52d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 51dfccc05e176a048848e93211dcf52d, type: 3}
+      propertyPath: m_Name
+      value: Knight Monster Prop Modeling Low 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 51dfccc05e176a048848e93211dcf52d, type: 3}

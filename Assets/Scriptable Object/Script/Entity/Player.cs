@@ -61,8 +61,10 @@ public class Player : EntityBase
     }
 
 
-    private void Awake()
+    protected override void Start()
     {
+        base.Start();
+
         maxHealth = GameStateManager.Instance.maxHealth;
         health = GameStateManager.Instance.health;
 
