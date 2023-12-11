@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class PatternNode : MonoBehaviour
 {
@@ -10,7 +11,9 @@ public class PatternNode : MonoBehaviour
     public List<Augment> equipedAugments;
     public Sprite defaultSprite;
 
+
     // Start is called before the first frame update
+   
     public void LoadPattern()
     {
         var patterns = GameStateManager.Instance.equipedPatterns;
@@ -57,6 +60,10 @@ public class PatternNode : MonoBehaviour
     }
     void Start()
     {
+  
+       
+        FilterLevelOnePatterns(GameStateManager.Instance.equipedPatterns);
+
         var a = GetComponentsInChildren<EquipElement>();
         images = new Image[a.Length];
         int count = 0;
@@ -65,7 +72,22 @@ public class PatternNode : MonoBehaviour
             images[count] = s.GetComponent<Image>();
             count++;
         }
+
+        //레벨1 스타터 팩
+        foreach(var p in FilterLevelOnePatterns(GameStateManager.Instance.patterns))
+        {
+            GetNewPattern(p);
+            GameStateManager.Instance.patterns.Remove(p);
+        }
+
         LoadPattern();
+    }
+
+    public List<Pattern> FilterLevelOnePatterns(List<Pattern> allPatterns)
+    {
+
+        // 'level'이 1인 'Pattern' 객체들만 필터링합니다.
+        return allPatterns.Where(p => p.level == 1).ToList();
     }
 
     // Update is called once per frame
