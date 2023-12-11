@@ -188,6 +188,9 @@ public class GameManager : MonoBehaviour
             audioSource.PlayOneShot(blockHoldAudio);
             selectedNode = hit.transform.GetComponent<Node>();
             selectedNodeStartPos = Input.mousePosition;
+
+            if (selectedNode.nodeBase.nodeType == NodeType.None)
+                selectedNode = null;
         }
     }
     private void NodeDrag()

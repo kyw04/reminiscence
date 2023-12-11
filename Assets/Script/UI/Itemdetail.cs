@@ -5,11 +5,7 @@ using UnityEngine.EventSystems;
 public class Itemdetail : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public GameObject ItemdetailObject;
-    public Canvas canvas;
-
-    private bool isHovering = false;
-    private GameObject currentHoveredObject;
-    private bool itemDetailActive = false;
+    public Vector2 offset;
 
     private void Start()
     {
@@ -18,38 +14,21 @@ public class Itemdetail : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        isHovering = true;
-        currentHoveredObject = eventData.pointerEnter.gameObject;
-
-        if (!itemDetailActive)
+        if (!ItemdetailObject.activeSelf)
         {
             ItemdetailObject.SetActive(true);
-            itemDetailActive = true;
-        }
-
-        // Disable collider of the object being hovered
-        Collider collider = currentHoveredObject.GetComponent<Collider>();
-        if (collider != null)
-        {
-            collider.enabled = false;
         }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        isHovering = false;
-
-        // Re-enable collider of the object being exited
-        if (currentHoveredObject != null)
+        Debug.Log(eventData.pointerCurrentRaycast.gameObject);
+        if (eventData.pointerCurrentRaycast.gameObject == ItemdetailObject)
         {
-            Collider collider = currentHoveredObject.GetComponent<Collider>();
-            if (collider != null)
-            {
-                collider.enabled = true;
-            }
+            Debug.Log("return");
+            return;
         }
 
         ItemdetailObject.SetActive(false);
-        itemDetailActive = false;
     }
 }
