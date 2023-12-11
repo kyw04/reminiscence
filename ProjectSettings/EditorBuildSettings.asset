@@ -23,4 +23,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Script/Scenes/StartScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Script/Scenes/fire.unity
+    guid: 28deaf9ba591b08469639419a4deb5a2
+  - enabled: 1
+    path: Assets/Script/Scenes/rock.unity
+    guid: 762a078eee1c1cf4f8e38ca7aa982d2d
+  - enabled: 1
+    path: Assets/Script/Scenes/water.unity
+    guid: dfde50e28f05daf48be7ff702decd6a3
+  - enabled: 1
+    path: Assets/Script/Scenes/wind.unity
+    guid: d8cc8fc5d1271d34b8de0a2aca6d11bb
   m_configObjects: {}

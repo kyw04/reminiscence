@@ -122,11 +122,16 @@ namespace Map
                     Debug.Log(GameStateManager.Instance.point);
                     GameStateManager.Instance.HealthImageUpdate();
                     GameStateManager.Instance.mapNode = view.GetNode(GameStateManager.Instance.point);
+                    if (GameStateManager.Instance.currentBattlleInfo.isBoss)
+                    {
+                        mapManager.GenerateNewMap();
+                        GameStateManager.Instance.stageLevel += 1;
+                    }
                     break;
                 case BattleResult.Lose:
                     Debug.Log("Lose");
-                    mapManager.GenerateNewMap();
-                    mapManager.SaveMap();
+                    GameStateManager.Instance.InitGame();
+                    MySceneManager.Instance.LoadScene("Main UI");
                     break;
             }
             
@@ -152,7 +157,7 @@ namespace Map
                     if (MySceneManager.Instance.sceneLocked && lockAfterSelecting) Locked = false;
                     Debug.Log("zz");
                     UpdateBattleInfo(mapNode);
-                    MySceneManager.Instance.LoadNextScene();
+                    MySceneManager.Instance.LoadElmentalType(mapNode.nodeElementalType);
                     break;
                 case NodeType.RestSite:
                     Debug.Log("휴식");
