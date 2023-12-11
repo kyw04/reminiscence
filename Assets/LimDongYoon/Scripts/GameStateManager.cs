@@ -1,12 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Map;
+using UnityEngine.UI;
 public class GameStateManager : MonoBehaviour
 {
+    
     public static GameStateManager Instance { get; private set; }
     [Header("개발자 모드")] 
     public bool playerWinMode = false;
     public bool playerLoseMdoe = false;
+
+    public float maxHealth = 100;
+    public float health = 100;
+
+    public Image hpBar; 
+
+
 
     public List<Augment> aguments = new List<Augment>();
     private CurrentBattleEnemy currentBattleEnemy;
@@ -64,7 +73,17 @@ public class GameStateManager : MonoBehaviour
         }
         LastBattleResult = result;
     }
+    public void HealthImageUpdate()
+    {
+        Debug.Log("Update HP image");
+        if(!hpBar)
+        hpBar = FindFirstObjectByType<hpBarTag>().GetComponent<Image>(); 
+        hpBar.fillAmount = health / maxHealth;
+
+    }
+
 }
+
 
 public enum BattleResult
 {
