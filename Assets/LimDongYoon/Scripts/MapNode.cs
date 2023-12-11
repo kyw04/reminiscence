@@ -26,7 +26,7 @@ namespace Map
         public SpriteRenderer visitedCircle;
         public Image circleImage;
         public Image visitedCircleImage;
-
+        public NodeElementalType nodeElementalType;
         public Node Node { get; private set; }
         public NodeBlueprint Blueprint { get; private set; }
 
@@ -42,7 +42,7 @@ namespace Map
             Node = node;
             Blueprint = blueprint;
 
-            if (sr != null && (blueprint.nodeType == NodeType.MinorEnemy ))//|| blueprint.nodeType == NodeType.Boss))
+            /*if (sr != null && (blueprint.nodeType == NodeType.MinorEnemy ))//|| blueprint.nodeType == NodeType.Boss))
             {
 
                 int randomNum = UnityEngine.Random.Range(0, blueprint.sprites.Length);
@@ -50,11 +50,14 @@ namespace Map
                 blueprint.sprite = sprite;
                 blueprint.nodeElementalType = (NodeElementalType)randomNum;
                 Debug.Log(randomNum);
-            }
+            }*/
+
+            if (blueprint == null) return;
             
+            Debug.Log(blueprint.name);
             if (sr != null) sr.sprite = blueprint.sprite;
             if (image != null) image.sprite = blueprint.sprite;
-            
+            nodeElementalType = blueprint.nodeElementalType;
             
             if (node.nodeType == NodeType.Boss) transform.localScale *= 1.5f;
             if (sr != null) initialScale = sr.transform.localScale.x;

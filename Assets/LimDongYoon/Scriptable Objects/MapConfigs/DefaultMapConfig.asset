@@ -23,6 +23,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 625aec0c9b035da44b093ddbce77601c, type: 2}
   - {fileID: 11400000, guid: 763167da11ac0264299d4c0fd8a8a83a, type: 2}
   - {fileID: 11400000, guid: e1635866d1c2f154e8c9045bd0e000f2, type: 2}
+  - {fileID: 11400000, guid: 8b4c3d1b0404d48489b096250f5c13e9, type: 2}
+  - {fileID: 11400000, guid: 763167da11ac0264299d4c0fd8a8a83a, type: 2}
+  - {fileID: 11400000, guid: cabf5188710022243af9fca2aa22569e, type: 2}
+  - {fileID: 11400000, guid: 0eebbe56b88de974da3c8bd30bd34290, type: 2}
   numOfPreBossNodes:
     min: 3
     max: 4
