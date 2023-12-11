@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     #endregion
     #region Puzzle
     private const int puzzleSize = 5; // 2D(puzzleSize x puzzleSize)
-    
+
     [Space(5)]
     [Header("Puzzle")]
 
@@ -114,6 +114,8 @@ public class GameManager : MonoBehaviour
         }
 
         GetPuzzle();
+
+        //GameStateManager.Instance.currentBattleEnemy
     }
 
     private void Start()
@@ -476,7 +478,7 @@ public class GameManager : MonoBehaviour
     //������ ��������
     public void EndBattle(bool playerWon)
     {
-        Debug.Log("게임결과 "+ playerWon);
+        Debug.Log("게임결과 " + playerWon);
         GameStateManager.Instance.SetBattleResult(playerWon ? BattleResult.Win : BattleResult.Lose);
         MySceneManager.Instance.LoadPreviousScene();
     }
