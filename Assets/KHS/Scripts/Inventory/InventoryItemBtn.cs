@@ -1,11 +1,10 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
+//using UnityEngine.Events;
 
-public class InventoryItemBtn : InventoryFunction//MonoBehaviour
-//스크립트이름 지랄났네
+public class InvenItemBtn : InventoryFunction
 {
     private bool _isSelect;
     static public bool _canSelect = true;
@@ -14,7 +13,7 @@ public class InventoryItemBtn : InventoryFunction//MonoBehaviour
     [SerializeField] private ItemInfoUI _infoPanel;
 
     private Image _image;
-    private Color CantTargeted = new Color(0.2f, 0.2f, 0.2f);
+    private Color _cantTarget = new Color(0.2f, 0.2f, 0.2f);
 
 
     protected override void Awake()
@@ -30,37 +29,37 @@ public class InventoryItemBtn : InventoryFunction//MonoBehaviour
     {
         _isSelect = (_targetIDList.Contains(btnID));
 
-        if (_isSelect)
+        if (!_isSelect)
         {
-            if ((_mode == FunctionMode.ENHANCEMENT || _mode == FunctionMode.OPTIONCHANGE) && btnID == _targetIDList[0])
-                _image.color = Color.cyan;
-            else _image.color = Color.gray;
-        }
-        else if (!_isSelect)
-        {
-            _image.color = Color.white;
+            if (itemDB._items[btnID]._onEquip) _image.color = Color.red;
+            else _image.color = Color.white;
 
             if (_mode == FunctionMode.ENHANCEMENT)
             {
                 if (_targetIDList.Count == 0)
                 {
-                    if (!CanTargeted(btnID, true)) _image.color = CantTargeted;
+                    if (!CanTargeted(btnID, true)) _image.color = _cantTarget;
                 }
             }
-            if (_mode == FunctionMode.OPTIONCHANGE)
+            else if (_mode == FunctionMode.OPTIONCHANGE)
             {
                 if (_targetIDList.Count > 0)
                 {
-                    if (!CanTargeted(btnID, false)) _image.color = CantTargeted;
+                    if (!CanTargeted(btnID, false)) _image.color = _cantTarget;
                 }
             }
             else if (_mode == FunctionMode.SYNTHESIS)
             {
-                if (!CanTargeted(btnID, false)) _image.color = CantTargeted;
+                if (!CanTargeted(btnID, false)) _image.color = _cantTarget;
             }
 
             if (btnID == itemDB._items.IndexOf(Item.memoryNewItem)) _image.color = Color.yellow;
-            //else 
+        }
+        else if (_isSelect)
+        {
+            if ((_mode == FunctionMode.ENHANCEMENT || _mode == FunctionMode.OPTIONCHANGE) && btnID == _targetIDList[0])
+                _image.color = Color.cyan;
+            else _image.color = Color.gray;
         }
     }
 
@@ -80,7 +79,6 @@ public class InventoryItemBtn : InventoryFunction//MonoBehaviour
                     {
                         _beneficiary = itemDB._items[btnID];
                         _targetIDList.Add(btnID);
-                        //_isSelect = true;
                     }
                 }
                 else
@@ -90,14 +88,11 @@ public class InventoryItemBtn : InventoryFunction//MonoBehaviour
                         if (btnID != _targetIDList[0] || _targetIDList.Count == 1)
                         {
                             _targetIDList.Remove(btnID);
-                            //_isSelect = false;
                         }
                     }
                     else if (CanTargeted(btnID, false) && !_isSelect)
                     {
-                        if (_canSelect)
-                        _targetIDList.Add(btnID);
-                        //_isSelect = true;
+                        if (_canSelect) _targetIDList.Add(btnID);
                     }
                 }
                 break;
@@ -108,7 +103,6 @@ public class InventoryItemBtn : InventoryFunction//MonoBehaviour
                     {
                         _beneficiary = itemDB._items[btnID];
                         _targetIDList.Add(btnID);
-                        //_isSelect = true;
                     }
                 }
                 else //옵션변경 재료라면
@@ -118,16 +112,13 @@ public class InventoryItemBtn : InventoryFunction//MonoBehaviour
                         if (btnID != _targetIDList[0] || _targetIDList.Count == 1)
                         {
                             _targetIDList.Remove(btnID);
-                            //_isSelect = false;
                         }
                     }
                     else if (CanTargeted(btnID, false)) //새로고르는거는
                     {
-                        if (_targetIDList.Count < 2) //1나만
-                        {
-                            _targetIDList.Add(btnID);
-                            //_isSelect = true;
-                        }
+                        //if (_targetIDList.Count < 2) //1나만
+                        _beneficiary = itemDB._items[_targetIDList[0]];
+                        _targetIDList.Add(btnID);
                     }
                 }
                 break;
@@ -135,18 +126,42 @@ public class InventoryItemBtn : InventoryFunction//MonoBehaviour
                 if (_isSelect) //클취
                 {
                     _targetIDList.Remove(btnID);
-                    //_isSelect = false;
                 }
                 else //새로고르는거는
                 {
-                    if (_targetIDList.Count < 2) // 최대 2개까지
+                    //if (_targetIDList.Count < 2) // 최대 2개까지
+                    if (CanTargeted(btnID, false)) //조건에 맞으면(만렙이면)
                     {
-                        if (CanTargeted(btnID, false)) //조건에 맞으면(만렙이면)
-                        {
-                            _targetIDList.Add(btnID);
-                            //_isSelect = true;
-                        }
+                        _targetIDList.Add(btnID);
                     }
+                }
+                break;
+            case (FunctionMode.EQUIP):
+                Item item = itemDB._items[btnID];
+
+                int part = 0;
+                switch (item._itemPart)
+                {
+                    case (Item.ItemPart.STAFF): part = 0; break;
+                    case (Item.ItemPart.ROBE): part = 1; break;
+                    case (Item.ItemPart.GRIMOIRE): part = 2; break;
+                }
+
+                Debug.Log(TTTempPlayerData.instance.PlayerEquip[part]);
+                if (item._onEquip)
+                {
+                    TTTempPlayerData.instance.PlayerEquip[part] = null;
+                    item._onEquip = false;
+                }
+                else
+                {
+                    if (TTTempPlayerData.instance.PlayerEquip[part] != null)
+                    {
+                        Debug.Log(TTTempPlayerData.instance.PlayerEquip[part]);
+                        TTTempPlayerData.instance.PlayerEquip[part]._onEquip = false;
+                    }
+                    TTTempPlayerData.instance.PlayerEquip[part] = item;
+                    item._onEquip = true;
                 }
                 break;
             case (FunctionMode.NULL):
@@ -183,13 +198,14 @@ public class InventoryItemBtn : InventoryFunction//MonoBehaviour
 
             default: return true;
         }
-    }*/
+    }
 
 
     private void AppearInfoUI()
     {
         _infoPanel.gameObject.SetActive(true);
-        _infoPanel.ID = btnID;
-        _infoPanel.Set();
+        //_infoPanel.ID = btnID;
+        _infoPanel.Set(btnID);
+        _infoPanel.SetPos();
     }
-}
+}*/
