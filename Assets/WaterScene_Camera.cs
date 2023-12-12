@@ -10,7 +10,14 @@ public class WaterScene_Camera : MonoBehaviour
     public Transform target;
     private int currentWaypointIndex = 0;
     public Camera mainCamera;
+    public GameObject Puzzlecanvas;
+    public GameObject canvas;
 
+    void Start()
+    {
+        Puzzlecanvas.SetActive(false);
+        canvas.SetActive(false);
+    }
     void Update()
     {
         transform.LookAt(target.position);
@@ -38,5 +45,7 @@ public class WaterScene_Camera : MonoBehaviour
     {
         Camera.main.enabled = true;
         gameObject.SetActive(false);
+        Puzzlecanvas.SetActive(true);
+        canvas.SetActive(true);
     }
 }
