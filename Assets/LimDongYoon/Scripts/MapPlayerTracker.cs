@@ -31,6 +31,7 @@ namespace Map
         private void Awake()
         {
             Instance = this;
+           
         }
 
         public void SelectNode(MapNode mapNode)

@@ -83,7 +83,7 @@ public class EvenetStage : MonoBehaviour
                 GameStateManager.Instance.patterns.Remove(currentPattern);
                 break;
             case EventType.rest:
-                healthAmount = Random.Range(10 + stageLevel * 10 , Math.Min(20 + stageLevel * 15, 60) );
+                healthAmount = Random.Range(40 , Math.Min(20 + stageLevel * 15, 65) );
                 name.text = (healthAmount > 40) ? "깊은 휴식" : "휴식";
                 description.text = (healthAmount > 40) ? "아주 깊은 휴식의 기회를 얻었습니다." : "얕은 휴식의 기회를 얻었습니다. " + healthAmount + "의 체력을 회복합니다.";
                 break;
@@ -152,7 +152,7 @@ public class EvenetStage : MonoBehaviour
     public void Rest(int _healthAmount)
     {
         GameStateManager.Instance.health += _healthAmount;
-        
+        StartCoroutine(GameStateManager.Instance.UpdateHealthBar());
     }
     // Update is called once per frame
     void Update()
@@ -227,7 +227,7 @@ public class EvenetStage : MonoBehaviour
         }
 
         yield return new WaitForSeconds(delay);
-        if(eventType == EventType.rest) StartCoroutine(GameStateManager.Instance.UpdateHealthBar());
+        
         image.color = temp;
         mouseLock = false;
         button.enabled = true;

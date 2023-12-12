@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
     {
         if (instance == null) { instance = this; }
 
+        if(GameStateManager.Instance.equipedPatterns != null)
         foreach (Pattern pattern in GameStateManager.Instance.equipedPatterns)
         {
             for (int i = 0; i < 3; i++)
@@ -478,6 +479,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("게임결과 " + playerWon);
         GameStateManager.Instance.SetBattleResult(playerWon ? BattleResult.Win : BattleResult.Lose);
+        if(playerWon)
         MySceneManager.Instance.LoadScene("StageScene");
     }
 

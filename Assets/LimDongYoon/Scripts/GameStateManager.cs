@@ -3,6 +3,7 @@ using UnityEngine;
 using Map;
 using UnityEngine.UI;
 using System.Collections;
+using System.Linq;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -111,8 +112,8 @@ public class GameStateManager : MonoBehaviour
     }
     public IEnumerator UpdateHealthBar()
     {
-
-        float duration = 4f; // 체력 바가 업데이트되는데 걸리는 시간 (초)
+        
+        float duration = 10f; // 체력 바가 업데이트되는데 걸리는 시간 (초)
         float elapsed = 0f;
 
         float startFill = hpBar.fillAmount;
@@ -130,19 +131,29 @@ public class GameStateManager : MonoBehaviour
     }
     public void InitGame()
     {
+        StartCoroutine(InitGameNextFrame());
 
         maxHealth = 100;
         health = 100;
         HealthImageUpdate();
         aguments = tempAguments;
         patterns = tempPatterns;
+        equipedAguments = null;
+        //equipedPatterns = null;
         stageLevel = 1;
         LastBattleResult = BattleResult.None;
-        mapManager.GenerateNewMap();
-        mapManager.SaveMap();
-
+        
+        
     }
+   
+    public IEnumerator InitGameNextFrame()
+    {
 
+        //yield return new WaitForSeconds(1f);
+        
+        yield return null;
+        FindAnyObjectByType<MapManager>().GenerateNewMap();
+    }
 }
 
 

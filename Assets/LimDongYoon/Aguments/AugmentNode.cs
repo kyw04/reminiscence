@@ -13,9 +13,11 @@ public class AugmentNode : MonoBehaviour
     // Start is called before the first frame update
     public void LoadAugment()
     {
+        
         var augments = GameStateManager.Instance.equipedAguments;
-
+        if (augments == null) return;
         int count = 0;
+        
         foreach (var a in augments)
         {
             // 'images' 배열의 길이를 체크하여 인덱스 초과를 방지합니다.

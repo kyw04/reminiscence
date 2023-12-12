@@ -20,7 +20,7 @@ public class PatternNode : MonoBehaviour
     public void LoadPattern()
     {
         var patterns = GameStateManager.Instance.equipedPatterns;
-
+        if (patterns == null) return;
 
         int count = 0;
         foreach (var a in patterns)
@@ -79,18 +79,19 @@ public class PatternNode : MonoBehaviour
         //레벨1 스타터 팩
         foreach(var p in FilterLevelOnePatterns(GameStateManager.Instance.patterns))
         {
-       
+            if (!p) continue;
             GetNewPattern(p);
             GameStateManager.Instance.patterns.Remove(p);
         }
 
         LoadPattern();
     }
-
+   
     public List<Pattern> FilterLevelOnePatterns(List<Pattern> allPatterns)
     {
 
         // 'level'이 1인 'Pattern' 객체들만 필터링합니다.
+        if (allPatterns == null) return null;
         return allPatterns.Where(p => p.level == 1).ToList();
     }
 
