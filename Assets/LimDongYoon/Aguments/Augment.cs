@@ -9,7 +9,9 @@ public class Augment : ScriptableObject
     public Sprite sprite;
     public enum ActionType
     {
+        
         TurnEnd,
+
         SceneLoadAndBlockSpawn,
         SceneEnd,
         Always,
@@ -20,6 +22,7 @@ public class Augment : ScriptableObject
         OnHit,
         TurnStart,
         SceneLoad
+       
     }
     public enum AugmentType
     {

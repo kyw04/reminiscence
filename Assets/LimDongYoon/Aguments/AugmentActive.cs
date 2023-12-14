@@ -1,61 +1,64 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Augment;
 
 public class AugmentActive : MonoBehaviour
 {
     public PlayerMovement playerMovement;
     public NodeBase nodeBase;
+    public List<Augment> equipedAugments = new List<Augment>();
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
 
-    // Update is called once per frame
-    void Update()
+    //Gamemanager 같은 전투시스템 클래스에서 호출
+    public void TurnEnd()
     {
-        
-    }
-
-    public void ActivateEffect(Augment augment)
-    {
-        switch (augment.id)
+        var augments = GetTurnEndAugments(ActionType.TurnEnd);
+        foreach (var augment in augments)
         {
-            case 40000:
-                // "쌍둥이의 검" 효과 구현
-                TwinBlades();
-
-                break;
-            // 다른 증강체 효과들을 여기에 구현합니다.
-
-            case 40001:
-
-            case 40002:
-                Eclipse();
-                break;
-
-            case 40003:
-                TeacherHat();
-                break;
-
-            case 40004:
-                NaturalTalent();
-                break;
-
-            case 40005:
-                BrokenHorn();
-                break;
-            // ...
-            default:
-                break;
+            ActivateEffect(augment);
         }
+    }
+    public void SceneLoadAndBlockSpawn() { }
+
+    public List<Augment> GetTurnEndAugments(ActionType actionType)
+    {
+        List<Augment> turnEndAugments = new List<Augment>();
+
+        foreach (var augment in GameStateManager.Instance.equipedAguments)
+        {
+            if (augment.actionType == actionType)
+            {
+                turnEndAugments.Add(augment);
+            }
+        }
+
+        return turnEndAugments;
+    }
+
+
+
+public void ActivateEffect(Augment augment)
+    {
+        switch (augment.augmentType)
+        {
+            case AugmentType.TwinBlades:
+                TwinBlades();
+                break;
+            case AugmentType.FateRejector:
+                break;
+             
+        }
+        
     }
 
     public void TwinBlades()
     {
+        //기능구현
+
         if (GameManager.instance.foundPatternCount == 2 && GameManager.instance.gameState == GameState.EndTurn)
         {
             GameManager.instance.enemy.GetDamage(nodeBase, 10);
