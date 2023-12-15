@@ -10,16 +10,17 @@ public class Augment : ScriptableObject
     public enum ActionType
     {
         TurnEnd,
-        SceneLoadAndBlockSpawn,
+       // SceneLoadAndBlockSpawn,
         SceneEnd,
-        Always,
+       // Always,
         EnemyAttack,
-        SceneLoadAndEnemySpawn,
+        //SceneLoadAndEnemySpawn,
         Continuous,
-        Both,
-        OnHit,
+       // Both,
+       // OnHit,
         TurnStart,
-        SceneLoad
+        SceneLoad,
+        None
     }
     public enum AugmentType
     {
