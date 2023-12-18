@@ -31,7 +31,7 @@ public class AugmentEditor : Editor
                 UpdateAugmentFields(augment, 40001, "운명 거부자", "문양을 완성하지 못하고 턴 종료를 했을 경우 퍼즐을 전부 셔플 한다.", Augment.ActionType.TurnEnd, 0);
                 break;
             case Augment.AugmentType.Eclipse:
-                UpdateAugmentFields(augment, 40002, "일식", "전투가 시작될 때 정중앙에 움직일 수 없는 블록을 생성한다. 내 턴이 종료될 때 최대 체력의 5%만큼 회복한다.", Augment.ActionType.Both, 0);
+                UpdateAugmentFields(augment, 40002, "일식", "전투가 시작될 때 정중앙에 움직일 수 없는 블록을 생성한다. 내 턴이 종료될 때 최대 체력의 5%만큼 회복한다.", Augment.ActionType.None, 0);
                 break;
             case Augment.AugmentType.MastersAmulet:
                 UpdateAugmentFields(augment, 40003, "스승의 모자", "스테이지를 클리어할 때마다 공격력이 1 증가한다.", Augment.ActionType.SceneEnd, 0);
@@ -40,10 +40,10 @@ public class AugmentEditor : Editor
                 UpdateAugmentFields(augment, 40004, "천부적 재능", "행동 횟수가 영구히 1회 증가한다.", Augment.ActionType.Continuous, 0);
                 break;
             case Augment.AugmentType.BrokenHornOfTheBeast:
-                UpdateAugmentFields(augment, 40005, "마수의 부러진 뿔", "적턴이 종료될 때 랜덤한 블록 한 개가 파괴된다. 적의 체력이 10%감소된 채로 시작한다.", Augment.ActionType.Both, 0);
+                UpdateAugmentFields(augment, 40005, "마수의 부러진 뿔", "적턴이 종료될 때 랜덤한 블록 한 개가 파괴된다. 적의 체력이 10%감소된 채로 시작한다.", Augment.ActionType.None, 0);
                 break;
             case Augment.AugmentType.KingsChoice:
-                UpdateAugmentFields(augment, 40006, "왕의 선택", "첫 턴에는 적에게 받는 피해량이 0으로 변경된다.", Augment.ActionType.OnHit, 0);
+                UpdateAugmentFields(augment, 40006, "왕의 선택", "첫 턴에는 적에게 받는 피해량이 0으로 변경된다.", Augment.ActionType.None, 0);
                 break;
             case Augment.AugmentType.RoyalSigil:
                 UpdateAugmentFields(augment, 40007, "왕실의 문양", "스테이지를 클리어할 때마다 최대체력의 30%만큼 회복한다.", Augment.ActionType.SceneEnd, 0);
