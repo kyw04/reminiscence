@@ -7,39 +7,67 @@ using static Augment;
 
 public class AugmentActive : MonoBehaviour
 {
+    public static AugmentActive instance;
+
     public PlayerMovement playerMovement;
     public NodeBase nodeBase;
     public List<Augment> equipedAugments = new List<Augment>();
 
-    
+    private void Awake()
+    {
+        if (instance == null) { instance = this; }
+    }
 
     //Gamemanager 같은 전투시스템 클래스에서 호출
-    public void TurnEnd()
+    public void AugmentExecute(ActionType actionType)
     {
-        var augments = GetTurnEndAugments(ActionType.TurnEnd);
+        var augments = GetAugments(actionType);
         foreach (var augment in augments)
         {
             ActivateEffect(augment);
         }
     }
-    public void SceneLoadAndBlockSpawn() { }
 
-    public List<Augment> GetTurnEndAugments(ActionType actionType)
+/*    public void SceneEnd()
     {
-        List<Augment> turnEndAugments = new List<Augment>();
-
-        foreach (var augment in GameStateManager.Instance.equipedAguments)
+        var augments = GetSceneEndAugments(ActionType.SceneEnd);
+        foreach(var augment in augments)
         {
-            if (augment.actionType == actionType)
+            ActivateEffect(augment);
+        }
+    }
+*/
+
+    public List<Augment> GetAugments(ActionType actionType)
+    {
+        List<Augment> augments = new List<Augment>();
+
+        foreach (var eAugment in GameStateManager.Instance.equipedAguments)
+        {
+            if (eAugment.actionType == actionType)
             {
-                turnEndAugments.Add(augment);
+                augments.Add(eAugment);
             }
         }
 
-        return turnEndAugments;
+        return augments;
     }
 
+/*    public List<Augment> GetSceneEndAugments(ActionType actionType)
+    {
+        List<Augment> sceneEndAugments = new List<Augment>();
+        
+        foreach(var augment in GameStateManager.Instance.equipedAguments)
+        {
+            if(augment.actionType == actionType)
+            {
+                sceneEndAugments.Add(augment);
+            }
+        }
 
+        return sceneEndAugments;
+    }
+*/
 
 public void ActivateEffect(Augment augment)
     {
@@ -52,7 +80,6 @@ public void ActivateEffect(Augment augment)
                 break;
              
         }
-        
     }
 
     public void TwinBlades()
@@ -103,6 +130,7 @@ public void ActivateEffect(Augment augment)
 
         GameManager.instance.enemy.health -= 10 / GameManager.instance.enemy.health;
     }
+
     public void KingChoice()
     {
         if (GameManager.instance.foundPatternCount == 1)

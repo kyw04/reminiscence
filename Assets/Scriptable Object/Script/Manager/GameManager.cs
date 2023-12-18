@@ -307,6 +307,7 @@ public class GameManager : MonoBehaviour
             return;
 
         gameState = GameState.EndTurn;
+        AugmentActive.instance.AugmentExecute(Augment.ActionType.TurnEnd);
         turn++;
         HashSet<Node> deleteNodes = new HashSet<Node>();
         foundPatternCount = 0;

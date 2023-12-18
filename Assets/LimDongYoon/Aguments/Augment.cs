@@ -16,7 +16,7 @@ public class Augment : ScriptableObject
        // Always,
         EnemyAttack,
         //SceneLoadAndEnemySpawn,
-        Continuous,
+        Continuous, 
        // Both,
        // OnHit,
         TurnStart,
@@ -64,4 +64,3 @@ public class Augment : ScriptableObject
         this.actionType = actionType;
     }
 }
-

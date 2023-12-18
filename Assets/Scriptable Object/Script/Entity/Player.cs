@@ -71,6 +71,7 @@ public class Player : EntityBase
             isDead = true;
             Death();
             GameManager.instance.gameState = GameState.End;
+            AugmentActive.instance.AugmentExecute(Augment.ActionType.SceneEnd);
         }
 
         HealthImageUpdate();

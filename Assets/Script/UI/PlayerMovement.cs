@@ -57,6 +57,8 @@ public class PlayerMovement : MonoBehaviour
                 Puzzlecanvas.SetActive(true);
                 canvas.SetActive(true);
                 canvasActivated = true;
+                AugmentActive.instance.AugmentExecute(Augment.ActionType.SceneLoad);
+                AugmentActive.instance.AugmentExecute(Augment.ActionType.Continuous);
             }
         }
     }
