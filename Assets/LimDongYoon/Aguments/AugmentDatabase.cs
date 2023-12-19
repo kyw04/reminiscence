@@ -14,7 +14,7 @@ public class AugmentDatabase : ScriptableObject
 
     public void CreateArguments()
     {
-        
+
     /*// 쌍둥이의 검
     augments.Add(CreateAugment(40000, "쌍둥이의 검", "턴이 종료될 때 완성된 문양의 개수가 2개일 경우 적의 체력을 10 감소 시킨다.", Augment.ActionType.TurnEnd, 0));
 
@@ -68,7 +68,7 @@ public class AugmentDatabase : ScriptableObject
 
     // 선택받은자
     //augments.Add(CreateAugment(40017, "선택받은자", "플레이어 공격력이 8 증가한다.", Augment.ActionType.Always, 0));
-
+    */
 
         // 다른 증강체들도 이와 유사하게 추가합니다...
     }
