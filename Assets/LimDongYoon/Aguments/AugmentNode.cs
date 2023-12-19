@@ -43,11 +43,24 @@ public class AugmentNode : MonoBehaviour
     }
     public void GetNewAugment(Augment augment)
     {
-        if (images.Length >= equipedAugments.Count)
+        if (images.Length <= equipedAugments.Count)
         {
             Debug.Log("Áõ°­Ã¼ È¹µæ ÃÊ°ú");
         }
+
+        if (augment.actionType == Augment.ActionType.Continuous)
+        {
+            var augmentActive = AugmentActive.instance;
+            if (augmentActive)
+            {
+                augmentActive.ActivateEffect(augment);
+            }
+                
+        }
+
         GameStateManager.Instance.equipedAguments.Add(augment);
+        
+        
         LoadAugment();
         
     }

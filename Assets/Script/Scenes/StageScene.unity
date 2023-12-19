@@ -104,7 +104,7 @@ NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    serializedVersion: 2
+    serializedVersion: 3
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
@@ -117,7 +117,7 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    buildHeightMesh: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -1139,7 +1139,7 @@ LightingSettings:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Settings.lighting
-  serializedVersion: 4
+  serializedVersion: 6
   m_GIWorkflowMode: 1
   m_EnableBakedLightmaps: 0
   m_EnableRealtimeLightmaps: 0
@@ -1179,7 +1179,7 @@ LightingSettings:
   m_LightProbeSampleCountMultiplier: 4
   m_PVRBounces: 2
   m_PVRMinBounces: 2
-  m_PVREnvironmentMIS: 1
+  m_PVREnvironmentImportanceSampling: 1
   m_PVRFilteringMode: 1
   m_PVRDenoiserTypeDirect: 1
   m_PVRDenoiserTypeIndirect: 1
@@ -1194,6 +1194,8 @@ LightingSettings:
   m_PVRFilteringAtrousPositionSigmaIndirect: 2
   m_PVRFilteringAtrousPositionSigmaAO: 1
   m_PVRTiledBaking: 0
+  m_NumRaysToShootPerTexel: -1
+  m_RespectSceneVisibilityWhenBakingGI: 0
 --- !u!1 &355292039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1597,7 +1599,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -356, y: 20}
+  m_AnchoredPosition: {x: -356, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &424551087
@@ -2224,7 +2226,7 @@ MonoBehaviour:
   augmentSprite: {fileID: 21300000, guid: 514600205c0a51d4a93793b9c6a8e101, type: 3}
   patternSprite: {fileID: 21300000, guid: f1c709422705f514595dc18b6f730fa1, type: 3}
   currentAugment: {fileID: 0}
-  augmentInfinity: {fileID: 11400000, guid: a761e4db0cf8f094fa79a527715aef5f, type: 2}
+  augmentInfinity: {fileID: 0}
   currentPattern: {fileID: 0}
   button: {fileID: 0}
   eventType: 1
@@ -4027,7 +4029,7 @@ MonoBehaviour:
   augmentSprite: {fileID: 21300000, guid: 514600205c0a51d4a93793b9c6a8e101, type: 3}
   patternSprite: {fileID: 21300000, guid: f1c709422705f514595dc18b6f730fa1, type: 3}
   currentAugment: {fileID: 0}
-  augmentInfinity: {fileID: 11400000, guid: a761e4db0cf8f094fa79a527715aef5f, type: 2}
+  augmentInfinity: {fileID: 0}
   currentPattern: {fileID: 0}
   button: {fileID: 0}
   eventType: 2
@@ -4195,7 +4197,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -4701,7 +4705,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -209, y: -91}
+  m_AnchoredPosition: {x: -209, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1070986887
@@ -5022,7 +5026,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -5086,6 +5092,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2060511019169017780, guid: a8aec3d3101b53849aa88bcf10177bfb, type: 3}
@@ -5137,6 +5144,9 @@ PrefabInstance:
       value: ItemDatabase
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8aec3d3101b53849aa88bcf10177bfb, type: 3}
 --- !u!1 &1174698222
 GameObject:
@@ -5352,7 +5362,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 387.17572, y: -55}
+  m_AnchoredPosition: {x: 387.17572, y: -52}
   m_SizeDelta: {x: 754.3525, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1259389698
@@ -5473,9 +5483,17 @@ Camera:
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -5571,7 +5589,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -267, y: 10}
+  m_AnchoredPosition: {x: -267, y: 0}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1299311343
@@ -5802,7 +5820,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -5946,7 +5966,7 @@ MonoBehaviour:
   augmentSprite: {fileID: 21300000, guid: 514600205c0a51d4a93793b9c6a8e101, type: 3}
   patternSprite: {fileID: 21300000, guid: f1c709422705f514595dc18b6f730fa1, type: 3}
   currentAugment: {fileID: 0}
-  augmentInfinity: {fileID: 11400000, guid: a761e4db0cf8f094fa79a527715aef5f, type: 2}
+  augmentInfinity: {fileID: 0}
   currentPattern: {fileID: 0}
   button: {fileID: 0}
   eventType: 0
@@ -6701,7 +6721,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -7066,7 +7088,7 @@ MonoBehaviour:
   augmentSprite: {fileID: 0}
   patternSprite: {fileID: 21300000, guid: f1c709422705f514595dc18b6f730fa1, type: 3}
   currentAugment: {fileID: 0}
-  augmentInfinity: {fileID: 11400000, guid: a761e4db0cf8f094fa79a527715aef5f, type: 2}
+  augmentInfinity: {fileID: 0}
   currentPattern: {fileID: 0}
   button: {fileID: 0}
   eventType: 2
@@ -7421,7 +7443,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -187, y: 20}
+  m_AnchoredPosition: {x: -187, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1582117321
@@ -7899,7 +7921,7 @@ MonoBehaviour:
   augmentSprite: {fileID: 0}
   patternSprite: {fileID: 21300000, guid: f1c709422705f514595dc18b6f730fa1, type: 3}
   currentAugment: {fileID: 0}
-  augmentInfinity: {fileID: 11400000, guid: a761e4db0cf8f094fa79a527715aef5f, type: 2}
+  augmentInfinity: {fileID: 0}
   currentPattern: {fileID: 0}
   button: {fileID: 0}
   eventType: 2
@@ -8253,7 +8275,7 @@ MonoBehaviour:
   augmentSprite: {fileID: 0}
   patternSprite: {fileID: 21300000, guid: f1c709422705f514595dc18b6f730fa1, type: 3}
   currentAugment: {fileID: 0}
-  augmentInfinity: {fileID: 11400000, guid: a761e4db0cf8f094fa79a527715aef5f, type: 2}
+  augmentInfinity: {fileID: 0}
   currentPattern: {fileID: 0}
   button: {fileID: 0}
   eventType: 2
@@ -10152,7 +10174,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -20, y: -91}
+  m_AnchoredPosition: {x: -20, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &2038588484
@@ -10607,6 +10629,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 38306197627197040, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
@@ -10694,4 +10717,7 @@ PrefabInstance:
       value: MapObjects
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
