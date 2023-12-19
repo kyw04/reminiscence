@@ -69,7 +69,7 @@ public class AugmentActive : MonoBehaviour
     }
 */
 
-public void ActivateEffect(Augment augment)
+    public void ActivateEffect(Augment augment)
     {
         switch (augment.augmentType)
         {
@@ -77,8 +77,60 @@ public void ActivateEffect(Augment augment)
                 TwinBlades();
                 break;
             case AugmentType.FateRejector:
+                Fatereject();
                 break;
-             
+            case AugmentType.Eclipse:
+                Eclipse();
+                break;
+            case AugmentType.MastersAmulet:
+                MastersAmulet();
+                break;
+            case AugmentType.NaturalTalent:
+                NaturalTalent();
+                break;
+            case AugmentType.BrokenHornOfTheBeast:
+                BrokenHorn();
+                break;
+            case AugmentType.KingsChoice:
+                KingChoice();
+                break;
+            case AugmentType.RoyalSigil:
+                RoyalEmblem();
+                break;
+            case AugmentType.IdolOfJealousy:
+                IdolOfJealous();
+                break;
+            case AugmentType.Meteor:
+                Meteor();
+                break;
+            case AugmentType.IdolOfRejection:
+                IdolOfRejection();
+                break;
+            case AugmentType.UnyieldingWill:
+                IndomitableWill();
+                break;
+            case AugmentType.WanderingMemories:
+                MemoriesOfWandering();
+                break;
+            case AugmentType.SignOfTheAbyss:
+                OmenOfHell();
+                break;
+            case AugmentType.WillManifestation:
+                ManifestationOfWill();
+                break;
+            case AugmentType.KeyOfTheGate:
+                KeyOfDoor();
+                break;
+            case AugmentType.HeroicPath:
+                HeroRoad();
+                break;
+            case AugmentType.ChosenOne:
+                ChosenOne();
+                break;
+            // Add additional cases here for each AugmentType
+            default:
+                // Optional: Handle undefined augment type
+                break;
         }
     }
 
@@ -111,7 +163,7 @@ public void ActivateEffect(Augment augment)
         }
     }
 
-    public void TeacherHat()
+    public void MastersAmulet()
     {
         if (GameManager.instance.gameState == GameState.End)
         {
