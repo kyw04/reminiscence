@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using static Augment;
 
@@ -9,13 +6,20 @@ public class AugmentActive : MonoBehaviour
 {
     public static AugmentActive instance;
 
+    public GameObject fixedNode;
     public PlayerMovement playerMovement;
     public NodeBase nodeBase;
     public List<Augment> equipedAugments = new List<Augment>();
+    private GameManager gameManager;
 
     private void Awake()
     {
         if (instance == null) { instance = this; }
+    }
+
+    private void Start()
+    {
+        gameManager = GameManager.instance;
     }
 
     //Gamemanager 같은 전투시스템 클래스에서 호출
@@ -28,15 +32,15 @@ public class AugmentActive : MonoBehaviour
         }
     }
 
-/*    public void SceneEnd()
-    {
-        var augments = GetSceneEndAugments(ActionType.SceneEnd);
-        foreach(var augment in augments)
+    /*    public void SceneEnd()
         {
-            ActivateEffect(augment);
+            var augments = GetSceneEndAugments(ActionType.SceneEnd);
+            foreach(var augment in augments)
+            {
+                ActivateEffect(augment);
+            }
         }
-    }
-*/
+    */
 
     public List<Augment> GetAugments(ActionType actionType)
     {
@@ -53,21 +57,21 @@ public class AugmentActive : MonoBehaviour
         return augments;
     }
 
-/*    public List<Augment> GetSceneEndAugments(ActionType actionType)
-    {
-        List<Augment> sceneEndAugments = new List<Augment>();
-        
-        foreach(var augment in GameStateManager.Instance.equipedAguments)
+    /*    public List<Augment> GetSceneEndAugments(ActionType actionType)
         {
-            if(augment.actionType == actionType)
-            {
-                sceneEndAugments.Add(augment);
-            }
-        }
+            List<Augment> sceneEndAugments = new List<Augment>();
 
-        return sceneEndAugments;
-    }
-*/
+            foreach(var augment in GameStateManager.Instance.equipedAguments)
+            {
+                if(augment.actionType == actionType)
+                {
+                    sceneEndAugments.Add(augment);
+                }
+            }
+
+            return sceneEndAugments;
+        }
+    */
 
     public void ActivateEffect(Augment augment)
     {
@@ -137,16 +141,28 @@ public class AugmentActive : MonoBehaviour
     public void TwinBlades()
     {
         //기능구현
-
-        if (GameManager.instance.foundPatternCount == 2 && GameManager.instance.gameState == GameState.EndTurn)
+        if (gameManager.foundPatternCount == 2 && gameManager.gameState == GameState.EndTurn)
         {
-            GameManager.instance.enemy.GetDamage(nodeBase, 10);
+            gameManager.enemy.GetDamage(nodeBase, 10);
         }
     }
 
     public void Fatereject()
     {
         //문양을 완성하지 못하고 턴 종료를 했을 경우 퍼즐 전체 셔플
+        if (gameManager.foundPatternCount == 0)
+        {
+            HashSet<Node> nodes = new HashSet<Node>();
+            for (int i = 0; i < GameManager.puzzleSize; i++)
+            {
+                for (int j = 0; j < GameManager.puzzleSize; j++)
+                {
+                    nodes.Add(gameManager.puzzle[i, j]);
+                }
+            }
+
+            gameManager.NodeDelete(nodes);
+        }
     }
 
     public void Eclipse()
@@ -157,112 +173,149 @@ public class AugmentActive : MonoBehaviour
             //GameNodeType.None;
         }
 
-        if(GameManager.instance.gameState == GameState.EndTurn)
+        if (gameManager.gameState == GameState.EndTurn)
         {
-            GameManager.instance.player.health += 5 / GameManager.instance.player.health;
+            gameManager.player.health += 5 / gameManager.player.health;
         }
     }
 
     public void MastersAmulet()
     {
-        if (GameManager.instance.gameState == GameState.End)
+        if (gameManager.gameState == GameState.End)
         {
-            GameManager.instance.player.power += 1;
+            gameManager.player.power += 1;
         }
     }
 
     public void NaturalTalent()
     {
-        GameManager.instance.maxMovementCount += 1;
+        gameManager.maxMovementCount += 1;
     }
 
     public void BrokenHorn()
     {
         // 적 턴이 종료될 때 랜덤한 블록 한개가 파괴된다.
+        int x = UnityEngine.Random.Range(0, GameManager.puzzleSize);
+        int y = UnityEngine.Random.Range(0, GameManager.puzzleSize);
+        gameManager.NodeDelete(gameManager.puzzle[x, y]);
 
-        GameManager.instance.enemy.health -= 10 / GameManager.instance.enemy.health;
+        gameManager.enemy.health -= 10 / gameManager.enemy.health;
     }
 
     public void KingChoice()
     {
-        if (GameManager.instance.foundPatternCount == 1)
+        if (gameManager.foundPatternCount == 1)
         {
-            GameManager.instance.player.GetDamage(nodeBase, 0);
+            gameManager.player.GetDamage(nodeBase, 0);
         }
     }
 
     public void RoyalEmblem()
     {
-        if (GameManager.instance.gameState == GameState.End)
+        if (gameManager.gameState == GameState.End)
         {
-            GameManager.instance.player.health += 30 / GameManager.instance.player.maxHealth;
+            gameManager.player.health += 30 / gameManager.player.maxHealth;
         }
     }
     public void IdolOfJealous()
     {
-        if (GameManager.instance.enemy.health > GameManager.instance.player.health)
+        if (gameManager.enemy.health > gameManager.player.health)
         {
-            GameManager.instance.player.power += 10;
+            gameManager.player.power += 10;
         }
     }
     public void Meteor()
     {
-        if (GameManager.instance.gameState == GameState.EndTurn)
+        if (gameManager.gameState == GameState.EndTurn)
         {
-            GameManager.instance.enemy.health -= 10;
+            gameManager.enemy.health -= 10;
         }
     }
     public void IdolOfRejection()
     {
-        if (GameManager.instance.gameState == GameState.EndTurn && GameManager.instance.foundPatternCount != 3)
+        if (gameManager.gameState == GameState.EndTurn && gameManager.foundPatternCount > 0)
         {
             //턴 종료 시 행동 횟수가 남아있다면 10% 확률로 적의 공격을 방어한다.
+            int percent = UnityEngine.Random.Range(0, 10);
+            if (percent == 0)
+            {
+
+            }
         }
     }
 
     public void IndomitableWill()
     {
-        if(GameManager.instance.player.health <= 0)
+        if (gameManager.player.health <= 0)
         {
             //전투가 종료되지않고
-            GameManager.instance.player.health = 1;
+            gameManager.player.health = 1;
         }
     }
     public void MemoriesOfWandering()
     {
         // 적턴이 종료될 때 정중앙 9개의 블록이 파괴된다.
+        HashSet<Node> nodes = new HashSet<Node>();
+        int[] dir = { -1, 0, 1 };
+        int x = GameManager.puzzleSize / 2;
+        int y = GameManager.puzzleSize / 2;
+
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                int newX = x + dir[i];
+                int newY = y + dir[j];
+
+                nodes.Add(gameManager.puzzle[newX, newY]);
+            }
+        }
+
+        gameManager.NodeDelete(nodes);
     }
 
     public void OmenOfHell()
     {
         // 적턴이 종료될 때 정중앙 9개의 블록을 제외한 블록들이 파괴된다.
+        HashSet<Node> nodes = new HashSet<Node>();
+
+        for (int i = 0; i < GameManager.puzzleSize; i++)
+        {
+            for (int j = 0; j < GameManager.puzzleSize; j++)
+            {
+                if (i == 0 || i == GameManager.puzzleSize - 1 || j == 0 || j == GameManager.puzzleSize - 1)
+                    nodes.Add(gameManager.puzzle[i, j]);
+            }
+        }
+
+        gameManager.NodeDelete(nodes);
     }
 
     public void ManifestationOfWill()
     {
-        GameManager.instance.maxMovementCount--;
-        GameManager.instance.player.power += 10;
+        gameManager.maxMovementCount--;
+        gameManager.player.power += 10;
     }
     public void KeyOfDoor()
     {
-        if(playerMovement.canvasActivated)
+        if (playerMovement.canvasActivated)
         {
-            GameManager.instance.enemy.health -= 50 / GameManager.instance.enemy.maxHealth;
+            gameManager.enemy.health -= 50 / gameManager.enemy.maxHealth;
         }
 
-        if(GameManager.instance.foundPatternCount == 5)
+        if (gameManager.foundPatternCount == 5)
         {
-            GameManager.instance.enemy.health = GameManager.instance.enemy.maxHealth;
+            gameManager.enemy.health = gameManager.enemy.maxHealth;
         }
     }
     public void HeroRoad()
     {
-        GameManager.instance.player.power *= 2;
-        GameManager.instance.enemy.power*= 2;
+        gameManager.player.power *= 2;
+        gameManager.enemy.power *= 2;
     }
 
     public void ChosenOne()
     {
-        GameManager.instance.player.power += 8;
+        gameManager.player.power += 8;
     }
 }

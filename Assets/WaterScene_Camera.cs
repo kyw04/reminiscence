@@ -15,8 +15,8 @@ public class WaterScene_Camera : MonoBehaviour
 
     void Start()
     {
-        Puzzlecanvas.SetActive(false);
-        canvas.SetActive(false);
+        if (Puzzlecanvas != null) Puzzlecanvas.SetActive(false);
+        if (canvas != null) canvas.SetActive(false);
     }
     void Update()
     {

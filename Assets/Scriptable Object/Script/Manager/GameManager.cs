@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +21,8 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
+    public bool onTest = false;
 
     #region Entity
     [Header("Entity")]
@@ -64,7 +67,7 @@ public class GameManager : MonoBehaviour
 
     #endregion
     #region Puzzle
-    private const int puzzleSize = 5; // 2D(puzzleSize x puzzleSize)
+    public const int puzzleSize = 5; // 2D(puzzleSize x puzzleSize)
 
     [Space(5)]
     [Header("Puzzle")]
@@ -131,11 +134,69 @@ public class GameManager : MonoBehaviour
             PutNode();
 
         NodeDrag();
-
         turnEndButtonImage.color = gameState == GameState.Idle ? Color.white : Color.gray;
+
+        #region TestSystem
+        if (onTest)
+        {
+            // 모든 노드 파괴
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                HashSet<Node> nodes = new HashSet<Node>();
+                for (int i = 0; i < GameManager.puzzleSize; i++)
+                {
+                    for (int j = 0; j < GameManager.puzzleSize; j++)
+                    {
+                        nodes.Add(puzzle[i, j]);
+                    }
+                }
+
+                NodeDelete(nodes);
+            }
+
+            // 중앙 9개 노드 파괴
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                HashSet<Node> nodes = new HashSet<Node>();
+                int[] dir = { -1, 0, 1 };
+                int x = GameManager.puzzleSize / 2;
+                int y = GameManager.puzzleSize / 2;
+
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        int newX = x + dir[i];
+                        int newY = y + dir[j];
+
+                        nodes.Add(puzzle[newX, newY]);
+                    }
+                }
+
+                NodeDelete(nodes);
+            }
+
+            // 테두리 노드 파괴
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                HashSet<Node> nodes = new HashSet<Node>();
+
+                for (int i = 0; i < GameManager.puzzleSize; i++)
+                {
+                    for (int j = 0; j < GameManager.puzzleSize; j++)
+                    {
+                        if (i == 0 || i == GameManager.puzzleSize - 1 || j == 0 || j == GameManager.puzzleSize - 1)
+                            nodes.Add(puzzle[i, j]);
+                    }
+                }
+
+                NodeDelete(nodes);
+            }
+        }
+        #endregion
     }
 
-    private NodeBase GetRandomNodeBase()
+    public NodeBase GetRandomNodeBase()
     {
         List<NodeBase> randomNodeBase = new List<NodeBase>();
 
@@ -159,6 +220,7 @@ public class GameManager : MonoBehaviour
 
         return null;
     }
+
     private void GetPuzzle()
     {
         for (int i = 0; i < puzzleSize; i++)
@@ -378,7 +440,7 @@ public class GameManager : MonoBehaviour
         return deleteNode;
     }
 
-    private void NodeDelete(HashSet<Node> deleteNode)
+    public void NodeDelete(HashSet<Node> deleteNode)
     {
         HashSet<int> deleteNodeX = new HashSet<int>();
 
@@ -399,6 +461,19 @@ public class GameManager : MonoBehaviour
         }
         else
             StartCoroutine(EndNodeDown(0));
+    }
+
+    public void NodeDelete(Node deleteNode)
+    {
+        if (deleteNode == null)
+        {
+            StartCoroutine(EndNodeDown(0));
+            return;
+        }
+
+        deleteNode.isDelete = true;
+        currentNodeBaseCount[deleteNode.nodeBase]--;
+        StartCoroutine(NodeMove(deleteNode.x));
     }
 
     public IEnumerator NodeMove(int x)

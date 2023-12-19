@@ -32,7 +32,6 @@ public class Enemy : EntityBase
         base.Start();
 
         CurrentBattleEnemyInfo battleEnemyInfo = GameStateManager.Instance.currentBattlleInfo;
-        Debug.LogWarning(battleEnemyInfo.currentStageLevel);
         maxHealth = 100 * battleEnemyInfo.currentStageLevel;
         damage = 5 * battleEnemyInfo.currentStageLevel;
         string boss = "";
