@@ -80,9 +80,12 @@ public class MainScene_Player : MonoBehaviour
 
     void move()
     {
+        // Implement movement in both horizontal and vertical directions
         float horizontalInput = Input.GetAxis("Horizontal");
-        Vector3 moveDirection = new Vector3(horizontalInput, 0.0f, 0.0f);
-        controller.Move(moveDirection * speed * Time.deltaTime);
+        float verticalInput = Input.GetAxis("Vertical");
+
+        Vector3 moveDirection = new Vector3(horizontalInput, 0.0f, verticalInput) * speed * Time.deltaTime;
+        controller.Move(moveDirection);
     }
     void movePivot()
     {
@@ -91,17 +94,17 @@ public class MainScene_Player : MonoBehaviour
 
     void moveController()
     {
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-        if(x * x + y * y > 0)
-        {
-            controller.Move(controller.transform.forward * speed * Time.deltaTime);
-        }
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
-        yVelocity = controller.isGrounded ? 0f : yVelocity - gravity * Time.deltaTime;
+        Vector3 moveDirection = new Vector3(horizontalInput, 0.0f, verticalInput) * speed * Time.deltaTime;
+        controller.Move(moveDirection);
+
+        // Apply gravity
         yVelocity -= gravity * Time.deltaTime;
         controller.Move(Vector3.up * yVelocity * Time.deltaTime);
     }
+
 
     // Update is called once per frame
     void setControllerLook()
@@ -126,26 +129,29 @@ public class MainScene_Player : MonoBehaviour
     {
         if (Input.GetMouseButton(1))
         {
-            float mouseX = Input.GetAxis("Mouse X");
-            float mouseY = Input.GetAxis("Mouse Y");
+            float mouseX = Input.GetAxis("Mouse X") * sensitivity;
+            float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
 
-            targetYRotation += mouseX * sensitivity;
-            targetXRotation += mouseY * sensitivity;
+            targetYRotation += mouseX;
+            targetXRotation -= mouseY;
             targetXRotation = Mathf.Clamp(targetXRotation, xRotationLimits.x, xRotationLimits.y);
         }
 
-        currentCameraXRotation = Mathf.SmoothDampAngle(currentCameraXRotation, targetXRotation, ref xRotationVelocity, lookSmoothTime);
-        currentCameraYRotation = Mathf.SmoothDampAngle(currentCameraYRotation, targetYRotation, ref yRotationVelocity, lookSmoothTime);
-        cameraPivot.eulerAngles = new Vector3(currentCameraXRotation, currentCameraYRotation, 0f);
+        currentCameraXRotation = Mathf.SmoothDamp(currentCameraXRotation, targetXRotation, ref xRotationVelocity, lookSmoothTime);
+        currentCameraYRotation = Mathf.SmoothDamp(currentCameraYRotation, targetYRotation, ref yRotationVelocity, lookSmoothTime);
 
+        cameraPivot.rotation = Quaternion.Euler(currentCameraXRotation, currentCameraYRotation, 0f);
+
+        RaycastHit hitInfo;
         Ray camRay = new Ray(cameraPivot.position, -cameraPivot.forward);
-        float maxDistance = cameraDistance;
-        if(Physics.SphereCast(camRay, 0.25f, out RaycastHit hitInfo, cameraDistance, camRaycastMask))
-        {
-            maxDistance = (hitInfo.point - cameraPivot.position).magnitude - 0.25f;
-        }
 
-        cameraTransform.localPosition = Vector3.forward * -(maxDistance - 0.1f);
-        yAngleOffset = Mathf.Atan2(cameraPivot.forward.z, cameraPivot.forward.y) * Mathf.Rad2Deg - 90f;
+        if (Physics.Raycast(camRay, out hitInfo, cameraDistance, camRaycastMask))
+        {
+            cameraTransform.position = hitInfo.point;
+        }
+        else
+        {
+            cameraTransform.localPosition = new Vector3(0f, 0f, -cameraDistance);
+        }
     }
 }

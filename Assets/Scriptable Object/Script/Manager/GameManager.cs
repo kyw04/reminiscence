@@ -89,12 +89,16 @@ public class GameManager : MonoBehaviour
 
     public NodeBase[] nodeBases;
 
+    private bool useDeleteCoroutine;
+    Action action;
+    private Queue<Action> deleteCoroutineQueue;
+
     #endregion
 
     private void Awake()
     {
         if (instance == null) { instance = this; }
-
+        
         if(GameStateManager.Instance.equipedPatterns != null)
         foreach (Pattern pattern in GameStateManager.Instance.equipedPatterns)
         {
@@ -209,6 +213,9 @@ public class GameManager : MonoBehaviour
                 randomNodeBase.Add(nodeBase);
             }
         }
+
+        if (randomNodeBase.Count == 0)
+            return null;
 
         int nodeBaseIndex = UnityEngine.Random.Range(0, randomNodeBase.Count);
         foreach (NodeBase nodeBase in nodeBases)
@@ -450,6 +457,14 @@ public class GameManager : MonoBehaviour
 
     public void NodeDelete(HashSet<Node> deleteNode)
     {
+        if (useDeleteCoroutine)
+        {
+            action = () => NodeDelete(deleteNode);
+            deleteCoroutineQueue.Enqueue(action);
+            return;
+        }
+        useDeleteCoroutine = true;
+
         HashSet<int> deleteNodeX = new HashSet<int>();
 
         foreach (Node node in deleteNode)
@@ -473,6 +488,14 @@ public class GameManager : MonoBehaviour
 
     public void NodeDelete(Node deleteNode)
     {
+        if (useDeleteCoroutine)
+        {
+            action = () => NodeDelete(deleteNode);
+            deleteCoroutineQueue.Enqueue(action);
+            return;
+        }
+        useDeleteCoroutine = true;
+
         if (deleteNode == null)
         {
             StartCoroutine(EndNodeDown(0));
@@ -521,6 +544,7 @@ public class GameManager : MonoBehaviour
 
             if (puzzle[x, i].isDelete)
             {
+                puzzle[x, i].isDelete = false;
                 if (puzzle[x, i].nodeBase.deleteParticle)
                 {
                     GameObject particle = Instantiate(puzzle[x, i].nodeBase.deleteParticle, puzzle[x, i].transform.parent);
@@ -565,6 +589,13 @@ public class GameManager : MonoBehaviour
                 Debug.LogError("have few parents");
                 break;
             }
+        }
+
+        useDeleteCoroutine = false;
+        if (deleteCoroutineQueue.Count > 0)
+        {
+            Action currentAction = deleteCoroutineQueue.Dequeue();
+            currentAction();
         }
     }
     //������ ��������
