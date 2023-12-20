@@ -192,6 +192,11 @@ public class GameManager : MonoBehaviour
 
                 NodeDelete(nodes);
             }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                AugmentActive.instance.Eclipse();
+            }
         }
         #endregion
     }
@@ -294,6 +299,12 @@ public class GameManager : MonoBehaviour
 
                 if (targetNode)
                 {
+                    if (targetNode.isFixed)
+                    {
+                        targetNode = null;
+                        return;
+                    }
+
                     if (Vector3.Distance(targetMaxNodePos, selectedNode.transform.position) / maxDistance > 0.75f)
                     {
                         targetNode.transform.position = targetNode.transform.parent.position;
@@ -483,6 +494,9 @@ public class GameManager : MonoBehaviour
         int maxY = 0;
         for (int i = puzzleSize - 1; i >= 0; i--)
         {
+            if (puzzle[x, i].isFixed)
+                continue;
+
             if (puzzle[x, i].isDelete)
             {
                 //Debug.Log($"push stack ({x}, {i})");
@@ -495,6 +509,9 @@ public class GameManager : MonoBehaviour
         Stack<NodeParentPosition> parents = new Stack<NodeParentPosition>();
         for (int i = 0; i <= maxY; i++)
         {
+            if (puzzle[x, i].isFixed)
+                continue;
+
             parents.Push(puzzle[x, i].GetComponentInParent<NodeParentPosition>());
         }
         //Debug.Log($"parents: {parents.Count}");
@@ -502,6 +519,9 @@ public class GameManager : MonoBehaviour
         Queue<Node> deleteNode = new Queue<Node>();
         for (int i = maxY; i >= 0; i--)
         {
+            if (puzzle[x, i].isFixed)
+                continue;
+
             if (puzzle[x, i].isDelete)
             {
                 if (puzzle[x, i].nodeBase.deleteParticle)

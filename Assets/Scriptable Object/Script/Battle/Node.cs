@@ -7,6 +7,7 @@ public class Node : MonoBehaviour
     private NodeBase nodeBaseTemp;
     private MeshRenderer meshRenderer;
     private MeshFilter meshFilter;
+    public bool isFixed = false;
     public NodeBase nodeBase;
     public bool isDelete;
     public bool isDown;
@@ -27,7 +28,7 @@ public class Node : MonoBehaviour
 
     private void Update()
     {
-        if (isDown)
+        if (isDown && !isFixed)
         {
             if (transform.parent.position.y <= transform.position.y)
             {
@@ -56,7 +57,7 @@ public class Node : MonoBehaviour
 
     public void ChangeNodeBase(Node target)
     {
-        if (target == null) return;
+        if (target == null || isFixed) return;
 
         nodeBaseTemp = target.nodeBase;
         target.nodeBase = this.nodeBase;
