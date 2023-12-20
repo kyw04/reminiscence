@@ -1285,7 +1285,6 @@ GameObject:
   - component: {fileID: 1201715384}
   - component: {fileID: 1201715383}
   - component: {fileID: 1201715382}
-  - component: {fileID: 1201715385}
   m_Layer: 0
   m_Name: ItemDatabase
   m_TagString: Untagged
@@ -1368,23 +1367,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1201715385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1201715381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7c47781b1d90ee4e9f49f96cc9407ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fixedNode: {fileID: 6135524883630530158, guid: f0c99544f92031643b0dc99f39fa240e, type: 3}
-  playerMovement: {fileID: 0}
-  nodeBase: {fileID: 11400000, guid: 5a2fa13c0d111e64dab10a1817cbe32d, type: 2}
-  equipedAugments:
-  - {fileID: 11400000, guid: c9bda3a59b1ed004c8810fba690b0f35, type: 2}
 --- !u!1 &1204758477
 GameObject:
   m_ObjectHideFlags: 0
