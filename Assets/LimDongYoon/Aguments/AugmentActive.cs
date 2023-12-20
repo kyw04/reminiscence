@@ -247,17 +247,17 @@ public class AugmentActive : MonoBehaviour
             int percent = UnityEngine.Random.Range(0, 10);
             if (percent == 0)
             {
-
+                GameManager.instance.player.health += GameManager.instance.enemy.damage;
             }
         }
     }
 
     public void IndomitableWill()
     {
-        if (GameManager.instance.player.health <= 0)
+        if (GameManager.instance.player.health - GameManager.instance.enemy.damage <= 0)
         {
             //전투가 종료되지않고
-            GameManager.instance.player.health = 1;
+            GameManager.instance.player.health = GameManager.instance.enemy.damage + 1;
         }
     }
     public void MemoriesOfWandering()
