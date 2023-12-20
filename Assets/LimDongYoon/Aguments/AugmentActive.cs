@@ -168,12 +168,15 @@ public class AugmentActive : MonoBehaviour
         Destroy(GameManager.instance.puzzle[center, center].gameObject);
         GameManager.instance.puzzle[center, center] = newFixedNode;
 
-        if (playerMovement.canvasActivated)
+        if (playerMovement.canvasActivated) // 이거 없다고 뜨는데요
         {
             // 정중앙에 움직일 수 없는 블록을 생성
-            //int center = GameManager.puzzleSize / 2 + GameManager.puzzleSize % 2 == 0 ? 0 : 1;
-            //Destroy(GameManager.instance.puzzle[center, center].transform.GetChild(0));
-            //Instantiate(fixedNode, GameManager.instance.puzzle[center, center].transform);
+            //int center = GameManager.puzzleSize / 2 - 1;
+            //center += GameManager.puzzleSize % 2 == 0 ? 0 : 1;
+            //Node newFixedNode = Instantiate(fixedNode, GameManager.instance.puzzle[center, center].transform.parent).GetComponent<Node>();
+            //newFixedNode.ChangeNodeBase(GameManager.instance.puzzle[center, center]);
+            //Destroy(GameManager.instance.puzzle[center, center].gameObject);
+            //GameManager.instance.puzzle[center, center] = newFixedNode;
 
             //GameNodeType.None;
         }
