@@ -15,7 +15,7 @@ MonoBehaviour:
   nodeType: 0
   strong: 0
   weak: 0
-  mesh: {fileID: -5109216338744078623, guid: 42dbecc1510cd6545ad60da7201e7a1c, type: 3}
+  mesh: {fileID: 7108973131618760135, guid: fd9909e433df89c44986301b2d780fa3, type: 3}
   material: {fileID: 2100000, guid: 6755777f675941541b187c5fc61f3418, type: 2}
   baseColor: {r: 0.49803925, g: 0.49803925, b: 0.49803925, a: 1}
   deleteParticle: {fileID: 7343117478595098799, guid: 69b17b087a77b834880106d3307c5544, type: 3}
