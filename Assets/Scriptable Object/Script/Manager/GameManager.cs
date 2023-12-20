@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
     public NodeBase[] nodeBases;
 
     private bool useDeleteCoroutine;
-    Action action;
+    private float nodeMoveCount;
     private Queue<Action> deleteCoroutineQueue = new Queue<Action>();
 
     #endregion
@@ -459,8 +459,7 @@ public class GameManager : MonoBehaviour
     {
         if (useDeleteCoroutine)
         {
-            action = () => NodeDelete(deleteNode);
-            deleteCoroutineQueue.Enqueue(action);
+            deleteCoroutineQueue.Enqueue(() => NodeDelete(deleteNode));
             return;
         }
         useDeleteCoroutine = true;
@@ -477,6 +476,7 @@ public class GameManager : MonoBehaviour
 
         if (deleteNodeX.Count > 0)
         {
+            nodeMoveCount = deleteNodeX.Count;
             foreach (int x in deleteNodeX)
             {
                 StartCoroutine(NodeMove(x));
@@ -490,8 +490,7 @@ public class GameManager : MonoBehaviour
     {
         if (useDeleteCoroutine)
         {
-            action = () => NodeDelete(deleteNode);
-            deleteCoroutineQueue.Enqueue(action);
+            deleteCoroutineQueue.Enqueue(() => NodeDelete(deleteNode));
             return;
         }
         useDeleteCoroutine = true;
@@ -504,6 +503,7 @@ public class GameManager : MonoBehaviour
 
         deleteNode.isDelete = true;
         currentNodeBaseCount[deleteNode.nodeBase]--;
+        nodeMoveCount = 1;
         StartCoroutine(NodeMove(deleteNode.x));
     }
 
@@ -591,11 +591,15 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        useDeleteCoroutine = false;
-        if (deleteCoroutineQueue.Count > 0)
+        nodeMoveCount--;
+        if (nodeMoveCount == 0)
         {
-            Action currentAction = deleteCoroutineQueue.Dequeue();
-            currentAction();
+            useDeleteCoroutine = false;
+            if (deleteCoroutineQueue.Count > 0)
+            {
+                Action currentAction = deleteCoroutineQueue.Dequeue();
+                currentAction();
+            }
         }
     }
     //������ ��������
