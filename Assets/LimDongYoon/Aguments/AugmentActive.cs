@@ -69,6 +69,7 @@ public class AugmentActive : MonoBehaviour
 
     public void ActivateEffect(Augment augment)
     {
+        Debug.Log("증강체 실행 " +augment.name + " 효과: " + augment.description );
         switch (augment.augmentType)
         {
             case AugmentType.TwinBlades:
