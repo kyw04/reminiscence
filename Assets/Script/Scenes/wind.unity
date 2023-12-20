@@ -2696,6 +2696,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5699958711635848382, guid: 310c253c66ad72441948141fc1fffd21, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5699958711635848383, guid: 310c253c66ad72441948141fc1fffd21, type: 3}
       propertyPath: m_Name
       value: Main Camera (1)
@@ -4954,6 +4958,8 @@ MonoBehaviour:
   speed: 6.5
   target: {fileID: 373151129}
   mainCamera: {fileID: 162122038}
+  Puzzlecanvas: {fileID: 0}
+  canvas: {fileID: 0}
 --- !u!81 &1752704937
 AudioListener:
   m_ObjectHideFlags: 0
@@ -4961,7 +4967,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1752704935}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1752704938
 Camera:
   m_ObjectHideFlags: 0

@@ -232,6 +232,7 @@ MonoBehaviour:
   - {fileID: 916517249}
   - {fileID: 100040240}
   fadeDuration: 7
+  delayBeforeSceneChange: 3
 --- !u!4 &305908186
 Transform:
   m_ObjectHideFlags: 0
@@ -272,7 +273,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 823820882}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &823820884
 Camera:
   m_ObjectHideFlags: 0

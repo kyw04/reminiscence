@@ -159,6 +159,8 @@ MonoBehaviour:
   hpBar: {fileID: 0}
   aguments: []
   equipedAguments: []
+  patterns: []
+  equipedPatterns: []
   stageLevel: 1
   mapNode: {fileID: 0}
 --- !u!4 &238570566
@@ -4138,6 +4140,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6468640643590224011, guid: 24fcb76b0a8e55747bbb063ff4ac833d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6468640644414788728, guid: 24fcb76b0a8e55747bbb063ff4ac833d, type: 3}
       propertyPath: m_Name
       value: Set

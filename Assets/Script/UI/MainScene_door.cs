@@ -59,11 +59,11 @@ public class MainScene_door : MonoBehaviour
 
         while (!door1Opened || !door2Opened)
         {
-            Debug.Log($"door1: {door1Opened}, door2: {door2Opened}");
+            //Debug.Log($"door1: {door1Opened}, door2: {door2Opened}");
             if (!door1Opened)
             {
                 float currentAngle1 = door1.localRotation.eulerAngles.z;
-                Debug.Log($"Angel1: {currentAngle1}");
+                //Debug.Log($"Angel1: {currentAngle1}");
                 if (currentAngle1 > door1OpenAngle)
                 {
                     currentAngle1 -= Time.deltaTime * doorOpenSpeed;
@@ -71,7 +71,7 @@ public class MainScene_door : MonoBehaviour
                     if (currentAngle1 <= door1OpenAngle)
                     {
                         door1Opened = true;
-                        Debug.Log($"door1 open: {door1Opened}");
+                        //Debug.Log($"door1 open: {door1Opened}");
                     }
                 }
             }
@@ -79,7 +79,7 @@ public class MainScene_door : MonoBehaviour
             if (!door2Opened)
             {
                 float currentAngle2 = door2.localRotation.eulerAngles.z;
-                Debug.Log($"Angel2: {currentAngle2}");
+                //Debug.Log($"Angel2: {currentAngle2}");
                 if (currentAngle2 > door2OpenAngle)
                 {
                     currentAngle2 += Time.deltaTime * doorOpenSpeed;
@@ -87,7 +87,7 @@ public class MainScene_door : MonoBehaviour
                     if (currentAngle2 <= door2OpenAngle)
                     {
                         door2Opened = true;
-                        Debug.Log($"door2 open: {door2Opened}");
+                        //Debug.Log($"door2 open: {door2Opened}");
                     }
                 }
             }
