@@ -10,16 +10,10 @@ public class AugmentActive : MonoBehaviour
     public PlayerMovement playerMovement;
     public NodeBase nodeBase;
     public List<Augment> equipedAugments = new List<Augment>();
-    private GameManager gameManager;
 
     private void Awake()
     {
         if (instance == null) { instance = this; }
-    }
-
-    private void Start()
-    {
-        gameManager = GameManager.instance;
     }
 
     //Gamemanager 같은 전투시스템 클래스에서 호출
@@ -141,55 +135,62 @@ public class AugmentActive : MonoBehaviour
     public void TwinBlades()
     {
         //기능구현
-        if (gameManager.foundPatternCount == 2 && gameManager.gameState == GameState.EndTurn)
+        if (GameManager.instance.foundPatternCount == 2 && GameManager.instance.gameState == GameState.EndTurn)
         {
-            gameManager.enemy.GetDamage(nodeBase, 10);
+            GameManager.instance.enemy.GetDamage(nodeBase, 10);
         }
     }
 
     public void Fatereject()
     {
         //문양을 완성하지 못하고 턴 종료를 했을 경우 퍼즐 전체 셔플
-        if (gameManager.foundPatternCount == 0)
+        if (GameManager.instance.foundPatternCount == 0)
         {
             HashSet<Node> nodes = new HashSet<Node>();
             for (int i = 0; i < GameManager.puzzleSize; i++)
             {
                 for (int j = 0; j < GameManager.puzzleSize; j++)
                 {
-                    nodes.Add(gameManager.puzzle[i, j]);
+                    nodes.Add(GameManager.instance.puzzle[i, j]);
                 }
             }
 
-            gameManager.NodeDelete(nodes);
+            GameManager.instance.NodeDelete(nodes);
         }
     }
 
     public void Eclipse()
     {
+        Debug.Log("Eclipse");
+        int center = GameManager.puzzleSize / 2 + GameManager.puzzleSize % 2 == 0 ? 0 : 1;
+        Destroy(GameManager.instance.puzzle[center, center].transform.GetChild(0));
+        Instantiate(fixedNode, GameManager.instance.puzzle[center, center].transform);
+
         if (playerMovement.canvasActivated)
         {
             // 정중앙에 움직일 수 없는 블록을 생성
+            
+
             //GameNodeType.None;
         }
 
-        if (gameManager.gameState == GameState.EndTurn)
+        if (GameManager.instance.gameState == GameState.EndTurn)
         {
-            gameManager.player.health += 5 / gameManager.player.health;
+            GameManager.instance.player.health += 5 / GameManager.instance.player.health;
         }
     }
 
     public void MastersAmulet()
     {
-        if (gameManager.gameState == GameState.End)
+        if (GameManager.instance.gameState == GameState.End)
         {
-            gameManager.player.power += 1;
+            GameManager.instance.player.power += 1;
         }
     }
 
     public void NaturalTalent()
     {
-        gameManager.maxMovementCount += 1;
+        GameManager.instance.maxMovementCount += 1;
     }
 
     public void BrokenHorn()
@@ -197,43 +198,43 @@ public class AugmentActive : MonoBehaviour
         // 적 턴이 종료될 때 랜덤한 블록 한개가 파괴된다.
         int x = UnityEngine.Random.Range(0, GameManager.puzzleSize);
         int y = UnityEngine.Random.Range(0, GameManager.puzzleSize);
-        gameManager.NodeDelete(gameManager.puzzle[x, y]);
+        GameManager.instance.NodeDelete(GameManager.instance.puzzle[x, y]);
 
-        gameManager.enemy.health -= 10 / gameManager.enemy.health;
+        GameManager.instance.enemy.health -= 10 / GameManager.instance.enemy.health;
     }
 
     public void KingChoice()
     {
-        if (gameManager.foundPatternCount == 1)
+        if (GameManager.instance.foundPatternCount == 1)
         {
-            gameManager.player.GetDamage(nodeBase, 0);
+            GameManager.instance.player.GetDamage(nodeBase, 0);
         }
     }
 
     public void RoyalEmblem()
     {
-        if (gameManager.gameState == GameState.End)
+        if (GameManager.instance.gameState == GameState.End)
         {
-            gameManager.player.health += 30 / gameManager.player.maxHealth;
+            GameManager.instance.player.health += 30 / GameManager.instance.player.maxHealth;
         }
     }
     public void IdolOfJealous()
     {
-        if (gameManager.enemy.health > gameManager.player.health)
+        if (GameManager.instance.enemy.health > GameManager.instance.player.health)
         {
-            gameManager.player.power += 10;
+            GameManager.instance.player.power += 10;
         }
     }
     public void Meteor()
     {
-        if (gameManager.gameState == GameState.EndTurn)
+        if (GameManager.instance.gameState == GameState.EndTurn)
         {
-            gameManager.enemy.health -= 10;
+            GameManager.instance.enemy.health -= 10;
         }
     }
     public void IdolOfRejection()
     {
-        if (gameManager.gameState == GameState.EndTurn && gameManager.foundPatternCount > 0)
+        if (GameManager.instance.gameState == GameState.EndTurn && GameManager.instance.foundPatternCount > 0)
         {
             //턴 종료 시 행동 횟수가 남아있다면 10% 확률로 적의 공격을 방어한다.
             int percent = UnityEngine.Random.Range(0, 10);
@@ -246,10 +247,10 @@ public class AugmentActive : MonoBehaviour
 
     public void IndomitableWill()
     {
-        if (gameManager.player.health <= 0)
+        if (GameManager.instance.player.health <= 0)
         {
             //전투가 종료되지않고
-            gameManager.player.health = 1;
+            GameManager.instance.player.health = 1;
         }
     }
     public void MemoriesOfWandering()
@@ -267,11 +268,11 @@ public class AugmentActive : MonoBehaviour
                 int newX = x + dir[i];
                 int newY = y + dir[j];
 
-                nodes.Add(gameManager.puzzle[newX, newY]);
+                nodes.Add(GameManager.instance.puzzle[newX, newY]);
             }
         }
 
-        gameManager.NodeDelete(nodes);
+        GameManager.instance.NodeDelete(nodes);
     }
 
     public void OmenOfHell()
@@ -284,38 +285,38 @@ public class AugmentActive : MonoBehaviour
             for (int j = 0; j < GameManager.puzzleSize; j++)
             {
                 if (i == 0 || i == GameManager.puzzleSize - 1 || j == 0 || j == GameManager.puzzleSize - 1)
-                    nodes.Add(gameManager.puzzle[i, j]);
+                    nodes.Add(GameManager.instance.puzzle[i, j]);
             }
         }
 
-        gameManager.NodeDelete(nodes);
+        GameManager.instance.NodeDelete(nodes);
     }
 
     public void ManifestationOfWill()
     {
-        gameManager.maxMovementCount--;
-        gameManager.player.power += 10;
+        GameManager.instance.maxMovementCount--;
+        GameManager.instance.player.power += 10;
     }
     public void KeyOfDoor()
     {
         if (playerMovement.canvasActivated)
         {
-            gameManager.enemy.health -= 50 / gameManager.enemy.maxHealth;
+            GameManager.instance.enemy.health -= 50 / GameManager.instance.enemy.maxHealth;
         }
 
-        if (gameManager.foundPatternCount == 5)
+        if (GameManager.instance.foundPatternCount == 5)
         {
-            gameManager.enemy.health = gameManager.enemy.maxHealth;
+            GameManager.instance.enemy.health = GameManager.instance.enemy.maxHealth;
         }
     }
     public void HeroRoad()
     {
-        gameManager.player.power *= 2;
-        gameManager.enemy.power *= 2;
+        GameManager.instance.player.power *= 2;
+        GameManager.instance.enemy.power *= 2;
     }
 
     public void ChosenOne()
     {
-        gameManager.player.power += 8;
+        GameManager.instance.player.power += 8;
     }
 }
