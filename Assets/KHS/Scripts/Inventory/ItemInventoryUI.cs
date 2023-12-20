@@ -43,7 +43,7 @@ public class ItemInventoryUI : MonoBehaviour
             Image _itemObj = _maden.transform.transform.Find("Obj").GetComponent<Image>();
             _itemObj.sprite = Item.SetItemImage(item);
             ///////
-            if (item._itemPart != Item.ItemPart.ROBE) _itemObj.transform.rotation = Quaternion.Euler(0, 0, 33);
+          
             //////
 
             Image _itemGradeFrame = _maden.transform.Find("Frame").GetComponent<Image>();
