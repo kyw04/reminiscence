@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemDetail : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class Itemdetail : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public RectTransform itemDetailTransform;
     public Image itemDetailImage;
