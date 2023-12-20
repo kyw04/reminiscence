@@ -40,6 +40,22 @@ public class EntityBase : MonoBehaviour
 
         HealthImageUpdate();
     }
+    public void GetDamage(float damage)
+    {
+        animator.SetTrigger("Hit");
+        health -= damage;
+        Debug.Log($"GetDamage.. current health: {health}");
+        if (health < 0)
+        {
+            health = 0;
+            isDead = true;
+            Death();
+            GameManager.instance.gameState = GameState.End;
+            AugmentActive.instance.AugmentExecute(Augment.ActionType.SceneEnd);
+        }
+
+        HealthImageUpdate();
+    }
     public virtual void HealthImageUpdate()
     {
         foreach (Image _hpbar in hpbar)
@@ -53,7 +69,7 @@ public class EntityBase : MonoBehaviour
     public IEnumerator PlayAttackSound(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        Debug.Log("Á×¾î ±èÀ¯ÇÑ");
+        Debug.Log("ì£½ì–´ ê¹€ìœ í•œ");
         audioSource.PlayOneShot(attackSound);
     }
 }

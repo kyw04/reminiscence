@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Map;
 using UnityEngine.UI;
 using System.Collections;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -40,10 +42,18 @@ public class GameStateManager : MonoBehaviour
     public Point point;
 
 
+    private void OnEnable()
+    {
+        if (SceneManager.GetActiveScene().name == "StageScene")
+        {
+            hpBar = FindFirstObjectByType<hpBarTag>().GetComponent<Image>();
+            mapManager = FindAnyObjectByType<MapManager>();
+        }
+    }
+
     public void Start()
     {
-        hpBar = FindFirstObjectByType<hpBarTag>().GetComponent<Image>();
-        mapManager = FindAnyObjectByType<MapManager>();
+
         currentBattlleInfo = new CurrentBattleEnemyInfo
         {
             currentStageLevel = 1,
@@ -112,6 +122,8 @@ public class GameStateManager : MonoBehaviour
     }
     public IEnumerator UpdateHealthBar()
     {
+        if(!hpBar)
+            hpBar = FindFirstObjectByType<hpBarTag>().GetComponent<Image>(); 
         
         float duration = 10f; // 체력 바가 업데이트되는데 걸리는 시간 (초)
         float elapsed = 0f;

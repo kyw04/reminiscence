@@ -37,7 +37,7 @@ public class Enemy : EntityBase
         string boss = "";
         if (battleEnemyInfo.isBoss)
         {
-            boss = "°­·ÂÇÑ ";
+            boss = "ê°•ë ¥í•œ ";
             maxHealth += 100;
             damage += 10;
             if (battleEnemyInfo.currentStageLevel >= 3)
@@ -54,19 +54,19 @@ public class Enemy : EntityBase
         switch (battleEnemyInfo.nodeElementalType)
         {
             case NodeElementalType.Fire:
-                elementalTypeString = "È­¿°ÀÇ ";
+                elementalTypeString = "í™”ì—¼ì˜ ";
                 elementalTypeIndex = 0;
                 break;
             case NodeElementalType.Wind:
-                elementalTypeString = "ÆøÇ³ÀÇ ";
+                elementalTypeString = "í­í’ì˜ ";
                 elementalTypeIndex = 1;
                 break;
             case NodeElementalType.Water:
-                elementalTypeString = "ÆÄµµÀÇ ";
+                elementalTypeString = "íŒŒë„ì˜ ";
                 elementalTypeIndex = 2;
                 break;
             case NodeElementalType.Land:
-                elementalTypeString = "´ëÁöÀÇ ";
+                elementalTypeString = "ëŒ€ì§€ì˜ ";
                 elementalTypeIndex = 3;
                 break;
             default:
@@ -81,16 +81,16 @@ public class Enemy : EntityBase
         switch (modelIndex)
         {
             case 0:
-                modelName = "°ñ¸®¾Ñ";
+                modelName = "ê³¨ë¦¬ì•—";
                 break;
             case 1:
-                modelName = "È÷µå¶ó";
+                modelName = "íˆë“œë¼";
                 break;
             case 2:
-                modelName = "³ªÀÌÆ®";
+                modelName = "ë‚˜ì´íŠ¸";
                 break;
             default:
-                modelName = "„¢‹S¶Õ";
+                modelName = "ê½“ë”ºëš«";
                 break;
         }
 

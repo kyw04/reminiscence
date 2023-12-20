@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
 
     private bool useDeleteCoroutine;
     Action action;
-    private Queue<Action> deleteCoroutineQueue;
+    private Queue<Action> deleteCoroutineQueue = new Queue<Action>();
 
     #endregion
 

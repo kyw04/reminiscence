@@ -237,7 +237,9 @@ public class AugmentActive : MonoBehaviour
     {
         if (GameManager.instance.gameState == GameState.EndTurn)
         {
-            GameManager.instance.enemy.health -= 10;
+            var enemy = GameManager.instance.enemy;
+            enemy.GetDamage(10);
+            
         }
     }
     public void IdolOfRejection()
