@@ -6,16 +6,16 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Script/Scenes/StartScene.unity
+    path: Assets/Scenes/StartScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Script/Scenes/StageScene.unity
+    path: Assets/Scenes/StageScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Script/Scenes/BattleScene_Wind.unity
+    path: Assets/Scenes/BattleScene_Wind.unity
     guid: 979b07c73f0b4d343a9762ceda91703b
   - enabled: 1
-    path: Assets/Script/Scenes/Main UI.unity
+    path: Assets/Scenes/Main UI.unity
     guid: b6c689120f750c048957a17dc049ec53
   - enabled: 1
     path: Assets/KHS/InventoryScene.unity
@@ -24,18 +24,18 @@ EditorBuildSettings:
     path: Assets/KHS/TempGetItemScene.unity
     guid: b57e6a7b3a50b644bac783f806afcdd5
   - enabled: 1
-    path: Assets/Script/Scenes/GameOver.unity
+    path: Assets/Scenes/GameOver.unity
     guid: ec7895d4a0cb6e24790a7feaf79016b3
   - enabled: 1
-    path: Assets/Script/Scenes/wind.unity
+    path: Assets/Scenes/wind.unity
     guid: d8cc8fc5d1271d34b8de0a2aca6d11bb
   - enabled: 1
-    path: Assets/Script/Scenes/water.unity
+    path: Assets/Scenes/water.unity
     guid: dfde50e28f05daf48be7ff702decd6a3
   - enabled: 1
-    path: Assets/Script/Scenes/rock.unity
+    path: Assets/Scenes/rock.unity
     guid: 762a078eee1c1cf4f8e38ca7aa982d2d
   - enabled: 1
-    path: Assets/Script/Scenes/fire.unity
+    path: Assets/Scenes/fire.unity
     guid: 28deaf9ba591b08469639419a4deb5a2
   m_configObjects: {}

@@ -36,8 +36,6 @@ public class GameManager : MonoBehaviour
     [Header("Audio")]
 
     public AudioClip blockHoldAudio;
-    private AudioSource audioSource;
-
     #endregion
     #region UI
     [Space(5)]
@@ -122,7 +120,6 @@ public class GameManager : MonoBehaviour
     {
         var a = GameStateManager.Instance.currentBattlleInfo;
         Debug.Log(a.currentStageLevel.ToString() + " "+ a.isBoss + " "+ a.nodeElementalType);
-        audioSource = GetComponent<AudioSource>();
         ResetCount();
         turn = 0;
     }
@@ -253,7 +250,7 @@ public class GameManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit, float.PositiveInfinity, LayerMask.GetMask("Node")))
         {
             gameState = GameState.Select;
-            audioSource.PlayOneShot(blockHoldAudio);
+            AudioManager.instance.mainAudioSource.PlayOneShot(blockHoldAudio);
             selectedNode = hit.transform.GetComponent<Node>();
             selectedNodeStartPos = Input.mousePosition;
 

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemDetail : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class Itemdetail : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public RectTransform itemDetailTransform;
     public Image itemDetailImage;
@@ -17,9 +17,12 @@ public class ItemDetail : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (!targetImage.enabled)
+            return;
+
         if (!itemDetailTransform.gameObject.activeSelf)
         {
-            //Debug.Log(detailObjectOffset);
+            //Debug.Log(detailObjectOffset);    
             if (staticPosition)
                 itemDetailTransform.position = detailObjectOffset;
             else
