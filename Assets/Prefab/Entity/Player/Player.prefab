@@ -172,6 +172,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3337538856706332195, guid: 7279b5dbd80b0f54380d0eab83356fdd, type: 3}
+      propertyPath: attackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: b99da9a57308d4ba1bee1cf1d9038376, type: 3}
+    - target: {fileID: 3337538856706332195, guid: 7279b5dbd80b0f54380d0eab83356fdd, type: 3}
       propertyPath: hpbar.Array.data[0]
       value: 
       objectReference: {fileID: 0}

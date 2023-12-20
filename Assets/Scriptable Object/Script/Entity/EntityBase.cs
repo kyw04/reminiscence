@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class EntityBase : MonoBehaviour
 {
-    public AudioSource audioSource;
     public AudioClip attackSound;
     public Image[] hpbar;
     public Animator animator;
@@ -70,6 +69,6 @@ public class EntityBase : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         Debug.Log("죽어 김유한");
-        audioSource.PlayOneShot(attackSound);
+        AudioManager.instance.mainAudioSource.PlayOneShot(attackSound);
     }
 }

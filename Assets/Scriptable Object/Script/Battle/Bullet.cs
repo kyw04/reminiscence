@@ -49,6 +49,7 @@ public class Bullet : MonoBehaviour
         {
             isDead = true;
             Destroy(this.gameObject, 0.5f);
+            AudioManager.instance.mainAudioSource.PlayOneShot(GameManager.instance.player.attackSound);
             GameManager.instance.enemy.GetDamage(nodeBase, damage);
         }
     }

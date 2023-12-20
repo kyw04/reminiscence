@@ -1651,12 +1651,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dbf7c2f5ec7e144bb592fdc778867d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackSound: {fileID: 8300000, guid: b99da9a57308d4ba1bee1cf1d9038376, type: 3}
   hpbar:
   - {fileID: 0}
   animator: {fileID: 9168137252893885074}
   nodeBase: {fileID: 11400000, guid: 613177a49ca438b44a0ce1ad1d9548b5, type: 2}
   maxHealth: 100
   health: 100
+  power: 10
+  attackSpeed: 1.25
+  attackParticle: {fileID: 0}
   isDead: 0
   patterns:
   - {fileID: 11400000, guid: c3394f56dacf2284da7eeda74495acf8, type: 2}
