@@ -18,7 +18,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private Dictionary<AudioClip, AudioSource> backgroundAudioSources = new Dictionary<AudioClip, AudioSource>();
+    public Dictionary<AudioClip, AudioSource> backgroundAudioSources = new Dictionary<AudioClip, AudioSource>();
     private float _backgroundVolume;
     public float backgroundVolume
     {

@@ -12,6 +12,7 @@ public class GameOver_Image : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.instance.backgroundAudioSources[MySceneManager.Instance.gameOverSceneMusic].loop = false;
         StartCoroutine(FadeIn(fadeImages[0]));
         StartCoroutine(FadeIn(fadeImages[1]));
     }
@@ -29,6 +30,7 @@ public class GameOver_Image : MonoBehaviour
         }
         yield return new WaitForSeconds(delayBeforeSceneChange);
         GameStateManager.Instance.LastBattleResult = BattleResult.Lose;
+        AudioManager.instance.ChangeBackgroundMusic(AudioManager.instance.testClip);
         SceneManager.LoadScene("Main UI");
 
     }
