@@ -552,9 +552,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4b902008e2f89e4a895c655a9ef2083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleSceneMusic: {fileID: 8300000, guid: 3247416864ac8b343a2ce104ac8feb5c, type: 3}
-  stageSceneMusic: {fileID: 8300000, guid: 3b60bfbf2f1aaf240a4e9685d249f28e, type: 3}
-  gameOverSceneMusic: {fileID: 8300000, guid: 0728bdf6bf2588442bc489252d5eeb92, type: 3}
+  battleSceneMusic: {fileID: 0}
+  stageSceneMusic: {fileID: 8300000, guid: efcc4ac1cb017004aa9c65395bdb67ad, type: 3}
+  gameOverSceneMusic: {fileID: 8300000, guid: 5b91792ea6ae7504d87049f357566b6d, type: 3}
   sceneLocked: 0
 --- !u!4 &1887746719
 Transform:
@@ -670,7 +670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffaa8245c1e7ca4469fbd14ce06d509c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testClip: {fileID: 8300000, guid: 2f1a5650572640c48a023b7a8085895e, type: 3}
+  testClip: {fileID: 8300000, guid: 01fffc0ab584dbf4cb669849d7a1a7ab, type: 3}
 --- !u!82 &2118565379
 AudioSource:
   m_ObjectHideFlags: 0
