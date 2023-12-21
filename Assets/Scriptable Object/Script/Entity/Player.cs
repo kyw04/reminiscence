@@ -16,7 +16,7 @@ public class Player : EntityBase
     public void Attack(NodeBase nodeBase, float damage)
     {
         //animator.Play("Attack");
-        animator.SetTrigger("IsAttack");
+        animator.SetTrigger("Attack");
         StartCoroutine(SpawnBullet(nodeBase, damage));
     }
 
@@ -40,8 +40,11 @@ public class Player : EntityBase
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(bulletSpawnBoxPos + transform.position, bulletSpawnBoxSize);
     }
-    public override void Death()
+    public override IEnumerator Death()
     {
+        animator.SetBool("IsDead", true);
+
+        yield return new WaitForSeconds(2);
 
         GameManager.instance.EndBattle(false);
         SceneManager.LoadScene("GameOver");
@@ -65,6 +68,7 @@ public class Player : EntityBase
         health -= reducedDamage;
         
         Debug.Log($"GetDamage.. current health: {health}");
+        animator.SetTrigger("Hit");
         if (GameStateManager.Instance.health < 0)
         {
             GameStateManager.Instance.health = 0;

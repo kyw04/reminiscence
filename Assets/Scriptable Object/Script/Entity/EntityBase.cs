@@ -32,7 +32,7 @@ public class EntityBase : MonoBehaviour
         {
             health = 0;
             isDead = true;
-            Death();
+            StartCoroutine(Death());
             GameManager.instance.gameState = GameState.End;
             AugmentActive.instance.AugmentExecute(Augment.ActionType.SceneEnd);
         }
@@ -48,7 +48,7 @@ public class EntityBase : MonoBehaviour
         {
             health = 0;
             isDead = true;
-            Death();
+            StartCoroutine(Death());
             GameManager.instance.gameState = GameState.End;
             AugmentActive.instance.AugmentExecute(Augment.ActionType.SceneEnd);
         }
@@ -63,7 +63,7 @@ public class EntityBase : MonoBehaviour
         }
     }
 
-    public virtual void Death() {  }
+    public virtual IEnumerator Death() { yield return null; }
 
     public IEnumerator PlayAttackSound(float seconds)
     {

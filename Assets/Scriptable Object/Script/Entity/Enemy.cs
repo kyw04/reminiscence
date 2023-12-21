@@ -192,9 +192,12 @@ public class Enemy : EntityBase
         Destroy(particle, 3f);
     }
 
-    public override void Death()
+    public override IEnumerator Death()
     {
-        GameManager.instance.EndBattle(true);
+        animator.SetBool("IsDead", true);
 
+        yield return new WaitForSeconds(2);
+
+        GameManager.instance.EndBattle(true);
     }
 }
