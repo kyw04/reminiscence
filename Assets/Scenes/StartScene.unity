@@ -552,7 +552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4b902008e2f89e4a895c655a9ef2083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleSceneMusic: {fileID: 0}
+  battleSceneMusic: {fileID: 8300000, guid: 3247416864ac8b343a2ce104ac8feb5c, type: 3}
   stageSceneMusic: {fileID: 8300000, guid: efcc4ac1cb017004aa9c65395bdb67ad, type: 3}
   gameOverSceneMusic: {fileID: 8300000, guid: 5b91792ea6ae7504d87049f357566b6d, type: 3}
   sceneLocked: 0
