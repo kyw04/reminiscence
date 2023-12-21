@@ -68,7 +68,7 @@ public class EntityBase : MonoBehaviour
     public IEnumerator PlayAttackSound(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        Debug.Log("죽어 김유한");
+        //Debug.Log("죽어 김유한");
         AudioManager.instance.mainAudioSource.PlayOneShot(attackSound);
     }
 }

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -5,6 +6,7 @@ using UnityEngine.UI;
 public class Itemdetail : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public RectTransform itemDetailTransform;
+    public TextMeshProUGUI text;
     public Image itemDetailImage;
     public Image targetImage;
     public Vector3 detailObjectOffset;
@@ -30,6 +32,24 @@ public class Itemdetail : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
             if (itemDetailImage != null && targetImage != null)
                 itemDetailImage.sprite = targetImage.sprite;
+
+            if (text != null)
+            {
+                Image[] images = GetComponentInParent<AugmentNode>().images;
+                int index = -1;
+                for (int i = 0; i < images.Length; i++)
+                {
+                    if (images[i] == targetImage)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+                Debug.Log(index);
+                Debug.Log(images.Length);
+                if (index != -1)
+                    text.text = GameStateManager.Instance.equipedAguments[index].description;
+            }
 
             itemDetailTransform.gameObject.SetActive(true);
         }

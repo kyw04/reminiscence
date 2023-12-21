@@ -628,7 +628,6 @@ public class GameManager : MonoBehaviour
 
     private void ResetCount()
     {
-        foundPatternCount = 0;
         currentMovementCount = maxMovementCount;
         foreach (GameObject image in movementCountImages)
         {
