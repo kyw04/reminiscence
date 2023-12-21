@@ -84,7 +84,7 @@ MonoBehaviour:
       - {fileID: 2100000, guid: 0f26edf2d706d5348bb2ad13a96e9ece, type: 2}
     - materials:
       - {fileID: 2100000, guid: 0f26edf2d706d5348bb2ad13a96e9ece, type: 2}
-  attackSpeed: 0
+  attackSpeed: 1
 --- !u!1001 &6582396115246218364
 PrefabInstance:
   m_ObjectHideFlags: 0

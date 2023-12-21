@@ -45,8 +45,8 @@ public class Itemdetail : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
                         break;
                     }
                 }
-                Debug.Log(index);
-                Debug.Log(images.Length);
+                //Debug.Log(index);
+                //Debug.Log(images.Length);
                 if (index != -1)
                     text.text = GameStateManager.Instance.equipedAguments[index].description;
             }
