@@ -6,7 +6,11 @@ public class MySceneManager : MonoBehaviour
     NodeElementalType nodeElementalType;
     // Function to load a scene by name
     public static MySceneManager Instance;
+    public AudioClip battleSceneMusic;
+    public AudioClip stageSceneMusic;
+    public AudioClip gameOverSceneMusic;
     public bool sceneLocked = false;
+  
     public void Awake()
     {
         if (Instance == null)
@@ -21,6 +25,7 @@ public class MySceneManager : MonoBehaviour
     }
     public void LoadElmentalType(NodeElementalType nodeElementalType)
     {
+        AudioManager.instance.ChangeBackgroundMusic(battleSceneMusic);
         switch (nodeElementalType)
         {
             case NodeElementalType.Fire:

@@ -28,7 +28,7 @@ public class EntityBase : MonoBehaviour
         animator.SetTrigger("Hit");
         health -= nodeBase.GetTotalDamage(attackerNodeBase, damage);
         Debug.Log($"GetDamage.. current health: {health}");
-        if (health < 0)
+        if (health <= 0)
         {
             health = 0;
             isDead = true;

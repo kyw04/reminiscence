@@ -10,7 +10,8 @@ public class MainScene_StartBattle : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            SceneManager.LoadScene(otherSceneName);
+            AudioManager.instance.ChangeBackgroundMusic(MySceneManager.Instance.stageSceneMusic);
+            MySceneManager.Instance.LoadScene(otherSceneName);
         }
     }
 }

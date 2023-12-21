@@ -21,6 +21,7 @@ namespace Map
 {
     public class MapNode : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
     {
+        public AudioClip selectAudioClip;
         public SpriteRenderer sr;
         public Image image;
         public SpriteRenderer visitedCircle;
@@ -150,6 +151,7 @@ namespace Map
                 image.transform.DOKill();
                 image.transform.DOScale(initialScale * HoverScaleFactor, 0.3f);
             }
+
         }
         
         public void OnPointerExit(PointerEventData data)
@@ -170,6 +172,7 @@ namespace Map
         public void OnPointerDown(PointerEventData data)
         {
             mouseDownTime = Time.time;
+            AudioManager.instance.mainAudioSource.PlayOneShot(selectAudioClip);
         }
 
         public void OnPointerUp(PointerEventData data)

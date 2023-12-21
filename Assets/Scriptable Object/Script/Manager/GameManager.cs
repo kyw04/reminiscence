@@ -608,7 +608,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("게임결과 " + playerWon);
         GameStateManager.Instance.SetBattleResult(playerWon ? BattleResult.Win : BattleResult.Lose);
         if(playerWon)
-        MySceneManager.Instance.LoadScene("StageScene");
+        {
+            AudioManager.instance.ChangeBackgroundMusic(MySceneManager.Instance.stageSceneMusic);
+            MySceneManager.Instance.LoadScene("StageScene");
+
+        }
     }
 
     public IEnumerator EndNodeDown(float seconds)

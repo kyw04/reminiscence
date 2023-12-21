@@ -47,6 +47,7 @@ public class Player : EntityBase
         yield return new WaitForSeconds(2);
 
         GameManager.instance.EndBattle(false);
+        AudioManager.instance.ChangeBackgroundMusic(MySceneManager.Instance.gameOverSceneMusic);
         SceneManager.LoadScene("GameOver");
 
     }
@@ -69,13 +70,13 @@ public class Player : EntityBase
         
         Debug.Log($"GetDamage.. current health: {health}");
         animator.SetTrigger("Hit");
-        if (GameStateManager.Instance.health < 0)
+        if (health <= 0)
         {
             GameStateManager.Instance.health = 0;
             isDead = true;
-            Death();
             GameManager.instance.gameState = GameState.End;
             AugmentActive.instance.AugmentExecute(Augment.ActionType.SceneEnd);
+            StartCoroutine(Death());
         }
 
         HealthImageUpdate();

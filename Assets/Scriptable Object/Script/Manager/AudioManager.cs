@@ -72,9 +72,18 @@ public class AudioManager : MonoBehaviour
     }
     public void StopAllBackgroundMusic()
     {
+        foreach (AudioSource audioSource in backgroundAudioSources.Values)
+            Destroy(audioSource);
+
         if (backgroundAudioSources.Count > 0)
             backgroundAudioSources.Clear();
         else
             Debug.LogWarning("do not play background music");
+    }
+
+    public void ChangeBackgroundMusic(AudioClip backgroundClip)
+    {
+        StopAllBackgroundMusic();
+        PlayBackgroundMusic(backgroundClip);
     }
 }
